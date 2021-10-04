@@ -18,4 +18,4 @@
 
 ## License
 
-test2
+[MIT](https://choosealicense.com/licenses/mit/)
