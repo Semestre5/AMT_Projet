@@ -12,6 +12,10 @@
 
 ## Installation
 
+The project is developped on [IntelliJ IDEA](https://www.jetbrains.com/idea/)
+
+**Add procedure when defined**
+
 ## Usage
 
 ## Contributing
