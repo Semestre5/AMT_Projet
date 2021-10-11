@@ -24,10 +24,12 @@ Pull requests are more than welcome. For major changes, please open an issue fir
 
 Pull requests whitch do not pass unit tests will not be accepted. If you feel that the current tests are not wide enough to cover your implementation, feel free to add yours. Make them as explicit as possible and to respect the [naming convention](https://github.com/Semestre5/AMT_Projet/wiki/Naming-convention)
 
-The project is developped on [IntelliJ IDEA](https://www.jetbrains.com/idea/). To start developping ...
+The project is developped on [IntelliJ IDEA](https://www.jetbrains.com/idea/). To start developping:
 
-**Add procedure when defined**
-
+- Go to [dev branch](https://github.com/Semestre5/AMT_Projet/blob/dev/README.md) and clone it.
+- Initialize the git flow with the procedure defined in the wiki (project rules, [this section](https://github.com/Semestre5/AMT_Projet/wiki/Project-rules#how-to-interact-with-the-repository))
+- Open IntelliJ and open the repository as a workspace
+- Read the project rules in the wiki entirely and start coding (respect the git flow (:) 
 
 ## License
 
