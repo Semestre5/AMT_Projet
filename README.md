@@ -35,6 +35,3 @@ The project is developped on [IntelliJ IDEA](https://www.jetbrains.com/idea/). T
 
 [MIT](https://choosealicense.com/licenses/mit/)
 
-
-
-This is a merging test ggg
