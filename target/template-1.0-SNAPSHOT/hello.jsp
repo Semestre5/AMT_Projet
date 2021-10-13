@@ -1,5 +1,5 @@
 <%@ page import="com.example.template.HelloServletModel" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <html>
 <head>
     <title>Hello</title>
@@ -7,7 +7,7 @@
 <body>
 <%
     HelloServletModel test = (HelloServletModel) request.getAttribute("returnName");
-    out.print("Hello " + test.getName());
+    System.out.println("Hello " + test.getName());
 %>
 </body>
 </html>

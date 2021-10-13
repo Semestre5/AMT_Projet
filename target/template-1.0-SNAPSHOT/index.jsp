@@ -5,7 +5,7 @@
     <title>Name</title>
 </head>
 <body>
-<form action="hello-servlet" method="POST">
+<form action="hello-servlet" method="post">
     Name: <input type="text" name="name">
     <input type="submit" value="Submit" />
 </form>

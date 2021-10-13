@@ -6,8 +6,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
-@WebServlet(name = "helloServlet", value = "/hello-servlet")
+@WebServlet(name="hello-servlet", value="/hello-servlet")
 public class HelloServlet extends HttpServlet {
+
+    public HelloServlet() {
+        super();
+    }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String name = request.getParameter("name");
