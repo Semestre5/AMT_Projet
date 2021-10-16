@@ -7,7 +7,7 @@
 <body>
 <%
     HelloServletModel test = (HelloServletModel) request.getAttribute("returnName");
-    System.out.println("Hello " + test.getName());
+    out.print("<h1>Hello " + test.getName() + "!</h1>");
 %>
 </body>
 </html>
