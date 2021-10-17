@@ -1,0 +1,11 @@
+# SSH Server Access
+
+SSH Key : AMT-DMZ-[PRODUCTNAME]
+User    : [PRODUCTNAME]
+PublicIp: 16.170.194.237
+
+# Application Server Access
+
+SSH Key : AMT-[PRODUCTNAME]
+User	: admin
+PrivateIp: 10.0.1.20
