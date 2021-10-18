@@ -58,5 +58,5 @@
     <property name="sun.cpu.endian" value="little"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase name="helloTest" classname="DummyTest" time="0.028"/>
+  <testcase name="helloTest" classname="DummyTest" time="0.03"/>
 </testsuite>
