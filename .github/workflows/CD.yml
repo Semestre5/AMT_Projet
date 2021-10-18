@@ -24,8 +24,8 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Open the tunnel
         run: |
-          echo "${{ secrets.DMZKEY }}" > dmzkey.pem
-          echo "${{ secrets.KEY }}" > key.pem
+          echo "${{ Key.DMZKEY }}" > dmzkey.pem
+          echo "${{ secrets.Key.KEY }}" > key.pem
           sudo chmod 400 dmzkey.pem
           sudo chmod 400 key.pem
           sudo ssh -o StrictHostKeyChecking=no -f -N -L 23:10.0.1.20:22 -L 8082:10.0.1.20:8080 WORKINPROGRESS@16.170.194.237 -i ./dmzkey.pem
