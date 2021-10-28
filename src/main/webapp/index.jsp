@@ -16,7 +16,7 @@
 <%@include file="include/head.html"%>
 <body>
 <!-- HEADER =============================-->
-<%@include file="include/nav.html"%>
+<%@include file="include/navIndex.html"%>
 
 
 <!-- STEPS =============================-->
@@ -48,7 +48,7 @@
             <div class="col-md-4 editContent">
                 <div class="col">
                     <span class="numberstep"><i class="fa fa-download"></i></span>
-                    <h3 class="numbertext">Get Instand Download</h3>
+                    <h3 class="numbertext">Get Instant Download</h3>
                     <p>
                         Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Nullam quis risus eget urna mollis ornare vel eu leo. Cras justo odio, dapibus ac facilisis in, egestas eget quam.
                     </p>
@@ -236,22 +236,6 @@
         </div>
     </div>
 </div>
-
-
-<!-- CALL TO ACTION =============================-->
-<section class="content-block" style="background-color:#00bba7;">
-    <div class="container text-center">
-        <div class="row">
-            <div class="col-sm-10 col-sm-offset-1">
-                <div class="item" data-scrollreveal="enter top over 0.4s after 0.1s">
-                    <h1 class="callactiontitle"> Promote Items Area Give Discount to Buyers <span class="callactionbutton"><i class="fa fa-gift"></i> WOW24TH</span>
-                    </h1>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
 
 <!-- FOOTER =============================-->
 <%@include file="include/footer.html"%>
