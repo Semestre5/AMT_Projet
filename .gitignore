@@ -85,4 +85,6 @@ modules.xml
 .idea/misc.xml
 *.ipr
 
+target/
+
 # End of https://www.toptal.com/developers/gitignore/api/intellij+iml
