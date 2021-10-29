@@ -14,7 +14,7 @@ public class HelloServlet extends HttpServlet {
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String name = request.getParameter("name"); 
+        String name = request.getParameter("name");
 
         HelloServletModel obj = new HelloServletModel();
         obj.setName(name);
