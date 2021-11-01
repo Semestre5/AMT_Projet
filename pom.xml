@@ -59,7 +59,7 @@
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.2</version>
                 <configuration>
-                    <server>localhost<server>
+                    <server>localhost</server>
                     <url>http://localhost:8080/manager/text</url>
                     <path>/workinprogress</path>
                 </configuration>
