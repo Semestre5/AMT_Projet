@@ -16,5 +16,18 @@ public class CartServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO 2 add product to cart. Note : 2 cases for member and offline (products saved on the client)
+        // Modification of cart here too
+        /*
+        if (request.getSession() != null){
+            // modification in db
+         }
+         else{
+            // TODO persistance
+         }
+
+
+
+        */
+
     }
 }
