@@ -48,7 +48,7 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <a href="#" class="btn btn-buynow">$49.00 - Purchase</a>
+                <a href="#" class="btn btn-buynow">$49.00 - Add to cart</a>
                 <div class="properties-box">
                     <ul class="unstyle">
                         <li><b class="propertyname">Version:</b> 1.0</li>
