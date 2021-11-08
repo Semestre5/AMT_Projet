@@ -35,13 +35,17 @@
             </div>
         </div>
         <div class="row">
-            <!-- Colonnes, à répartir sur 12 pour remplir la page, on peut mettre autant de colonnes qu'on veut tant qu'on
-                 reste sur 12 (6 colonnes de 2 par exemple) -->
-            <div class="col-md-6">
-
-            </div>
-            <div class="col-md-6">
-
+            <div class="col-lg-8 col-lg-offset-2">
+                <form method="post" action="login" id="contactform">
+                    <div class="form">
+                        <label for="username">Username</label>
+                        <input type="text" name="username" id="username" placeholder="Username *" required>
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password" placeholder="Password *" required>
+                        <input type="hidden" name="lastPage" id="lastPage" value="<%=request.getHeader("referer")%>">
+                        <input type="submit" id="submit" class="clearfix btn" value="Login">
+                    </div>
+                </form>
             </div>
         </div>
     </div>
