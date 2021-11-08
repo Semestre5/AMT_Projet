@@ -34,4 +34,4 @@ jobs:
         run: |
           sudo scp -o StrictHostKeyChecking=no -P 23 -i key.pem -r pom.xml admin@localhost:/home/admin/
           sudo scp -o StrictHostKeyChecking=no -P 23 -i key.pem -r src admin@localhost:/home/admin/
-          sudo ssh -o StrictHostKeyChecking=no admin@localhost -p 23 -i ./key.pem mvn install tomcat7:deploy
+          sudo ssh -o StrictHostKeyChecking=no admin@localhost -p 23 -i ./key.pem mvn clean package tomcat7:redeploy
