@@ -1,8 +1,4 @@
-<%@ page import="com.amt.contact.ContactServletModel" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%
-    ContactServletModel contact = (ContactServletModel) request.getAttribute("returnObject");
-%>
 <!DOCTYPE html>
 <html>
 <%@include file="include/head.html" %>
@@ -14,7 +10,7 @@
         <div class="col-md-12 text-center">
             <div class="text-pageheader">
                 <div class="subtext-image" data-scrollreveal="enter bottom over 1.7s after 0.0s">
-                    Test MVC
+                    Login
                 </div>
             </div>
         </div>
@@ -28,7 +24,7 @@
     <div class="container toparea">
         <div class="underlined-title">
             <div class="editContent">
-                <h1 class="text-center latestitems">EXAMPLE MVC</h1>
+                <h1 class="text-center latestitems">CONNECT TO THE WEBSITE</h1>
             </div>
             <div class="wow-hr type_short">
 			<span class="wow-hr-h">
@@ -39,22 +35,16 @@
             </div>
         </div>
         <div class="row">
-            <!-- Colonnes, à répartir sur 12 pour remplir la page, on peut mettre autant de colonnes qu'on veut tant qu'on
-                 reste sur 12 (6 colonnes de 2 par exemple) -->
-            <div class="col-md-4">
-                <%
-                    out.print("<h1>Name: " + contact.getName() + "</h1>");
-                %>
-            </div>
-            <div class="col-md-4">
-                <%
-                    out.print("<h1>Email: " + contact.getMail() + "</h1>");
-                %>
-            </div>
-            <div class="col-md-4">
-                <%
-                    out.print("<h1>Message: " + contact.getMessage() + "</h1>");
-                %>
+            <div class="col-lg-8 col-lg-offset-2">
+                <form method="post" action="login" id="contactform">
+                    <div class="form">
+                        <label for="username">Username</label>
+                        <input type="text" name="username" id="username" placeholder="Username *" required>
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password" placeholder="Password *" required>
+                        <input type="submit" id="submit" class="clearfix btn" value="Login">
+                    </div>
+                </form>
             </div>
         </div>
     </div>

@@ -4,7 +4,7 @@
 <%@include file="include/head.html" %>
 <body>
 <!-- HEADER =============================-->
-<%@include file="include/nav.html" %>
+<%@include file="include/nav.jsp" %>
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">

@@ -16,23 +16,19 @@
             <li class="propClone"><a href="product">Product</a></li>
             <li class="propClone"><a href="checkout">Checkout</a></li>
             <li class="propClone"><a href="contact">Contact</a></li>
+            <%
+              if (session.getAttribute("idUserSession") == null) {
+            %>
+            <li class="propClone"><a href="register">Register</a></li>
+            <li class="propClone"><a href="login">Login</a></li>
+            <%
+              } else {
+            %>
+            <li class="propClone"><a href="logout">Logout</a></li>
+            <%
+              }
+            %>
           </ul>
         </div>
       </div>
     </nav>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12 text-center">
-          <div class="text-homeimage">
-            <div class="maintext-image" data-scrollreveal="enter top over 1.5s after 0.1s">
-              Increase Digital Sales
-            </div>
-            <div class="subtext-image" data-scrollreveal="enter bottom over 1.7s after 0.3s">
-              Boost revenue with Scorilo
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
