@@ -1,5 +1,3 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<!-- HEADER =============================-->
 <header class="item header margin-top-0">
   <div class="wrapper">
     <nav role="navigation" class="navbar navbar-white navbar-embossed navbar-lg navbar-fixed-top">
@@ -19,7 +17,7 @@
             <li class="propClone"><a href="checkout">Checkout</a></li>
             <li class="propClone"><a href="contact">Contact</a></li>
             <%
-              if (session.getAttribute("idSession") == null) {
+              if (session.getAttribute("idUserSession") == null) {
             %>
             <li class="propClone"><a href="register">Register</a></li>
             <li class="propClone"><a href="login">Login</a></li>

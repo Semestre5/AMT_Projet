@@ -4,7 +4,7 @@
 <%@include file="include/head.html" %>
 <body>
 <!-- HEADER =============================-->
-<%@include file="include/nav.html" %>
+<%@include file="include/nav.jsp" %>
 <div class="container">
     <div class="row">
         <div class="col-md-12 text-center">
@@ -42,7 +42,6 @@
                         <input type="text" name="username" id="username" placeholder="Username *" required>
                         <label for="password">Password</label>
                         <input type="password" name="password" id="password" placeholder="Password *" required>
-                        <input type="hidden" name="lastPage" id="lastPage" value="<%=request.getHeader("referer")%>">
                         <input type="submit" id="submit" class="clearfix btn" value="Login">
                     </div>
                 </form>

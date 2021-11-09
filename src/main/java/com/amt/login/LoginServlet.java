@@ -19,9 +19,8 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         HttpSession session = request.getSession();
-        session.setAttribute("idSession", 0);
+        session.setAttribute("idUserSession", 0);
 
-        String[] URLSplitted = request.getParameter("lastPage").split("/", 5);
-        response.sendRedirect(URLSplitted[4]);
+        response.sendRedirect(".");
     }
 }

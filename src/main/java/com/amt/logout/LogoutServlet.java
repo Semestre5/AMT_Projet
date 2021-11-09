@@ -10,8 +10,7 @@ public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        session.removeAttribute("idSession");
-        String[] URLSplitted = request.getHeader("referer").split("/", 5);
-        response.sendRedirect(URLSplitted[4]);
+        session.removeAttribute("idUserSession");
+        response.sendRedirect(".");
     }
 }

@@ -16,9 +16,18 @@
             <li class="propClone"><a href="product">Product</a></li>
             <li class="propClone"><a href="checkout">Checkout</a></li>
             <li class="propClone"><a href="contact">Contact</a></li>
+            <%
+              if (session.getAttribute("idUserSession") == null) {
+            %>
             <li class="propClone"><a href="register">Register</a></li>
             <li class="propClone"><a href="login">Login</a></li>
+            <%
+            } else {
+            %>
             <li class="propClone"><a href="logout">Logout</a></li>
+            <%
+              }
+            %>
           </ul>
         </div>
       </div>
