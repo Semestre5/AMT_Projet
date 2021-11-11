@@ -1,12 +1,10 @@
 package com.amt.DAO.Access;
 import com.amt.DAO.Objects.User;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.*;
-import org.hibernate.query.Query;
 import org.hibernate.service.ServiceRegistry;
 import org.jboss.logging.Logger;
 
@@ -66,7 +64,7 @@ public class UserOps {
         logger.info("Successfully Deleted"+ tmpUser.toString());
 
     }
-    public static List displayRecords() {
+    public static List fetchAll() {
         Session sessionObj = _init().openSession();
         List userList = sessionObj.createQuery("FROM User").list();
 
