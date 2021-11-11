@@ -9,7 +9,7 @@
     </database-infos>
   </component>
   <component name="JpaPluginProjectSettings">
-    <option name="entityNameTemplate" />
+    <option name="entityNameTemplate" value="${className}" />
     <option name="generateJpaOnGetter" value="true" />
     <option name="generateTypeOnEntity" value="true" />
     <option name="isLombokGetterAndSetter" value="true" />

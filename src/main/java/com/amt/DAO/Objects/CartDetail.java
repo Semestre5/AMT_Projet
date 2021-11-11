@@ -15,16 +15,24 @@ import javax.persistence.*;
 @Setter
 @ToString
 public class CartDetail {
+    public CartDetail( Integer quantity ) {
+        this.quantity = quantity;
+    }
+
     @EmbeddedId
     private CartDetailId id;
 
     private Integer quantity;
 
+    public CartDetail() {
+
+    }
+
     @Column(name = "quantity")
     public Integer getQuantity() {
         return quantity;
     }
-
+    public void setQuantity(int quantity){this.quantity =quantity; }
     public CartDetailId getId() {
         return id;
     }

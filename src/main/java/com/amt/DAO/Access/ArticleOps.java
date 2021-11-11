@@ -1,4 +1,4 @@
 package com.amt.DAO.Access;
 
-public class ArticleAccess {
+public class ArticleOps {
 }

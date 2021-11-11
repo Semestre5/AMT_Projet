@@ -4,23 +4,22 @@
     "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
-    <property name="connection.url"/>
-    <property name="connection.driver_class"/>
     <!-- <property name="connection.username"/> -->
     <!-- <property name="connection.password"/> -->
-
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
     <!-- DB schema will be updated if needed -->
     <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
-    <property name = "hibernate.connection.url">
-      jdbc:mysql://localhost:3306/mydb
-    </property>
+    <!-- to be changed following the need -->
 
-    <property name = "hibernate.connection.username">
-      root
-    </property>
-
-    <property name = "hibernate.connection.password">
-      toor
-    </property>
+    <!-- if db is hosted on a docker container, needs to use container's url ,username and password-->
+    <property name = "hibernate.connection.url">jdbc:mysql://localhost:3306/mydb</property>
+    <property name = "hibernate.connection.username">root</property>
+    <property name = "hibernate.connection.password">toor</property>
+    <property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
+    <!-- Mapping with annotations instead of mapping with xml file -->
+    <mapping class="com.amt.DAO.Objects.Article"/>
+    <mapping class="com.amt.DAO.Objects.User"/>
+    <mapping class="com.amt.DAO.Objects.Category"/>
+    <mapping class="com.amt.DAO.Objects.Cart"/>
   </session-factory>
 </hibernate-configuration>
