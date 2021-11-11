@@ -11,5 +11,16 @@
 
     <!-- DB schema will be updated if needed -->
     <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
+    <property name = "hibernate.connection.url">
+      jdbc:mysql://localhost:3306/mydb
+    </property>
+
+    <property name = "hibernate.connection.username">
+      root
+    </property>
+
+    <property name = "hibernate.connection.password">
+      toor
+    </property>
   </session-factory>
 </hibernate-configuration>
