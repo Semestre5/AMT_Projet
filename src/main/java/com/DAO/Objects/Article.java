@@ -1,4 +1,4 @@
-package com.amt.DAO.Objects;
+package com.DAO.Objects;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

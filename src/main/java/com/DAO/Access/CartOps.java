@@ -1,12 +1,6 @@
-package com.amt.DAO.Access;
+package com.DAO.Access;
 
-import com.amt.DAO.Objects.Article;
-import com.amt.DAO.Objects.Cart;
-import com.amt.DAO.Objects.CartDetail;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 public class CartOps {
@@ -23,9 +17,11 @@ public class CartOps {
         }
     }
 
-    public  void addItem(int idArticle,int quantity){
-
-
+    public  void register(){
 
     }
+
+
+
+
 }

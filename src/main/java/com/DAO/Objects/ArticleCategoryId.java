@@ -1,4 +1,4 @@
-package com.amt.DAO.Objects;
+package com.DAO.Objects;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,7 +7,6 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -29,7 +28,7 @@ public class ArticleCategoryId implements Serializable {
     public Integer getIdArticle() {
         return idArticle;
     }
-}
+
 
     @Override
     public boolean equals( Object o ) {
@@ -39,8 +38,4 @@ public class ArticleCategoryId implements Serializable {
         return Objects.equals( this.idArticle, entity.idArticle ) &&
                 Objects.equals( this.idCategory, entity.idCategory );
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash( idArticle, idCategory );
-    }
+}

@@ -1,6 +1,6 @@
-package com.amt.DAO.Access;
+package com.DAO.Access;
 
-import com.amt.DAO.Objects.Category;
+import com.DAO.Objects.Category;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -16,7 +16,7 @@ public class CatergoryOps {
 
     public static SessionFactory _init(){
         Configuration confObj = new Configuration();
-        confObj.configure("hibernate.cfg.xml");
+        confObj.configure( "com/DAO/hibernate.cfg.xml" );
         ServiceRegistry serviceRegistryObj = new StandardServiceRegistryBuilder().applySettings( confObj.getProperties()).build();
         return (SessionFactory)confObj.buildSessionFactory(serviceRegistryObj);
 

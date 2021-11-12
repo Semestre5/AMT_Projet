@@ -1,5 +1,5 @@
-package com.amt.DAO.Access;
-import com.amt.DAO.Objects.User;
+package com.DAO.Access;
+import com.DAO.Objects.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -17,7 +17,7 @@ public class UserOps {
     public static SessionFactory _init() {
         // Creating Configuration Instance & Passing Hibernate Configuration File
         Configuration configObj = new Configuration();
-        configObj.configure("hibernate.cfg.xml");
+        configObj.configure( "com/DAO/hibernate.cfg.xml" );
         ServiceRegistry serviceRegistryObj = new StandardServiceRegistryBuilder().applySettings(configObj.getProperties()).build();
 
         // Creating Hibernate Session Factory Instance

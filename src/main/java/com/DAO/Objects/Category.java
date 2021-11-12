@@ -1,4 +1,4 @@
-package com.amt.DAO.Objects;
+package com.DAO.Objects;
 
 import javax.persistence.*;
 
@@ -7,6 +7,7 @@ import javax.persistence.*;
 })
 @Entity
 public class Category {
+
     public Category(String name ) {
 
         this.name = name;

@@ -6,7 +6,7 @@
   <session-factory>
     <!-- <property name="connection.username"/> -->
     <!-- <property name="connection.password"/> -->
-    <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
+    <property name="hibernate.dialect">org.hibernate.dialect.HSQLDialect</property>
     <!-- DB schema will be updated if needed -->
     <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
     <!-- to be changed following the need -->
@@ -17,9 +17,9 @@
     <property name = "hibernate.connection.password">toor</property>
     <property name="hibernate.current_session_context_class">org.hibernate.context.internal.ThreadLocalSessionContext</property>
     <!-- Mapping with annotations instead of mapping with xml file -->
-    <mapping class="com.amt.DAO.Objects.Article"/>
-    <mapping class="com.amt.DAO.Objects.User"/>
-    <mapping class="com.amt.DAO.Objects.Category"/>
-    <mapping class="com.amt.DAO.Objects.Cart"/>
+    <mapping class="com.DAO.Objects.Article"/>
+    <mapping class="com.DAO.Objects.User"/>
+    <mapping class="com.DAO.Objects.Category"/>
+    <mapping class="com.DAO.Objects.Cart"/>
   </session-factory>
 </hibernate-configuration>

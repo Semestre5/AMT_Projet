@@ -1,4 +1,4 @@
-package com.amt.DAO.Objects;
+package com.DAO.Objects;
 
 import lombok.Getter;
 import lombok.Setter;

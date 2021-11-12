@@ -1,10 +1,9 @@
-package com.amt.DAO.Access;
+package com.DAO.Access;
 
-import com.amt.DAO.Objects.Article;
+import com.DAO.Objects.Article;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
@@ -18,7 +17,7 @@ public class ArticleOps {
 
     public static  SessionFactory _init(){
         Configuration configObj = new Configuration();
-        configObj.configure("hibernate.cfg.xml");
+        configObj.configure( "com/DAO/hibernate.cfg.xml" );
         ServiceRegistry serviceRegistryObj = new StandardServiceRegistryBuilder().applySettings(configObj.getProperties()).build();
 
         return (SessionFactory)configObj.buildSessionFactory(serviceRegistryObj);
@@ -77,8 +76,10 @@ public class ArticleOps {
 
     public static List<Article> fetchAll(){
         Session sessionObj = _init().openSession();
-        List articleList = sessionObj.createQuery("FROM Article ")
-
+        List articleList = sessionObj.createQuery("FROM Article ").list();
+        sessionObj.close();
+        logger.info("Number of available articles is : "+articleList.size());
+        return articleList;
     }
 
 }

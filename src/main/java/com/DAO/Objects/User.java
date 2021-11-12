@@ -1,4 +1,4 @@
-package com.amt.DAO.Objects;
+package com.DAO.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,9 +8,6 @@ import javax.persistence.Table;
 @Table(name = "user")
 @Entity
 public class User {
-    public User() {
-
-    }
 
     @Id
     @Column(name = "id", nullable = false)
