@@ -32,7 +32,7 @@ public class QueryServlet extends HttpServlet {
                 Statement stmt = conn.createStatement();
 
                  // Step 3: Execute a SQL SELECT query
-                     String sqlStr = "select * from users";
+                     String sqlStr = "select * from user";
 
                     ResultSet rset = stmt.executeQuery(sqlStr);  // Send the query to the server
                  // Step 4: Process the query result set
