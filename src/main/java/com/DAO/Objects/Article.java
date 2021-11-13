@@ -6,6 +6,14 @@ import java.math.BigDecimal;
 @Table(name = "article")
 @Entity
 public class Article {
+    public Article( BigDecimal price, String description, String name, Integer quantity, String link ) {
+        this.price = price;
+        this.description = description;
+        this.name = name;
+        this.quantity = quantity;
+        this.link = link;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -26,6 +34,10 @@ public class Article {
 
     @Column(name = "link", length = 200)
     private String link;
+
+    public Article() {
+
+    }
 
     public String getLink() {
         return link;

@@ -1,6 +1,7 @@
 package com.DAO.Access;
 
 import com.DAO.Objects.Article;
+import com.sun.security.auth.login.ConfigFile;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -16,11 +17,7 @@ public class ArticleOps {
     public final static Logger logger = Logger.getLogger(UserOps.class);
 
     public static  SessionFactory _init(){
-        Configuration configObj = new Configuration();
-        configObj.configure( "com/DAO/hibernate.cfg.xml" );
-        ServiceRegistry serviceRegistryObj = new StandardServiceRegistryBuilder().applySettings(configObj.getProperties()).build();
-
-        return (SessionFactory)configObj.buildSessionFactory(serviceRegistryObj);
+        return new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
     }
 
     public static Integer registerArticle( Article article){
