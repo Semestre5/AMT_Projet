@@ -35,8 +35,9 @@ public class ArticleOps {
     public static Article fetchOne(Integer articleId){
         Session sessionObj = _init().openSession();
         // transaction object
-        Transaction transObj =  sessionObj.beginTransaction();
-        Article articleObj = (Article) sessionObj.load(Article.class,articleId);
+        sessionObj.beginTransaction();
+        Article articleObj =  sessionObj.load(Article.class,articleId);
+
         // closing session
         sessionObj.close();
         return articleObj;

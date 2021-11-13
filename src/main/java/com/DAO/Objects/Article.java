@@ -1,10 +1,13 @@
 package com.DAO.Objects;
 
+import org.hibernate.annotations.Proxy;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Table(name = "article")
 @Entity
+@Proxy(lazy = false)
 public class Article {
     public Article( BigDecimal price, String description, String name, Integer quantity, String link ) {
         this.price = price;
