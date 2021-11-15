@@ -1,10 +1,15 @@
+<%@ page import="com.amt.cart.CartProduct" %>
+<%@ page import="com.amt.cart.CartServletModel" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%
+    CartServletModel cart = (CartServletModel) request.getAttribute("cart");
+%>
 <!DOCTYPE html>
 <html>
 <%@include file="include/head.html" %>
 <body>
 <!-- HEADER =============================-->
-<%@include file="include/nav.html" %>
+<%@include file="include/nav.jsp" %>
 <div class="container">
     <div class="row">
         <div class="col-md-12 text-center">
@@ -55,30 +60,53 @@
                         </tr>
                         </thead>
                         <tbody>
+                        <%
+                            for (CartProduct cartProduct : cart.getCartProductList()){
+                        %>
                         <tr class="edd_cart_item" id="edd_cart_item_0_25" data-download-id="25">
                             <td class="edd_cart_item_name">
                                 <div class="edd_cart_item_image">
                                     <img width="25" height="25" src="./resources/images/scorilo2-70x70.jpg" alt="">
                                 </div>
-                                <span class="edd_checkout_cart_item_title">Audio Item - Single License</span>
+                                <span class="edd_checkout_cart_item_title"><%out.print(String.valueOf(cartProduct.getArticle().getName()));%></span>
                             </td>
-                            <td style="text-align: center">
-                                <a class="edd_cart_remove_item_btn" href="#">&nbsp&nbsp-&nbsp&nbsp</a>
-                                1
-                                <a class="edd_cart_remove_item_btn" href="#">&nbsp&nbsp+&nbsp&nbsp</a>
+                            <td>
+                                <span style="display: flex; justify-content: space-evenly; align-items: center">
+                                    <form method="post">
+                                        <input hidden name="id" value="<%out.print(String.valueOf(cartProduct.getArticle().getId()));%>">
+                                        <input hidden name="quantity" value="<%out.print(String.valueOf(cartProduct.getQuantity() - 1));%>">
+                                        <input type="submit" class="edd_cart_remove_item_btn" value="&nbsp-&nbsp">
+                                    </form>
+                                    <%out.print(String.valueOf(cartProduct.getQuantity()));%>
+                                    <form method="post">
+                                        <input hidden name="id" value="<%out.print(String.valueOf(cartProduct.getArticle().getId()));%>">
+                                        <input hidden name="quantity" value="<%out.print(String.valueOf(cartProduct.getQuantity() + 1));%>">
+                                        <input type="submit" class="edd_cart_remove_item_btn" value="&nbsp+&nbsp">
+                                    </form>
+                                </span>
                             </td>
                             <td class="edd_cart_item_price">
-                                $11.99
+                                <%out.print(String.valueOf(cartProduct.getArticle().getPrice()));%>
                             </td>
                             <td class="edd_cart_actions">
-                                <a class="edd_cart_remove_item_btn" href="#">Remove</a>
+                                <form method="post">
+                                    <input hidden name="id" value="<%out.print(String.valueOf(cartProduct.getArticle().getId()));%>"/>
+                                    <input hidden name="quantity" value="0"/> <!-- we set 0 to suppress object -->
+                                    <input type="submit" class="edd_cart_remove_item_btn" value="Delete">
+                                </form>
                             </td>
                         </tr>
+                        <%
+                            }
+                        %>
                         </tbody>
                         <tfoot>
                         <tr class="edd_cart_footer_row">
                             <th colspan="5">
-                                <a class="edd-cart-saving-button edd-submit button " id="edd-remove-cart-button" href="#">Remove cart</a>
+                                <form method="post">
+                                    <input hidden name="delete">
+                                    <input type="submit" class="edd-cart-saving-button edd-submit button" id="edd-remove-cart-button" value="Remove cart">
+                                </form>
                             </th>
                         </tr>
                         <tr class="edd_cart_footer_row edd_cart_discount_row" style="display:none;">
