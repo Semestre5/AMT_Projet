@@ -3,5 +3,5 @@ package com.DAO.Objects;
 import javax.persistence.Entity;
 
 @Entity
-public class Cart {
+public class CartId {
 }
