@@ -16,7 +16,7 @@
 <%@include file="include/head.html"%>
 <body>
 <!-- HEADER =============================-->
-<%@include file="include/navIndex.html"%>
+<%@include file="include/navIndex.jsp"%>
 
 
 <!-- STEPS =============================-->
