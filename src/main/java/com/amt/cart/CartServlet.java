@@ -42,4 +42,3 @@ public class CartServlet extends HttpServlet {
             cart.updateContent();
     }
 }
-
