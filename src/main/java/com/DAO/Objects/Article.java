@@ -1,13 +1,15 @@
 package com.DAO.Objects;
 
-import com.amt.object.Product;
 import org.hibernate.annotations.Proxy;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
+//TODO: peut etre enlever les @SETTER parce qu'on peut modifier depuis le navigateur les trucs de la DB
 @Table(name = "article")
 @Entity
 @Proxy(lazy=false)
@@ -16,17 +18,6 @@ public class Article {
             "Calypso Theme", 1, "./resources/images/product1-1.jpg");
     public static Article TEST_ARTICLE2 = new Article( new BigDecimal("39.99"), "this a nice theme",
             "Mega cool Theme", 0, "./resources/images/product2-2.jpg");
-
-    public Article() {
-
-    }
-    public Article( BigDecimal price, String description, String name, Integer quantity, String link ) {
-        this.price = price;
-        this.description = description;
-        this.name = name;
-        this.quantity = quantity;
-        this.link = link;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,4 +45,22 @@ public class Article {
     @Column(name = "link", length = 200)
     @Getter @Setter
     private String link;
+
+    @ElementCollection
+    @Getter @Setter
+    private List<Integer> categoriesID;
+
+    public Article() {
+
+    }
+    public Article( BigDecimal price, String description, String name, Integer quantity, String link ) {
+        this.price = price;
+        this.description = description;
+        this.name = name;
+        this.quantity = quantity;
+        this.link = link;
+        this.categoriesID = new ArrayList<>();
+        this.categoriesID.add(1);
+        this.categoriesID.add(2);
+    }
 }

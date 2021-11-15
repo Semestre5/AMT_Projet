@@ -1,10 +1,11 @@
 <%@ page import="java.util.List" %>y
 <%@ page import="com.amt.shop.ShopServlet" %>
 <%@ page import="com.DAO.Objects.Article" %>
+<%@ page import="com.DAO.Objects.Category" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
     List<Article> articles = (List<Article>) request.getAttribute(ShopServlet.ARTICLES_ATTR);
-    List<String> categories = (List<String>) request.getAttribute(ShopServlet.CATEGORY_ATTR);
+    List<Category> categories = (List<Category>) request.getAttribute(ShopServlet.CATEGORY_ATTR);
 %>
 <!DOCTYPE html>
 <html>
@@ -34,15 +35,12 @@
                 <h1 class="text-center latestitems">OUR PRODUCTS</h1>
             </div>
             <div class="form-check">
-                <%
-                    for (String cat: categories) {
-                %>
-                <input class="form-check-input" type="checkbox" value="" id="tagCheckbox">
-                <label class="form-check-label" for="tagCheckbox">
-                    <%out.print(cat);%>
-                </label>
-                <%}%>
-
+                <form method="post" action="shop" id="categoryForm">
+                    <%for (Category cat: categories) {%>
+                    <input class="form-check-input" type="checkbox" value="<%out.print(cat.getId());%>" name="category"> <%out.print(cat.getName());%></input>
+                    <%}%>
+                    <button type="submit" class="button">Sort</button>
+                </form>
             </div>
             <div class="wow-hr type_short">
 			<span class="wow-hr-h">
@@ -53,7 +51,12 @@
             </div>
         </div>
         <div class="row">
-            <%for (Article a: articles) {%>
+            <%if (articles.isEmpty()){%>
+            <h1>
+            No articles to display
+            </h1>
+            <%}
+            for (Article a: articles) {%>
             <div class="col-md-4">
                 <div class=productbox>
                     <div class=fadeshop>

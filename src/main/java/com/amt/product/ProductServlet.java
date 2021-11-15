@@ -1,7 +1,6 @@
 package com.amt.product;
 
 import com.DAO.Objects.Article;
-import com.amt.object.Product;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
