@@ -6,9 +6,11 @@
 <!DOCTYPE html>
 <html>
 <%@include file="include/head.html" %>
+<link href="../resources/css/bootstrap.min.css" rel="stylesheet">
+<link href="../resources/css/style.css" rel="stylesheet">
 <body>
 <!-- HEADER =============================-->
-<%@include file="include/nav.jsp" %>
+<%@include file="include/deepNav.jsp" %>
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
@@ -30,17 +32,17 @@
                 <h1 class="text-center latestitems">Awesome products</h1>
             </div>
             <div class="wow-hr type_short">
-			<span class="wow-hr-h">
-			<i class="fa fa-star"></i>
-			<i class="fa fa-star"></i>
-			<i class="fa fa-star"></i>
-			</span>
+                <span class="wow-hr-h">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                </span>
             </div>
         </div>
         <div class="row">
             <div class="col-md-8">
                 <div class="productbox">
-                    <img src=<%out.print(product.getUrlToImage());%> alt="">
+                    <img src="../<%out.print(product.getUrlToImage());%>" alt="">
                     <div class="clearfix">
                     </div>
                     <br/>
