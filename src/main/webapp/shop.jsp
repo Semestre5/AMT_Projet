@@ -53,10 +53,10 @@
         <div class="row">
             <%if (articles.isEmpty()){%>
             <h1>
-            No articles to display
+                No articles to display
             </h1>
             <%}
-            for (Article a: articles) {%>
+                for (Article a: articles) {%>
             <div class="col-md-4">
                 <div class=productbox>
                     <div class=fadeshop>
@@ -77,7 +77,12 @@
                         <span class="price">
                             <span class="edd_price"> <%out.print(a.getPrice());%></span>
                         </span>
-                        <a class="btn-buynow" href="#">Add to cart</a>
+                            <form method="post" href="/cart">
+                                <input hidden name="id" value="<%out.print(String.valueOf(a.getId()));%>"/>
+                                <input hidden name="quantity" value="1"/> <!-- we set 1 to add one object -->
+                                <input type="submit" class="btn-buynow" value="Send to cart">
+                            </form>
+                        </a>
                     </div>
                 </div>
             </div>
