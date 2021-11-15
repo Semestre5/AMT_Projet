@@ -1,6 +1,7 @@
 package com.DAO.Access;
 
 import com.DAO.Objects.Article;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -17,10 +18,10 @@ public class ArticleOps {
 
     public static  SessionFactory _init(){
         Configuration configObj = new Configuration();
-        configObj.configure( "com/DAO/hibernate.cfg.xml" );
+        configObj.configure( "hibernate.cfg.xml" );
         ServiceRegistry serviceRegistryObj = new StandardServiceRegistryBuilder().applySettings(configObj.getProperties()).build();
 
-        return (SessionFactory)configObj.buildSessionFactory(serviceRegistryObj);
+        return new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
     }
 
     public static Integer registerArticle( Article article){
@@ -38,8 +39,9 @@ public class ArticleOps {
     public static Article fetchOne(Integer articleId){
         Session sessionObj = _init().openSession();
         // transaction object
-        Transaction transObj =  sessionObj.beginTransaction();
+        sessionObj.beginTransaction();
         Article articleObj = (Article) sessionObj.load(Article.class,articleId);
+
         // closing session
         sessionObj.close();
         return articleObj;
