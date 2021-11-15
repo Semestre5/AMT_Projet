@@ -74,11 +74,18 @@ ENGINE = InnoDB;
 -- Table `mydb`.`cart`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mydb`.`cart` (
-  `id` INT NOT NULL,
+  `idArticle` INT NOT NULL,
   `idUser` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `idUser_UNIQUE` (`idUser` ASC) VISIBLE,
-  CONSTRAINT `idUser_User`
+  `quantity` INT NULL,
+  PRIMARY KEY (`idArticle`, `idUser`),
+  INDEX `fk_article_has_cart_cart1_idx` (`idUser` ASC) VISIBLE,
+  INDEX `fk_article_has_cart_article1_idx` (`idArticle` ASC) VISIBLE,
+  CONSTRAINT `fk_article_has_article_cart`
+    FOREIGN KEY (`idArticle`)
+    REFERENCES `mydb`.`article` (`id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_article_has_user_cart`
     FOREIGN KEY (`idUser`)
     REFERENCES `mydb`.`user` (`id`)
     ON DELETE CASCADE
@@ -86,29 +93,15 @@ CREATE TABLE IF NOT EXISTS `mydb`.`cart` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `mydb`.`article_cart`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`article_cart` (
-  `idActicle` INT NOT NULL,
-  `idCart` INT NOT NULL,
-  `quantity` INT NULL,
-  PRIMARY KEY (`idActicle`, `idCart`),
-  INDEX `fk_article_has_cart_cart1_idx` (`idCart` ASC) VISIBLE,
-  INDEX `fk_article_has_cart_article1_idx` (`idActicle` ASC) VISIBLE,
-  CONSTRAINT `fk_article_has_cart_article1`
-    FOREIGN KEY (`idActicle`)
-    REFERENCES `mydb`.`article` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_article_has_cart_cart1`
-    FOREIGN KEY (`idCart`)
-    REFERENCES `mydb`.`cart` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB;
+INSERT INTO article (price, description, name, quantity) VALUES ('100', "Marteau de grande qualité","Marteau", '4');
+INSERT INTO article (price, description, name, quantity) VALUES ('59.90', "Pelle de grande qualité","Pelle", '2');
+INSERT INTO article (price, description, name, quantity) VALUES ('1.10', "Clou de grande qualité","Clou", '4');
 
+INSERT INTO category(name) VALUES("Outils");
+INSERT INTO category(name) VALUES("Extérieur");
 
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+INSERT INTO article_category(idArticle, idCategory) VALUES('1','1');
+INSERT INTO article_category(idArticle, idCategory) VALUES('2','1');
+INSERT INTO article_category(idArticle, idCategory) VALUES('3','2');
+INSERT INTO article_category(idArticle, idCategory) VALUES('1','2');
+

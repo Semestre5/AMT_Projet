@@ -16,7 +16,8 @@ public class CatergoryOps {
 
     public static SessionFactory _init(){
         Configuration confObj = new Configuration();
-        confObj.configure( "src/main/4/hibernate.cfg.xml" );
+        confObj.configure( "hibernate.cfg.xml" );
+
         ServiceRegistry serviceRegistryObj = new StandardServiceRegistryBuilder().applySettings( confObj.getProperties()).build();
         return (SessionFactory)confObj.buildSessionFactory(serviceRegistryObj);
 
