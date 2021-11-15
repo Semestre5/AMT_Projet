@@ -13,7 +13,6 @@
           <ul class="nav navbar-nav navbar-right">
             <li class="propClone"><a href=".">Home</a></li>
             <li class="propClone"><a href="shop">Shop</a></li>
-            <li class="propClone"><a href="product">Product</a></li>
             <li class="propClone"><a href="cart">Cart</a></li>
             <li class="propClone"><a href="contact">Contact</a></li>
             <%
