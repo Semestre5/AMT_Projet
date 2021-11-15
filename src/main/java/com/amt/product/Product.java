@@ -13,6 +13,7 @@ public class Product {
     @Getter @Setter @NonNull private int status; //use Enum when defined
     @Getter @Setter @NonNull private int quantity;
 
+    //TODO adapter le constructeur pour les requirements d'ajout de produit (ajouter diff constructeurs en java)
     public Product(String name, int price, String description, String urlToImage, int status, int quantity) {
         this.name= name;
         this.price = price;
@@ -21,6 +22,8 @@ public class Product {
         this.status = status;
         this.quantity = quantity;
     }
+
+    //TODO Use the Builder design pattern ?
 
     public static String exportProductPage(/*Add Product parameter when DB connection done*/){
         return "";
