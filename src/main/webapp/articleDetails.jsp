@@ -1,7 +1,8 @@
 <%@ page import="com.amt.object.Product" %>
+<%@ page import="com.DAO.Objects.Article" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
-    Product product = (Product) request.getAttribute("productDetails");
+    Article article = (Article) request.getAttribute("articleDetails");
 %>
 <!DOCTYPE html>
 <html>
@@ -16,7 +17,7 @@
                 <div class="col-md-12 text-center">
                     <div class="text-pageheader">
                         <div class="subtext-image" data-scrollreveal="enter bottom over 1.7s after 0.0s">
-                            <%out.print(product.getName());%>
+                            <%out.print(article.getName());%>
                         </div>
                     </div>
                 </div>
@@ -42,19 +43,19 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="productbox">
-                    <img src="../<%out.print(product.getUrlToImage());%>" alt="">
+                    <img src="../<%out.print(article.getLink());%>" alt="">
                     <div class="clearfix">
                     </div>
                     <br/>
                     <div class="product-details text-left">
                         <p>
-                            <%out.print(product.getDescription());%>
+                            <%out.print(article.getDescription());%>
                         </p>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <a href="#" class="btn btn-buynow"><%out.print(product.getPrice());%> - Add to cart</a>
+                <a href="#" class="btn btn-buynow"><%out.print(article.getPrice());%> - Add to cart</a>
                 <div class="properties-box">
                     <ul class="unstyle">
                         <li><b class="propertyname">Version:</b> 1.0</li>

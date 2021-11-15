@@ -1,6 +1,9 @@
 package com.DAO.Objects;
 
+import com.amt.object.Product;
 import org.hibernate.annotations.Proxy;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -9,6 +12,11 @@ import java.math.BigDecimal;
 @Entity
 @Proxy(lazy=false)
 public class Article {
+    public static Article TEST_ARTICLE1 = new Article( new BigDecimal("49.99"), "this a nice theme",
+            "Calypso Theme", 1, "./resources/images/product1-1.jpg");
+    public static Article TEST_ARTICLE2 = new Article( new BigDecimal("39.99"), "this a nice theme",
+            "Mega cool Theme", 0, "./resources/images/product2-2.jpg");
+
     public Article() {
 
     }
@@ -23,71 +31,27 @@ public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
+    @Getter @Setter
     private Integer id;
 
     @Column(name = "price", precision = 8, scale = 2)
+    @Getter @Setter
     private BigDecimal price;
 
     @Lob
     @Column(name = "description")
+    @Getter @Setter
     private String description;
 
     @Column(name = "name", nullable = false, length = 45)
+    @Getter @Setter
     private String name;
 
     @Column(name = "quantity", nullable = false)
+    @Getter @Setter
     private Integer quantity;
 
     @Column(name = "link", length = 200)
+    @Getter @Setter
     private String link;
-
-
-
-    public String getLink() {
-        return link;
-    }
-
-    public void setLink( String link ) {
-        this.link = link;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity( Integer quantity ) {
-        this.quantity = quantity;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName( String name ) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription( String description ) {
-        this.description = description;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice( BigDecimal price ) {
-        this.price = price;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId( Integer id ) {
-        this.id = id;
-    }
 }

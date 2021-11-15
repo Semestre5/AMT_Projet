@@ -1,6 +1,6 @@
 package com.amt.shop;
 
-import com.amt.object.Product;
+import com.DAO.Objects.Article;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -15,7 +15,7 @@ public class ShopServlet extends HttpServlet {
 
     private static final List<String> TEST_CATEGORIES = Arrays.asList("Cat1", "Cat2", "Cat3");
     public static final String CATEGORY_ATTR = "categories";
-    public static final String PRODUCTS_ATTR = "products";
+    public static final String ARTICLES_ATTR = "articles";
 
     public ShopServlet() {
         super();
@@ -23,15 +23,16 @@ public class ShopServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Product> products = new ArrayList<>();
+        List<Article> articles = new ArrayList<>();
         // -------- Adding products manualy for testing----------
         // Modify with ORM when available
-        products.add(Product.TEST_PRODUCT1);
-        products.add(Product.TEST_PRODUCT2);
-        products.add(Product.TEST_PRODUCT2);
-        products.add(Product.TEST_PRODUCT2);
-        products.add(Product.TEST_PRODUCT1);
-        request.setAttribute(PRODUCTS_ATTR, products);
+        Article.TEST_ARTICLE1.setId(1);
+        Article.TEST_ARTICLE2.setId(2);
+        articles.add(Article.TEST_ARTICLE1);
+        articles.add(Article.TEST_ARTICLE2);
+        articles.add(Article.TEST_ARTICLE1);
+        articles.add(Article.TEST_ARTICLE2);
+        request.setAttribute(ARTICLES_ATTR, articles);
         request.setAttribute(CATEGORY_ATTR, TEST_CATEGORIES);
         RequestDispatcher rd = request.getRequestDispatcher("shop.jsp");
         rd.forward(request, response);

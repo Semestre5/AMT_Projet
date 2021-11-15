@@ -1,10 +1,9 @@
-<%@ page import="com.amt.object.Product" %>
 <%@ page import="java.util.List" %>y
-<%@ page import="com.amt.object.Product" %>
 <%@ page import="com.amt.shop.ShopServlet" %>
+<%@ page import="com.DAO.Objects.Article" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
-    List<Product> products = (List<Product>) request.getAttribute(ShopServlet.PRODUCTS_ATTR);
+    List<Article> articles = (List<Article>) request.getAttribute(ShopServlet.ARTICLES_ATTR);
     List<String> categories = (List<String>) request.getAttribute(ShopServlet.CATEGORY_ATTR);
 %>
 <!DOCTYPE html>
@@ -54,26 +53,26 @@
             </div>
         </div>
         <div class="row">
-            <%for (Product p: products) {%>
+            <%for (Article a: articles) {%>
             <div class="col-md-4">
                 <div class=productbox>
                     <div class=fadeshop>
                         <div class="captionshop text-center" style="display: none">
-                            <h3><a href="#"><%out.print(p.getName());%></a></h3>
-                            <p><%out.print(p.getDescription());%></p>
+                            <h3><a href="#"><%out.print(a.getName());%></a></h3>
+                            <p><%out.print(a.getDescription());%></p>
                             <p>
                                 <a href="#" class="learn-more detailslearn"><i class="fa fa-shopping-cart"></i> Purchase</a>
                                 <a href="#" class="learn-more detailslearn"><i class="fa fa-link"></i> Details</a>
                             </p>
                         </div>
-                        <span class="maxproduct"><a href="shop/<%out.print(p.getId());%>"><img src="<% out.print(p.getUrlToImage());%>" alt=""></a></span>
+                        <span class="maxproduct"><a href="shop/<%out.print(a.getId());%>"><img src="<% out.print(a.getLink());%>" alt=""></a></span>
                     </div>
                     <div class="product-details">
-                        <a href="shop/<%out.print(p.getId());%>">
-                            <h1><%out.print(p.getName());%></h1>
+                        <a href="shop/<%out.print(a.getId());%>">
+                            <h1><%out.print(a.getName());%></h1>
                         </a>
                         <span class="price">
-                            <span class="edd_price"> <%out.print(p.getPrice());%></span>
+                            <span class="edd_price"> <%out.print(a.getPrice());%></span>
                         </span>
                         <a class="btn-buynow" href="#">Add to cart</a>
                     </div>
