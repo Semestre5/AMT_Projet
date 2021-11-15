@@ -7,8 +7,11 @@ import java.math.BigDecimal;
 
 @Table(name = "article")
 @Entity
-@Proxy(lazy = false)
+@Proxy(lazy=false)
 public class Article {
+    public Article() {
+
+    }
     public Article( BigDecimal price, String description, String name, Integer quantity, String link ) {
         this.price = price;
         this.description = description;
@@ -16,6 +19,7 @@ public class Article {
         this.quantity = quantity;
         this.link = link;
     }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -38,9 +42,7 @@ public class Article {
     private String link;
 
 
-    public Article() {
 
-    }
     public String getLink() {
         return link;
     }

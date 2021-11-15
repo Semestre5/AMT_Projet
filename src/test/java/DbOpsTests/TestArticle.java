@@ -1,7 +1,6 @@
 package DbOpsTests;
 import com.DAO.Access.ArticleOps;
 import com.DAO.Objects.Article;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;

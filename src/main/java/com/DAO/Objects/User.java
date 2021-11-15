@@ -8,6 +8,8 @@ import javax.persistence.Table;
 @Table(name = "user")
 @Entity
 public class User {
+    public User() {
+    }
 
     @Id
     @Column(name = "id", nullable = false)
@@ -17,4 +19,7 @@ public class User {
         return id;
     }
 
+    public void setId( Integer id ) {
+        this.id = id;
+    }
 }

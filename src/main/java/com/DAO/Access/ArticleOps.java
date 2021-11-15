@@ -1,13 +1,10 @@
 package com.DAO.Access;
 
 import com.DAO.Objects.Article;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
 import org.jboss.logging.Logger;
 
 import java.util.List;
@@ -17,10 +14,6 @@ public class ArticleOps {
     public final static Logger logger = Logger.getLogger(UserOps.class);
 
     public static  SessionFactory _init(){
-        Configuration configObj = new Configuration();
-        configObj.configure( "hibernate.cfg.xml" );
-        ServiceRegistry serviceRegistryObj = new StandardServiceRegistryBuilder().applySettings(configObj.getProperties()).build();
-
         return new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
     }
 
@@ -40,7 +33,7 @@ public class ArticleOps {
         Session sessionObj = _init().openSession();
         // transaction object
         sessionObj.beginTransaction();
-        Article articleObj = (Article) sessionObj.load(Article.class,articleId);
+        Article articleObj =  sessionObj.load(Article.class,articleId);
 
         // closing session
         sessionObj.close();

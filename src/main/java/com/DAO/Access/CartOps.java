@@ -8,14 +8,16 @@ public class CartOps {
     /*
     * build a session using the session factory
     * */
-    public void _init(SessionFactory fc) {
+    public void _init() {
         try {
-            fc = new Configuration().configure().buildSessionFactory();
+            SessionFactory fc = new Configuration().configure().buildSessionFactory();
         } catch (Throwable ex) {
             System.err.println( "Failed to create sessionFactory object." + ex );
             throw new ExceptionInInitializerError( ex );
         }
     }
+
+
 
     public  void register(){
 

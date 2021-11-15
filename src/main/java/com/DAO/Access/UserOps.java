@@ -37,7 +37,7 @@ public class UserOps {
         logger.info("Successfully Created " + userObj.toString());
         return userObj.getId();
     }
-    public static User fetchOne(Integer userId){
+    public static User fetchOne( Integer userId){
         Session sessionObj = _init().openSession();
         User user = (User) sessionObj.load(User.class, userId);
         // Closing The Session Object
