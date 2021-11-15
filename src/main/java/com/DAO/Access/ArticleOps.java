@@ -1,13 +1,10 @@
 package com.DAO.Access;
 
 import com.DAO.Objects.Article;
-import com.sun.security.auth.login.ConfigFile;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
 import org.jboss.logging.Logger;
 
 import java.util.List;
