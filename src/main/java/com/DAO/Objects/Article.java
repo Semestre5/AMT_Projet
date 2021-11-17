@@ -16,7 +16,7 @@ import java.util.List;
 public class Article {
     public static Article TEST_ARTICLE1 = new Article( new BigDecimal("49.99"), "this a nice theme",
             "Calypso Theme", 1, "./resources/images/product1-1.jpg");
-    public static Article TEST_ARTICLE2 = new Article( new BigDecimal("39.99"), "this a nice theme",
+    public static Article TEST_ARTICLE2 = new Article( new BigDecimal("0"), "this a nice theme",
             "Mega cool Theme", 0, "./resources/images/product2-2.jpg");
 
     @Id
@@ -62,5 +62,15 @@ public class Article {
         this.categoriesID = new ArrayList<>();
         this.categoriesID.add(1);
         this.categoriesID.add(2);
+    }
+
+    public boolean isSellable(){
+        if(this.price == null)
+            return false;
+        else {
+            BigDecimal zero =new BigDecimal("0");
+            return !this.price.equals(zero);
+        }
+
     }
 }

@@ -75,14 +75,20 @@
                             <h1><%out.print(a.getName());%></h1>
                         </a>
                         <span class="price">
-                            <span class="edd_price"> <%out.print(a.getPrice());%></span>
+                            <span class="edd_price"><%out.print(a.isSellable() ? "CHF " + a.getPrice() : "");%></span>
                         </span>
-                            <form method="post" href="/cart">
-                                <input hidden name="id" value="<%out.print(String.valueOf(a.getId()));%>"/>
-                                <input hidden name="quantity" value="1"/> <!-- we set 1 to add one object -->
-                                <input type="submit" class="btn-buynow" value="Send to cart">
-                            </form>
-                        </a>
+                        <%if (a.isSellable()) {%>
+                        <form method="post" href="/cart">
+                            <input hidden name="id" value="<%out.print(String.valueOf(a.getId()));%>"/>
+                            <input hidden name="quantity" value="1"/>
+                            <a type="submit" class="btn-buynow">Add to cart</a>
+                        </form>
+                        <%} else {%>
+                        <span>Article unavailable</span>
+                        <%}%>
+
+
+
                     </div>
                 </div>
             </div>
