@@ -50,7 +50,7 @@ public class ShopServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
         String[] catStr = request.getParameterValues("category");
-        List <Article>articlesToDisplay = new ArrayList();
+        List <Article>articlesToDisplay = new ArrayList<>();
         if (catStr != null) {
             for (String s : catStr)
                 for (Article a : this.articles)
