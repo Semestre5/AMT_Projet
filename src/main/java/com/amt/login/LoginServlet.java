@@ -19,7 +19,7 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         HttpSession session = request.getSession();
-        session.setAttribute("idUserSession", 0);
+        session.setAttribute("idUserSession", 1);
 
         response.sendRedirect(".");
     }
