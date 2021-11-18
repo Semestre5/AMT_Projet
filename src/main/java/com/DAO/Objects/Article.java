@@ -1,5 +1,6 @@
 package com.DAO.Objects;
 
+import lombok.Builder;
 import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
@@ -8,14 +9,8 @@ import java.math.BigDecimal;
 @Table(name = "article")
 @Entity
 @Proxy(lazy = false)
+@Builder(toBuilder = true)
 public class Article {
-    public Article( BigDecimal price, String description, String name, Integer quantity, String link ) {
-        this.price = price;
-        this.description = description;
-        this.name = name;
-        this.quantity = quantity;
-        this.link = link;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,8 +33,13 @@ public class Article {
     @Column(name = "link", length = 200)
     private String link;
 
-    public Article() {
-
+    public Article(Integer id, BigDecimal price, String description, String name, Integer quantity, String link){
+        this.id = id;
+        this.price = price;
+        this.description = description;
+        this.name = name;
+        this.quantity = quantity;
+        this.link = link;
     }
 
     public String getLink() {

@@ -20,7 +20,11 @@ public class TestArticle {
 
          // Create new article object
         BigDecimal price = new BigDecimal("2.365");
-        Article article= new Article(price,"testing article class","ArticleTest",2,"Link");
+        Article article = Article.builder()
+                .price(price)
+                .link("Link")
+                .description("testing article class")
+                .build();
         // register it to db
         Integer resp = ArticleOps.registerArticle(article);
 
