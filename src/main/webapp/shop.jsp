@@ -84,11 +84,8 @@
                             <a type="submit" class="btn-buynow">Add to cart</a>
                         </form>
                         <%} else {%>
-                        <span>Article unavailable</span>
+                        <h4>Article unavailable</h4>
                         <%}%>
-
-
-
                     </div>
                 </div>
             </div>

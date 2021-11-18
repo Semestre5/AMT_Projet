@@ -1,4 +1,3 @@
-<%@ page import="com.amt.object.Product" %>
 <%@ page import="com.DAO.Objects.Article" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
@@ -55,7 +54,15 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <a href="#" class="btn btn-buynow"><%out.print(article.getPrice());%> - Add to cart</a>
+                <%if (article.isSellable()) {%>
+                <form method="post" href="../cart">
+                    <input hidden name="id" value="<%out.print(String.valueOf(article.getId()));%>"/>
+                    <input hidden name="quantity" value="1"/>
+                    <a type="submit" class="btn-buynow">Add to cart</a>
+                </form>
+                <%} else {%>
+                <span><h1>Article unavailable</h1></span>
+                <%}%>
                 <div class="properties-box">
                     <ul class="unstyle">
                         <li><b class="propertyname">Version:</b> 1.0</li>

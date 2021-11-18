@@ -14,7 +14,7 @@ import java.util.List;
 @WebServlet(name = "ShopServlet", value = "/shop")
 public class ShopServlet extends HttpServlet {
     private final List<Category> TEST_CATEGORIES = new ArrayList<>();
-    private final List<Article> articles = Arrays.asList(Article.TEST_ARTICLE1, Article.TEST_ARTICLE2, Article.TEST_ARTICLE1);
+    private final List<Article> articles = Arrays.asList(Article.TEST_ARTICLE1, Article.TEST_ARTICLE2);
     public static final String CATEGORY_ATTR = "categories";
     public static final String ARTICLES_ATTR = "articles";
 
@@ -65,8 +65,6 @@ public class ShopServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/shop.jsp");
         dispatcher.forward(request, response);
     }
-
-
 
     public void destroy() {
 
