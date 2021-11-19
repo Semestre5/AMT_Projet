@@ -1,16 +1,23 @@
+<%@ page import="com.amt.object.Product" %>
+<%@ page import="com.DAO.Objects.Article" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%
+    Article article = (Article) request.getAttribute("articleDetails");
+%>
 <!DOCTYPE html>
 <html>
 <%@include file="include/head.html" %>
+<link href="../resources/css/bootstrap.min.css" rel="stylesheet">
+<link href="../resources/css/style.css" rel="stylesheet">
 <body>
 <!-- HEADER =============================-->
-<%@include file="include/nav.jsp" %>
+<%@include file="include/deepNav.jsp" %>
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
                     <div class="text-pageheader">
                         <div class="subtext-image" data-scrollreveal="enter bottom over 1.7s after 0.0s">
-                            Product
+                            <%out.print(article.getName());%>
                         </div>
                     </div>
                 </div>
@@ -26,29 +33,29 @@
                 <h1 class="text-center latestitems">Awesome products</h1>
             </div>
             <div class="wow-hr type_short">
-			<span class="wow-hr-h">
-			<i class="fa fa-star"></i>
-			<i class="fa fa-star"></i>
-			<i class="fa fa-star"></i>
-			</span>
+                <span class="wow-hr-h">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                </span>
             </div>
         </div>
         <div class="row">
             <div class="col-md-8">
                 <div class="productbox">
-                    <img src="./resources/images/product2-2.jpg" alt="">
+                    <img src="../<%out.print(article.getLink());%>" alt="">
                     <div class="clearfix">
                     </div>
                     <br/>
                     <div class="product-details text-left">
                         <p>
-                            Your description here. Serenity is a highly-professional & modern website theme crafted with you, the user, in mind. This light-weight theme is generous, built with custom types and enough shortcodes to customize each page according to your project. You will notice some examples of pages in demo, but this theme can do much more.
+                            <%out.print(article.getDescription());%>
                         </p>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <a href="#" class="btn btn-buynow">$49.00 - Purchase</a>
+                <a href="#" class="btn btn-buynow"><%out.print(article.getPrice());%> - Add to cart</a>
                 <div class="properties-box">
                     <ul class="unstyle">
                         <li><b class="propertyname">Version:</b> 1.0</li>
@@ -60,7 +67,6 @@
                         <li><b class="propertyname">Environment:</b> Wordpress</li>
                         <li><b class="propertyname">Any Field Etc:</b> Any Detail</li>
                         <li><b class="propertyname">Number:</b> Up to 20 specifications in this box</li>
-                        <li><b class="propertyname">Live Demo:</b><a target="_blank" href="http://www.wowthemes.net/">http://www.wowthemes.net/</a></li>
                     </ul>
                 </div>
             </div>
