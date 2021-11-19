@@ -46,9 +46,14 @@ public class Article {
     @Getter @Setter
     private String link;
 
-    @ElementCollection
+    @ManyToMany(cascade={CascadeType.ALL})
+    @JoinTable(
+            name = "article_category",
+            joinColumns = {@JoinColumn(name ="idarticle")},
+            inverseJoinColumns = {@JoinColumn(name="idCategory")}
+    )
     @Getter @Setter
-    private List<Integer> categoriesID;
+    private List<Category> categories;
 
     public Article() {
 
@@ -59,8 +64,7 @@ public class Article {
         this.name = name;
         this.quantity = quantity;
         this.link = link;
-        this.categoriesID = new ArrayList<>();
-        this.categoriesID.add(1);
-        this.categoriesID.add(2);
+
+
     }
 }

@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Table(name = "category", indexes = {
         @Index(name = "name_UNIQUE", columnList = "name", unique = true)
@@ -26,5 +27,8 @@ public class Category {
     @Column(name = "name", length = 45)
     @Getter @Setter
     private String name;
+
+    @ManyToMany(mappedBy = "categories")
+    private List<Article> articles;
 
 }

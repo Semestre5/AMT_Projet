@@ -1,6 +1,7 @@
 package com.DAO.Access;
 
 import com.DAO.Objects.Article;
+import com.DAO.Objects.Category;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -69,12 +70,23 @@ public class ArticleOps {
 
     }
 
-    public static List<Article> fetchAll(){
+    public static List<?> fetchAll(){
         Session sessionObj = _init().openSession();
-        List articleList = sessionObj.createQuery("FROM Article ").list();
+        List<?> articleList = sessionObj.createQuery("FROM Article ").list();
         sessionObj.close();
         logger.info("Number of available articles is : "+articleList.size());
         return articleList;
     }
+
+
+    public static List<?> fetchAllByCategories( Category category){
+        Session sessionObj = _init().openSession();
+        Integer idCat = category.getId();
+        List<?> articleList =  sessionObj.createQuery("select c from Category c join fetch c.articles where c.id = idCat").list();
+        sessionObj.close();
+        return articleList;
+    }
+
+
 
 }
