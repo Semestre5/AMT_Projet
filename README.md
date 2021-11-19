@@ -12,7 +12,11 @@
 
 ## Installation
 
-**UNDEFINED**
+Project is developped using [IntelliJ](https://www.jetbrains.com/fr-fr/idea/) IDE.
+The server is [Tomcat 9.0.54](https://tomcat.apache.org/download-90.cgi)
+
+To start developping, clone the dev branch. Open the repo using IntelliJ. You then need to define the configuration
+
 
 ## Usage
 
