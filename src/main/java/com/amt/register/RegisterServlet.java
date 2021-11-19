@@ -18,6 +18,10 @@ public class RegisterServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        response.sendRedirect("login");
+        if(false) {
+
+        } else {
+            response.sendRedirect("login");
+        }
     }
 }

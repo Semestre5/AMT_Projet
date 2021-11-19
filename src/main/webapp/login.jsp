@@ -45,6 +45,7 @@
                         <input type="submit" id="submit" class="clearfix btn" value="Login">
                     </div>
                 </form>
+                <h4 class="text-center">Not registered yet ? <a href="register">Create a new account</a></h4>
             </div>
         </div>
     </div>
