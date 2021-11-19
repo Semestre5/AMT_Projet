@@ -6,8 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+
 
 //TODO: peut etre enlever les @SETTER parce qu'on peut modifier depuis le navigateur les trucs de la DB
 @Table(name = "article")
@@ -67,16 +66,6 @@ public class Article {
         this.categoriesID.add(1);
         this.categoriesID.add(2);
         */
-
-    }
-//TODO bouger plus tard
-    public boolean isSellable(){
-        if(this.price == null)
-            return false;
-        else {
-            BigDecimal zero =new BigDecimal("0");
-            return !this.price.equals(zero);
-        }
 
     }
 }

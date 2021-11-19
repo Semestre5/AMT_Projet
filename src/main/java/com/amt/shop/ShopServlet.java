@@ -1,5 +1,7 @@
 package com.amt.shop;
 
+import com.DAO.Access.ArticleOps;
+import com.DAO.Access.CatergoryOps;
 import com.DAO.Objects.Article;
 import com.DAO.Objects.Category;
 
@@ -30,27 +32,25 @@ public class ShopServlet extends HttpServlet {
                 c.setId(i);
                 TEST_CATEGORIES.add(c);
             }
-
         }
-        // -------- Adding products manualy for testing----------
-        // Modify with ORM when available
-        int i = 1;
-        for (Article a: this.articles){
-            a.setId(i);
-            a.setCategoriesID(List.of(i++));
-        }
-
-        request.setAttribute(ARTICLES_ATTR, articles);
+        request.setAttribute(ARTICLES_ATTR, ArticleOps.fetchAll());
         request.setAttribute(CATEGORY_ATTR, TEST_CATEGORIES);
         RequestDispatcher rd = request.getRequestDispatcher("/shop.jsp");
         rd.forward(request, response);
     }
 
+    /**
+     * Used to sort the website
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
-        String[] catStr = request.getParameterValues("category");
-        List <Article>articlesToDisplay = new ArrayList<>();
+        List <Article>articlesToDisplay = ArticleOps.fetchAll(); //TODO add fetchArticleWCat
+        /*
         if (catStr != null) {
             for (String s : catStr)
                 for (Article a : this.articles)
@@ -58,10 +58,9 @@ public class ShopServlet extends HttpServlet {
                         articlesToDisplay.add(a);
         } else
             articlesToDisplay.addAll(articles);
-
-
+        */
         request.setAttribute(ARTICLES_ATTR, articlesToDisplay);
-        request.setAttribute(CATEGORY_ATTR, TEST_CATEGORIES);
+        request.setAttribute(CATEGORY_ATTR, CatergoryOps.fetchAll());
         RequestDispatcher dispatcher = request.getRequestDispatcher("/shop.jsp");
         dispatcher.forward(request, response);
     }

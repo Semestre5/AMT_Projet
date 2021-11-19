@@ -7,6 +7,7 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.jboss.logging.Logger;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class ArticleOps {
@@ -75,6 +76,15 @@ public class ArticleOps {
         sessionObj.close();
         logger.info("Number of available articles is : "+articleList.size());
         return articleList;
+    }
+    public static boolean isSellable(final Article a){
+        if(a.getPrice() == null)
+            return false;
+        else {
+            BigDecimal zero =new BigDecimal("0");
+            return !a.getPrice().equals(zero);
+        }
+
     }
 
 }
