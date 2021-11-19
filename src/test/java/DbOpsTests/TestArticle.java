@@ -1,6 +1,7 @@
 package DbOpsTests;
 import com.DAO.Access.ArticleOps;
 import com.DAO.Objects.Article;
+import com.DAO.Objects.Category;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -40,5 +41,12 @@ public class TestArticle {
             List articles = ArticleOps.fetchAll();
         System.out.println("Article is :"+articles.toString());
         assertNotNull( articles );
+    }
+
+    @Test
+    public void testFetchAllByCategories(){
+        Category cat = new Category("Cat1");
+        List articles = ArticleOps.fetchAllByCategories( cat );
+        System.out.println("Articles in this category are :");
     }
 }

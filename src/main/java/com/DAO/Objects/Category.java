@@ -2,6 +2,7 @@ package com.DAO.Objects;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
         @Index(name = "name_UNIQUE", columnList = "name", unique = true)
 })
 @Entity
+@Proxy(lazy=false)
 public class Category {
     public Category() {
     }

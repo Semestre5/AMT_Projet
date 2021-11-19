@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="com.DAO.Objects.Article" %>
+<%@ page import="com.DAO.Access.ArticleOps" %>
 <%
     Article article = (Article) request.getAttribute("articleDetails");
 %>
@@ -54,7 +55,7 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <%if (article.isSellable()) {%>
+                <%if (ArticleOps.isSellable(article)) {%>
                 <form method="post" href="../cart">
                     <input hidden name="id" value="<%out.print(String.valueOf(article.getId()));%>"/>
                     <input hidden name="quantity" value="1"/>

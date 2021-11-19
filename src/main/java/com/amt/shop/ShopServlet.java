@@ -26,13 +26,6 @@ public class ShopServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if(TEST_CATEGORIES.isEmpty()) {
-            for(int i = 0; i<4; ++i) {
-                Category c = new Category("cat" + Integer.toString(i));
-                c.setId(i);
-                TEST_CATEGORIES.add(c);
-            }
-        }
         request.setAttribute(ARTICLES_ATTR, ArticleOps.fetchAll());
         request.setAttribute(CATEGORY_ATTR, CategoryOps.fetchAll());
         RequestDispatcher rd = request.getRequestDispatcher("/shop.jsp");
@@ -49,17 +42,7 @@ public class ShopServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
-        List<Article> articlesToDisplay = (List<Article>) ArticleOps.fetchAll(); //TODO add fetchArticleWCat
-        /*
-        if (catStr != null) {
-            for (String s : catStr)
-                for (Article a : this.articles)
-                    if (a.getCategoriesID().contains(Integer.parseInt(s)))
-                        articlesToDisplay.add(a);
-        } else
-            articlesToDisplay.addAll(articles);
-        */
-        request.setAttribute(ARTICLES_ATTR, articlesToDisplay);
+        request.setAttribute(ARTICLES_ATTR,  ArticleOps.fetchAll());
         request.setAttribute(CATEGORY_ATTR, CategoryOps.fetchAll());
         RequestDispatcher dispatcher = request.getRequestDispatcher("/shop.jsp");
         dispatcher.forward(request, response);

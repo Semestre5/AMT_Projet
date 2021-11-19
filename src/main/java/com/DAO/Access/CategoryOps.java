@@ -15,12 +15,7 @@ public class CategoryOps {
     private final static Logger logger = Logger.getLogger(CategoryOps.class);
 
     public static SessionFactory _init(){
-        Configuration confObj = new Configuration();
-        confObj.configure( "hibernate.cfg.xml" );
-
-        ServiceRegistry serviceRegistryObj = new StandardServiceRegistryBuilder().applySettings( confObj.getProperties()).build();
-        return (SessionFactory)confObj.buildSessionFactory(serviceRegistryObj);
-
+        return new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
     }
 
     public static Integer addCategory(String name){
@@ -29,7 +24,7 @@ public class CategoryOps {
         Category newCategory=new Category(name);
         sessionObj.save(newCategory);
         transObj.commit();
-        logger.info("Successfully added"+newCategory.getName()+" category");
+        logger.info("Successfully added"+newCategory.getName() + " category");
         return newCategory.getId();
     }
 
@@ -47,7 +42,4 @@ public class CategoryOps {
         logger.info( "Categories : "+  categoryList.size());
         return categoryList;
     }
-
-
-
 }
