@@ -82,7 +82,7 @@ public class ArticleOps {
     public static List<?> fetchAllByCategories( Category category){
         Session sessionObj = _init().openSession();
         Integer idCat = category.getId();
-        List<?> articleList =  sessionObj.createQuery("select c from Category c join fetch c.articles where c.id = idCat").list();
+        List<?> articleList =  sessionObj.createQuery("select c from Article c join fetch c.categories where c.categories = :idCat").setParameter( "idCat",idCat ).list();
         sessionObj.close();
         return articleList;
     }

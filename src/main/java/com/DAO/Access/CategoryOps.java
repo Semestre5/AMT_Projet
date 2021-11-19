@@ -11,16 +11,11 @@ import org.hibernate.service.ServiceRegistry;
 
 import java.util.List;
 
-public class CatergoryOps {
-    private final static Logger logger = Logger.getLogger(CatergoryOps.class);
+public class CategoryOps {
+    private final static Logger logger = Logger.getLogger(CategoryOps.class);
 
     public static SessionFactory _init(){
-        Configuration confObj = new Configuration();
-        confObj.configure( "hibernate.cfg.xml" );
-
-        ServiceRegistry serviceRegistryObj = new StandardServiceRegistryBuilder().applySettings( confObj.getProperties()).build();
-        return (SessionFactory)confObj.buildSessionFactory(serviceRegistryObj);
-
+        return new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
     }
 
     public static Integer addCategory(String name){

@@ -37,7 +37,7 @@ public class ShopServlet extends HttpServlet {
         int i = 1;
         for (Article a: this.articles){
             a.setId(i);
-            a.setCategoriesID(List.of(i++));
+            //a.setCategoriesID(List.of(i++));
         }
 
         request.setAttribute(ARTICLES_ATTR, articles);
@@ -54,7 +54,7 @@ public class ShopServlet extends HttpServlet {
         if (catStr != null) {
             for (String s : catStr)
                 for (Article a : this.articles)
-                    if (a.getCategoriesID().contains(Integer.parseInt(s)))
+                    //if (a.getCategoriesID().contains(Integer.parseInt(s)))
                         articlesToDisplay.add(a);
         } else
             articlesToDisplay.addAll(articles);
