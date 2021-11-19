@@ -6,9 +6,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
-
-//TODO: peut etre enlever les @SETTER parce qu'on peut modifier depuis le navigateur les trucs de la DB
 @Table(name = "article")
 @Entity
 @Proxy(lazy=false)
@@ -45,27 +44,24 @@ public class Article {
     @Getter @Setter
     private String link;
 
-    /*
-    @ElementCollection
+    @ManyToMany(cascade={CascadeType.ALL})
+    @JoinTable(
+            name = "article_category",
+            joinColumns = {@JoinColumn(name ="idarticle")},
+            inverseJoinColumns = {@JoinColumn(name="idCategory")}
+    )
     @Getter @Setter
-    private List<Integer> categoriesID;
+    private List<Category> categories;
 
-     */
+    public Article() {}
 
-    public Article() {
-
-    }
     public Article( BigDecimal price, String description, String name, Integer quantity, String link ) {
         this.price = price;
         this.description = description;
         this.name = name;
         this.quantity = quantity;
         this.link = link;
-        /*
-        this.categoriesID = new ArrayList<>();
-        this.categoriesID.add(1);
-        this.categoriesID.add(2);
-        */
+
 
     }
 }
