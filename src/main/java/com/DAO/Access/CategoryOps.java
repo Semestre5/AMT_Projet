@@ -11,8 +11,8 @@ import org.hibernate.service.ServiceRegistry;
 
 import java.util.List;
 
-public class CatergoryOps {
-    private final static Logger logger = Logger.getLogger(CatergoryOps.class);
+public class CategoryOps {
+    private final static Logger logger = Logger.getLogger(CategoryOps.class);
 
     public static SessionFactory _init(){
         Configuration confObj = new Configuration();

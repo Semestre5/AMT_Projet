@@ -1,7 +1,7 @@
 package com.amt.shop;
 
 import com.DAO.Access.ArticleOps;
-import com.DAO.Access.CatergoryOps;
+import com.DAO.Access.CategoryOps;
 import com.DAO.Objects.Article;
 import com.DAO.Objects.Category;
 
@@ -34,7 +34,7 @@ public class ShopServlet extends HttpServlet {
             }
         }
         request.setAttribute(ARTICLES_ATTR, ArticleOps.fetchAll());
-        request.setAttribute(CATEGORY_ATTR, TEST_CATEGORIES);
+        request.setAttribute(CATEGORY_ATTR, CategoryOps.fetchAll());
         RequestDispatcher rd = request.getRequestDispatcher("/shop.jsp");
         rd.forward(request, response);
     }
@@ -60,7 +60,7 @@ public class ShopServlet extends HttpServlet {
             articlesToDisplay.addAll(articles);
         */
         request.setAttribute(ARTICLES_ATTR, articlesToDisplay);
-        request.setAttribute(CATEGORY_ATTR, CatergoryOps.fetchAll());
+        request.setAttribute(CATEGORY_ATTR, CategoryOps.fetchAll());
         RequestDispatcher dispatcher = request.getRequestDispatcher("/shop.jsp");
         dispatcher.forward(request, response);
     }
