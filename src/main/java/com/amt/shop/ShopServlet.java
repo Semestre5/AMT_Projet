@@ -49,7 +49,7 @@ public class ShopServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
-        List <Article>articlesToDisplay = ArticleOps.fetchAll(); //TODO add fetchArticleWCat
+        List<Article> articlesToDisplay = (List<Article>) ArticleOps.fetchAll(); //TODO add fetchArticleWCat
         /*
         if (catStr != null) {
             for (String s : catStr)
