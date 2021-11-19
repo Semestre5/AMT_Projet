@@ -46,9 +46,12 @@ public class Article {
     @Getter @Setter
     private String link;
 
+    /*
     @ElementCollection
     @Getter @Setter
     private List<Integer> categoriesID;
+
+     */
 
     public Article() {
 
@@ -59,11 +62,14 @@ public class Article {
         this.name = name;
         this.quantity = quantity;
         this.link = link;
+        /*
         this.categoriesID = new ArrayList<>();
         this.categoriesID.add(1);
         this.categoriesID.add(2);
-    }
+        */
 
+    }
+//TODO bouger plus tard
     public boolean isSellable(){
         if(this.price == null)
             return false;
