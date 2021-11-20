@@ -9,7 +9,6 @@ import java.math.BigDecimal;
 @Table(name = "article")
 @Entity
 @Proxy(lazy = false)
-@Builder(toBuilder = true)
 public class Article {
 
     @Id
@@ -33,13 +32,24 @@ public class Article {
     @Column(name = "link", length = 200)
     private String link;
 
-    public Article(Integer id, BigDecimal price, String description, String name, Integer quantity, String link){
-        this.id = id;
-        this.price = price;
+    public Article(BigDecimal price, String description, String name, Integer quantity, String link){
+        this.price = (price.intValue() >= 0) ? price : BigDecimal.valueOf(0);
         this.description = description;
         this.name = name;
-        this.quantity = quantity;
+        this.quantity = quantity >= 0 ? quantity : 0;
         this.link = link;
+    }
+
+    public Article() {
+
+    }
+
+    public boolean isSellable(){
+        if(this.price == BigDecimal.valueOf(0) || this.quantity == 0){
+            return false;
+        }else{
+            return true;
+        }
     }
 
     public String getLink() {
