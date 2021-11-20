@@ -6,8 +6,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 //TODO: peut etre enlever les @SETTER parce qu'on peut modifier depuis le navigateur les trucs de la DB
 @Table(name = "article")
@@ -18,6 +19,7 @@ public class Article {
             "Calypso Theme", 1, "./resources/images/product1-1.jpg");
     public static Article TEST_ARTICLE2 = new Article( new BigDecimal("39.99"), "this a nice theme",
             "Mega cool Theme", 0, "./resources/images/product2-2.jpg");
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,18 +48,20 @@ public class Article {
     @Getter @Setter
     private String link;
 
-    @ManyToMany(cascade={CascadeType.ALL})
+    @ManyToMany(cascade={CascadeType.MERGE, CascadeType.PERSIST},fetch=FetchType.EAGER)
     @JoinTable(
             name = "article_category",
-            joinColumns = {@JoinColumn(name ="idarticle")},
-            inverseJoinColumns = {@JoinColumn(name="idCategory")}
+            joinColumns = {@JoinColumn(name ="idCategory")},
+            inverseJoinColumns = {@JoinColumn(name="idArticle")}
     )
-    @Getter @Setter
-    private List<Category> categories;
+    @Getter
+    private Set<Category> categories = new HashSet<Category>();
 
     public Article() {
 
     }
+
+
     public Article( BigDecimal price, String description, String name, Integer quantity, String link ) {
         this.price = price;
         this.description = description;
@@ -65,6 +69,12 @@ public class Article {
         this.quantity = quantity;
         this.link = link;
 
-
     }
+    public void addCategory(Category category){
+        categories.add(category);
+    }
+    public void addCategoryList( List<Category> categoryList){
+        categories.addAll( categoryList );
+    }
+
 }
