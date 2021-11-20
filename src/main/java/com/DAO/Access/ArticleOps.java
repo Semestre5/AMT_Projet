@@ -92,6 +92,14 @@ public class ArticleOps {
     }
 
 
+    public static List<?> fetchAllByCategories( Set categories){
+        Session sessionObj = _init().openSession();
+        List<?> articleList = sessionObj.createQuery("from Article a where :category in elements(categories) ").setParameter( "category",categories ).list();
+        logger.info("Number of articles : "+articleList.size());
+        sessionObj.close();
+        return articleList;
+    }
+
 
 
 
