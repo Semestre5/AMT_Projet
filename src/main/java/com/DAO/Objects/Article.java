@@ -1,5 +1,6 @@
 package com.DAO.Objects;
 
+import lombok.Builder;
 import org.hibernate.annotations.Proxy;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +20,6 @@ public class Article {
             "Calypso Theme", 1, "./resources/images/product1-1.jpg");
     public static Article TEST_ARTICLE2 = new Article( new BigDecimal("39.99"), "this a nice theme",
             "Mega cool Theme", 0, "./resources/images/product2-2.jpg");
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,6 +48,25 @@ public class Article {
     @Getter @Setter
     private String link;
 
+    public Article(BigDecimal price, String description, String name, Integer quantity, String link){
+        this.price = (price.intValue() >= 0) ? price : BigDecimal.valueOf(0);
+        this.description = description;
+        this.name = name;
+        this.quantity = quantity >= 0 ? quantity : 0;
+        this.link = link;
+    }
+
+    public Article() {
+
+    }
+
+    public boolean isSellable(){
+        if(this.price == BigDecimal.valueOf(0) || this.quantity == 0){
+            return false;
+        }else{
+            return true;
+        }
+    }
     @ManyToMany(cascade={CascadeType.MERGE, CascadeType.PERSIST},fetch=FetchType.EAGER)
     @JoinTable(
             name = "article_category",
@@ -57,19 +76,6 @@ public class Article {
     @Getter
     private Set<Category> categories = new HashSet<Category>();
 
-    public Article() {
-
-    }
-
-
-    public Article( BigDecimal price, String description, String name, Integer quantity, String link ) {
-        this.price = price;
-        this.description = description;
-        this.name = name;
-        this.quantity = quantity;
-        this.link = link;
-
-    }
     public void addCategory(Category category){
         categories.add(category);
     }
