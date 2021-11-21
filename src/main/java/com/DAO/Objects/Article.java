@@ -92,5 +92,4 @@ public class Article {
         Article other = (Article) o;
         return Objects.equals(other.getId(), this.id);
     }
-
 }
