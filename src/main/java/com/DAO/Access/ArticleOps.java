@@ -9,6 +9,7 @@ import org.hibernate.cfg.Configuration;
 import org.jboss.logging.Logger;
 
 import java.util.HashSet;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
@@ -79,6 +80,15 @@ public class ArticleOps {
         logger.info("Number of available articles is : "+articleList.size());
         return articleList;
     }
+    public static boolean isSellable(final Article a){
+        if(a.getPrice() == null)
+            return false;
+        else {
+            BigDecimal zero =new BigDecimal("0");
+            return !a.getPrice().equals(zero);
+        }
+
+    }
 
 
     public static List<?> fetchAllByCategory( Category category){
@@ -92,16 +102,13 @@ public class ArticleOps {
     }
 
 
-    public static List<?> fetchAllByCategories( Set categories){
+    public static List<?> fetchAllByCategories(Set categories){
         Session sessionObj = _init().openSession();
         List<?> articleList = sessionObj.createQuery("from Article a where :category in elements(categories) ").setParameter( "category",categories ).list();
         logger.info("Number of articles : "+articleList.size());
         sessionObj.close();
         return articleList;
     }
-
-
-
 
 
 
