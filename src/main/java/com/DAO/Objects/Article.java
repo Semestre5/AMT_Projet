@@ -67,18 +67,6 @@ public class Article {
             return true;
         }
     }
-
-    public String getLink() {
-        return link;
-    }
-
-    public void setLink( String link ) {
-        this.link = link;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
     @ManyToMany(cascade={CascadeType.MERGE, CascadeType.PERSIST},fetch=FetchType.EAGER)
     @JoinTable(
             name = "article_category",

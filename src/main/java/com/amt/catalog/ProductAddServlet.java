@@ -38,7 +38,7 @@ public class ProductAddServlet extends HttpServlet {
             productImg = BASE_IMG_URL;
         }
         Article newArticle = new Article(productPrice,productDesc,productName,productQuantity, productImg);
-        List<Article> currentArticles = ArticleOps.fetchAll();
+        List<Article> currentArticles = (List<Article>) ArticleOps.fetchAll();
         boolean already_exists = false;
         Article duplicate = null;
         for(Article a: currentArticles){
