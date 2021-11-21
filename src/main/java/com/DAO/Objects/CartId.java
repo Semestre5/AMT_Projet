@@ -9,19 +9,19 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
-public class ArticleCategoryId implements Serializable {
-    private static final long serialVersionUID = 2366224517268388400L;
+public class CartId implements Serializable {
+    private static final long serialVersionUID = -7193782011114742332L;
     @Column(name = "idArticle", nullable = false)
     private Integer idArticle;
-    @Column(name = "idCategory", nullable = false)
-    private Integer idCategory;
+    @Column(name = "idUser", nullable = false)
+    private Integer idUser;
 
-    public Integer getIdCategory() {
-        return idCategory;
+    public Integer getIdUser() {
+        return idUser;
     }
 
-    public void setIdCategory( Integer idCategory ) {
-        this.idCategory = idCategory;
+    public void setIdUser( Integer idUser ) {
+        this.idUser = idUser;
     }
 
     public Integer getIdArticle() {
@@ -34,15 +34,15 @@ public class ArticleCategoryId implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash( idArticle, idCategory );
+        return Objects.hash( idUser, idArticle );
     }
 
     @Override
     public boolean equals( Object o ) {
         if ( this == o ) return true;
         if ( o == null || Hibernate.getClass( this ) != Hibernate.getClass( o ) ) return false;
-        ArticleCategoryId entity = (ArticleCategoryId) o;
-        return Objects.equals( this.idArticle, entity.idArticle ) &&
-                Objects.equals( this.idCategory, entity.idCategory );
+        CartId entity = (CartId) o;
+        return Objects.equals( this.idUser, entity.idUser ) &&
+                Objects.equals( this.idArticle, entity.idArticle );
     }
 }

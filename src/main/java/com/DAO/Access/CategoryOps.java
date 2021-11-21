@@ -11,15 +11,11 @@ import org.hibernate.service.ServiceRegistry;
 
 import java.util.List;
 
-public class CatergoryOps {
-    private final static Logger logger = Logger.getLogger(CatergoryOps.class);
+public class CategoryOps {
+    private final static Logger logger = Logger.getLogger(CategoryOps.class);
 
     public static SessionFactory _init(){
-        Configuration confObj = new Configuration();
-        confObj.configure( "src/main/4/hibernate.cfg.xml" );
-        ServiceRegistry serviceRegistryObj = new StandardServiceRegistryBuilder().applySettings( confObj.getProperties()).build();
-        return (SessionFactory)confObj.buildSessionFactory(serviceRegistryObj);
-
+        return new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
     }
 
     public static Integer addCategory(String name){
@@ -28,13 +24,14 @@ public class CatergoryOps {
         Category newCategory=new Category(name);
         sessionObj.save(newCategory);
         transObj.commit();
+        sessionObj.close();
         logger.info("Successfully added"+newCategory.getName()+" category");
         return newCategory.getId();
     }
 
-    public static Category fetchOne(Category category){
+    public static Category fetchOne(Integer id){
         Session sessionObj = _init().openSession();
-        Category cat = (Category) sessionObj.load(Category.class,category.getId());
+        Category cat = (Category) sessionObj.load(Category.class,id);
         sessionObj.close();
         return cat;
     }

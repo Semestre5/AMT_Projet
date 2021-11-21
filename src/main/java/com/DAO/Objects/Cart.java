@@ -3,34 +3,37 @@ package com.DAO.Objects;
 import javax.persistence.*;
 
 @Table(name = "cart", indexes = {
-        @Index(name = "idUser_UNIQUE", columnList = "idUser", unique = true)
+        @Index(name = "fk_article_has_cart_article1_idx", columnList = "idArticle"),
+        @Index(name = "fk_article_has_cart_cart1_idx", columnList = "idUser")
 })
 @Entity
 public class Cart {
-    public Cart( Integer id, User idUser ) {
-        this.id = id;
-        this.idUser = idUser;
+    public Cart() {
     }
 
-    @Id
-    @Column(name = "id", nullable = false)
-    private Integer id;
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "idUser", nullable = false)
-    private User idUser;
-    public User getIdUser() {
-        return idUser;
+    public Cart( Integer quantity ) {
+        this.quantity = quantity;
     }
 
-    public void setIdUser( User idUser ) {
-        this.idUser = idUser;
+    @EmbeddedId
+    private CartId id;
+
+    @Column(name = "quantity")
+    private Integer quantity;
+
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public Integer getCartId() {
+    public void setQuantity( Integer quantity ) {
+        this.quantity = quantity;
+    }
+
+    public CartId getId() {
         return id;
     }
 
-    public void setCartId( Integer id ) {
+    public void setId( CartId id ) {
         this.id = id;
     }
 }

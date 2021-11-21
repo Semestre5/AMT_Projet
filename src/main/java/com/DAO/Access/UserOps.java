@@ -17,7 +17,9 @@ public class UserOps {
     public static SessionFactory _init() {
         // Creating Configuration Instance & Passing Hibernate Configuration File
         Configuration configObj = new Configuration();
-        configObj.configure( "src/main/4/hibernate.cfg.xml" );
+
+        configObj.configure( "hibernate.cfg.xml" );
+
         ServiceRegistry serviceRegistryObj = new StandardServiceRegistryBuilder().applySettings(configObj.getProperties()).build();
 
         // Creating Hibernate Session Factory Instance
@@ -35,7 +37,7 @@ public class UserOps {
         logger.info("Successfully Created " + userObj.toString());
         return userObj.getId();
     }
-    public static User fetchOne(Integer userId){
+    public static User fetchOne( Integer userId){
         Session sessionObj = _init().openSession();
         User user = (User) sessionObj.load(User.class, userId);
         // Closing The Session Object
