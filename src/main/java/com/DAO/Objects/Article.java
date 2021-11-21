@@ -56,6 +56,7 @@ public class Article {
         this.name = name;
         this.quantity = quantity >= 0 ? quantity : 0;
         this.link = link;
+
     }
 
     public Article() {
@@ -92,4 +93,5 @@ public class Article {
         Article other = (Article) o;
         return Objects.equals(other.getId(), this.id);
     }
+
 }
