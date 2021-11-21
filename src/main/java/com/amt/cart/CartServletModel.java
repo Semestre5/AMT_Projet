@@ -16,7 +16,7 @@ public class CartServletModel {
     @Getter private final List<Cart> cartProductList;
     private Integer session;
     CartServletModel(HttpServletRequest request){
-        this.session = null; //TODO change it pls
+        this.session = 1; //TODO change it pls
         this.cartProductList = new ArrayList<>();
         if (session != null)
             this.cartProductList.addAll(CartOps.fetchAllByUser(session));

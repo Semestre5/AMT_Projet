@@ -24,13 +24,14 @@ public class CategoryOps {
         Category newCategory=new Category(name);
         sessionObj.save(newCategory);
         transObj.commit();
-        logger.info("Successfully added"+newCategory.getName() + " category");
+        sessionObj.close();
+        logger.info("Successfully added"+newCategory.getName()+" category");
         return newCategory.getId();
     }
 
-    public static Category fetchOne(Category category){
+    public static Category fetchOne(Integer id){
         Session sessionObj = _init().openSession();
-        Category cat = (Category) sessionObj.load(Category.class,category.getId());
+        Category cat = (Category) sessionObj.load(Category.class,id);
         sessionObj.close();
         return cat;
     }
@@ -42,4 +43,7 @@ public class CategoryOps {
         logger.info( "Categories : "+  categoryList.size());
         return categoryList;
     }
+
+
+
 }
