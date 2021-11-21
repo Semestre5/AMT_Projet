@@ -7,13 +7,12 @@
             <i class="fa fa-bars"></i>
             <span class="sr-only">Toggle navigation</span>
           </button>
-          <a href="." class="navbar-brand brand"> SCORILO </a>
+          <a href="." class="navbar-brand brand"> WORK IN PROGRESS </a>
         </div>
         <div id="navbar-collapse-02" class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
             <li class="propClone"><a href=".">Home</a></li>
             <li class="propClone"><a href="shop">Shop</a></li>
-            <li class="propClone"><a href="product">Product</a></li>
             <li class="propClone"><a href="checkout">Checkout</a></li>
             <li class="propClone"><a href="contact">Contact</a></li>
             <%

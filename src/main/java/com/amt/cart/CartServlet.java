@@ -4,13 +4,13 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.util.Map;
 
 @WebServlet(name = "CartServlet", value = "/cart")
 public class CartServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        CartServletModel cart = new CartServletModel();
-
+        CartServletModel cart = session(request);
         request.setAttribute("cart", cart);
         RequestDispatcher rd = request.getRequestDispatcher("cart.jsp");
         rd.forward(request, response);
@@ -18,19 +18,23 @@ public class CartServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO 2 add product to cart. Note : 2 cases for member and offline (products saved on the client)
-        // Modification of cart here too
-        /*
-        if (request.getSession() != null){
-            // modification in db
-         }
-         else{
-            // TODO persistance
-         }
+        CartServletModel cart = session(request);
+        Map<String, String[]> parameterName = request.getParameterMap();
+        // we have an update, add or unique supression of an Article
+        if (parameterName.containsKey("id") && parameterName.containsKey("quantity")) {
+            int id = Integer.parseInt(request.getParameter("id"));
+            int quantity = Integer.parseInt(request.getParameter("quantity"));
+            cart.update(id, quantity);
+        }
+        // suppression of all the cart
+        else if (parameterName.containsKey("delete")){
+            cart.deleteAll();
+        }
+        response.sendRedirect("cart");
+    }
 
-
-
-        */
-
+    private CartServletModel session(HttpServletRequest request){
+        return new CartServletModel(request);
+        //TODO if offline, return another CartServletModel
     }
 }
