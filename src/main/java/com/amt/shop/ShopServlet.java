@@ -9,9 +9,8 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @WebServlet(name = "ShopServlet", value = "/shop")
 public class ShopServlet extends HttpServlet {
@@ -42,7 +41,20 @@ public class ShopServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
-        request.setAttribute(ARTICLES_ATTR,  ArticleOps.fetchAll());
+        String[] catIds = request.getParameterValues("category");
+        List<Category> categoriesToDisplay = new ArrayList<>();
+        List<Article> articlesToDisplay = new ArrayList<>();
+        if (catIds != null) {
+            for (String id : catIds)
+                articlesToDisplay.addAll((List<Article>) ArticleOps.fetchAllByCategory(CategoryOps.fetchOne(Integer.parseInt(id))));
+            List<Article> distinctArticle = new ArrayList<>();
+            for(Article a: articlesToDisplay)
+                if (!distinctArticle.contains(a))
+                    distinctArticle.add(a);
+            request.setAttribute(ARTICLES_ATTR, distinctArticle);
+        } else {
+            request.setAttribute(ARTICLES_ATTR, ArticleOps.fetchAll());
+        }
         request.setAttribute(CATEGORY_ATTR, CategoryOps.fetchAll());
         RequestDispatcher dispatcher = request.getRequestDispatcher("/shop.jsp");
         dispatcher.forward(request, response);

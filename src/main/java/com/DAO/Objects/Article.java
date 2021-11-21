@@ -1,6 +1,7 @@
 package com.DAO.Objects;
 
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.Proxy;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,6 +10,7 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 //TODO: peut etre enlever les @SETTER parce qu'on peut modifier depuis le navigateur les trucs de la DB
@@ -67,6 +69,7 @@ public class Article {
             return true;
         }
     }
+
     @ManyToMany(cascade={CascadeType.MERGE, CascadeType.PERSIST},fetch=FetchType.EAGER)
     @JoinTable(
             name = "article_category",
@@ -81,6 +84,13 @@ public class Article {
     }
     public void addCategoryList( List<Category> categoryList){
         categories.addAll( categoryList );
+    }
+
+    public boolean equals(Object o){
+        if (o == this) return true;
+        if (!(o instanceof Article)) return false;
+        Article other = (Article) o;
+        return Objects.equals(other.getId(), this.id);
     }
 
 }
