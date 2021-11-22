@@ -15,6 +15,8 @@ public class CartServlet extends HttpServlet {
         CartServletModel cart = session(request);
         request.setAttribute("cart", cart);
         RequestDispatcher rd = request.getRequestDispatcher("cart.jsp");
+        if (!cart.isMember())
+            request.getSession().setAttribute("cart", cart);
         rd.forward(request, response);
     }
 
@@ -33,11 +35,22 @@ public class CartServlet extends HttpServlet {
         else if (parameterName.containsKey("delete")){
             cart.deleteAll();
         }
+        if (!cart.isMember())
+            request.getSession(false).setAttribute("cart", cart);
         response.sendRedirect("cart");
     }
 
     private CartServletModel session(HttpServletRequest request){
-        return new CartServletModel(request);
-        //TODO if offline, return another CartServletModel
+        HttpSession session = request.getSession(false);
+        // we are online, so we reset our data every actions
+        if (session != null && session.getAttribute("idUserSession") != null ) {
+            return new CartServletModel(request, true);
+        }
+        // we have a Cart in cache
+        if (session != null && session.getAttribute("cart")!= null){
+            return ((CartServletModel) session.getAttribute("cart"));
+        }
+        // we create a Cart for session
+        return new CartServletModel(request, false);
     }
 }

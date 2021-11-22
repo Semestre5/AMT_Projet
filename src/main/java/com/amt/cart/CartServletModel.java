@@ -15,19 +15,16 @@ import java.util.List;
 public class CartServletModel {
     @Getter private final List<Cart> cartProductList;
     private Integer session;
-    CartServletModel(HttpServletRequest request){
-        this.session = 1; //TODO change it pls
+    @Getter private final boolean isMember;
+    CartServletModel(HttpServletRequest request, boolean isMember){
+        this.isMember = isMember;
         this.cartProductList = new ArrayList<>();
-        if (session != null)
+        if (isMember) {
+            this.session = (Integer) request.getSession(false).getAttribute("idUserSession"); //TODO change it pls
             this.cartProductList.addAll(CartOps.fetchAllByUser(session));
-        else {
-            CartId tmp = new CartId();
-            tmp.setIdUser(1);
-            tmp.setIdArticle(3);
-            Cart cart = new Cart(3);
-            cart.setId(tmp);
-            cartProductList.add(cart);
         }
+        else
+            this.session = null;
     }
 
 
