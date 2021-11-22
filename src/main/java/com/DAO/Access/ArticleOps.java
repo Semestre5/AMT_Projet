@@ -80,15 +80,7 @@ public class ArticleOps {
         logger.info("Number of available articles is : "+articleList.size());
         return articleList;
     }
-    public static boolean isSellable(final Article a){
-        if(a.getPrice() == null)
-            return false;
-        else {
-            BigDecimal zero =new BigDecimal("0");
-            return !a.getPrice().equals(zero);
-        }
 
-    }
 
 
     public static List<?> fetchAllByCategory( Category category){

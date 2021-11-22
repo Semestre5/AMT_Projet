@@ -76,9 +76,9 @@
                             <h1><%out.print(a.getName());%></h1>
                         </a>
                         <span class="price">
-                            <span class="edd_price"><%out.print(ArticleOps.isSellable(a) ? "CHF " + a.getPrice() : "");%></span>
+                            <span class="edd_price"><%out.print(a.isSellable() ? "CHF " + a.getPrice() : "");%></span>
                         </span>
-                        <%if (ArticleOps.isSellable(a)) {%>
+                        <%if (a.isSellable()) {%>
                         <form method="post" action="cart">
                             <input hidden name="id" value="<%out.print(String.valueOf(a.getId()));%>"/>
                             <input hidden name="quantity" value="1"/>

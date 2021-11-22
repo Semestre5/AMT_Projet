@@ -55,7 +55,7 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <%if (ArticleOps.isSellable(article)) {%>
+                <%if (article.isSellable()) {%>
 
                 <form method="post" action="../cart">
                     <input hidden name="id" value="<%out.print(String.valueOf(article.getId()));%>"/>

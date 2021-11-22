@@ -64,11 +64,7 @@ public class Article {
     }
 
     public boolean isSellable(){
-        if(this.price == BigDecimal.valueOf(0) || this.quantity == 0){
-            return false;
-        }else{
-            return true;
-        }
+        return this.price.intValue() != 0 && this.quantity != 0;
     }
 
     @ManyToMany(cascade={CascadeType.MERGE, CascadeType.PERSIST},fetch=FetchType.EAGER)
