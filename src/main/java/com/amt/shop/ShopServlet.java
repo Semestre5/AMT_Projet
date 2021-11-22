@@ -45,8 +45,11 @@ public class ShopServlet extends HttpServlet {
         List<Category> categoriesToDisplay = new ArrayList<>();
         List<Article> articlesToDisplay = new ArrayList<>();
         if (catIds != null) {
-            for (String id : catIds)
-                articlesToDisplay.addAll((List<Article>) ArticleOps.fetchAllByCategory(CategoryOps.fetchOne(Integer.parseInt(id))));
+            for (String id : catIds) {
+                Category catToFetch = CategoryOps.fetchOne(Integer.parseInt(id));
+                List<Article> articlesToAdd = (List<Article>) ArticleOps.fetchAllByCategory(catToFetch);
+                articlesToDisplay.addAll(articlesToAdd);
+            }
             List<Article> distinctArticle = new ArrayList<>();
             for(Article a: articlesToDisplay)
                 if (!distinctArticle.contains(a))
