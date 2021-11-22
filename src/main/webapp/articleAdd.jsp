@@ -40,14 +40,15 @@
             <!-- Colonnes, à répartir sur 12 pour remplir la page, on peut mettre autant de colonnes qu'on veut tant qu'on
                  reste sur 12 (6 colonnes de 2 par exemple) -->
             <div class="col-lg-8 col-lg-offset-2">
-                <form id="contactform" method="POST" action="product.add">
+                <!-- Laisser id =contactform, c'est pour le visuel -->
+                <form id="contactform" method="POST" action="articleAdd" enctype="multipart/form-data">
                     <div class="form">
-                        <input type="text" name="productName" placeholder="Name" required>
-                        <input type="number" name="productNumber" placeholder="Quantity" required>
-                        <input type="file" class="form-control" id="customFile" />
-                        <textarea rows="5" name="productDesc" placeholder="Description"></textarea>
-                        <input type="number" name="productPrice" placeholder="Price"> <br>
-                        <input type="submit" value="Add Product"/>
+                        <input type="text" name="name" placeholder="Name" required>
+                        <input type="number" name="quantity" placeholder="Quantity" required>
+                        <input type="file" name="image">
+                        <textarea rows="5" name="description" placeholder="Description"></textarea>
+                        <input type="number" name="price" placeholder="Price"> <br>
+                        <h3><input type="submit" value="Add article"/></h3>
                     </div>
                 </form>
             </div>
