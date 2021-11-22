@@ -144,7 +144,7 @@ public class CartServletModel {
      */
     private void updateSession(HttpServletRequest request){
         if (request.getSession(false) != null) {
-            Object sessionID = request.getSession(false).getAttribute("idUserSession");
+            Object sessionID = request.getSession(false).getAttribute("idUser");
             if (sessionID != null && sessionID.getClass() == Integer.class) {
                 this.session = (Integer) sessionID;
                 this.cartProductList.addAll(CartOps.fetchAllByUser(session));

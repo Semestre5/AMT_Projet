@@ -16,7 +16,7 @@
                         <li class="propClone"><a href="../cart">Cart</a></li>
                         <li class="propClone"><a href="../contact">Contact</a></li>
                         <%
-                            if (session.getAttribute("idUserSession") == null) {
+                            if (session.getAttribute("idUser") == null) {
                         %>
                         <li class="propClone"><a href="../register">Register</a></li>
                         <li class="propClone"><a href="../login">Login</a></li>
