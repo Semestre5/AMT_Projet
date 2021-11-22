@@ -1,5 +1,7 @@
 package com.amt.cart;
 
+import lombok.SneakyThrows;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
@@ -16,6 +18,7 @@ public class CartServlet extends HttpServlet {
         rd.forward(request, response);
     }
 
+    @SneakyThrows
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         CartServletModel cart = session(request);

@@ -13,8 +13,7 @@
           <ul class="nav navbar-nav navbar-right">
             <li class="propClone"><a href=".">Home</a></li>
             <li class="propClone"><a href="shop">Shop</a></li>
-            <li class="propClone"><a href="checkout">Checkout</a></li>
-            <li class="propClone"><a href="contact">Contact</a></li>
+            <li class="propClone"><a href="cart">Cart</a></li>
             <%
               if (session.getAttribute("idUserSession") == null) {
             %>

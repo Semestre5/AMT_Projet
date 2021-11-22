@@ -79,10 +79,12 @@
                             <span class="edd_price"><%out.print(ArticleOps.isSellable(a) ? "CHF " + a.getPrice() : "");%></span>
                         </span>
                         <%if (ArticleOps.isSellable(a)) {%>
-                        <form method="post" href="/cart">
+                        <form method="post" action="cart">
                             <input hidden name="id" value="<%out.print(String.valueOf(a.getId()));%>"/>
                             <input hidden name="quantity" value="1"/>
-                            <a type="submit" class="btn-buynow">Add to cart</a>
+                            <span style="display: flex; justify-content: center">
+                                <input type="submit" class="btn-buynow" value="Add to Cart"/>
+                            </span>
                         </form>
                         <%} else {%>
                         <h4>Article unavailable</h4>

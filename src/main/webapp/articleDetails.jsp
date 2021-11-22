@@ -56,10 +56,11 @@
             </div>
             <div class="col-md-4">
                 <%if (ArticleOps.isSellable(article)) {%>
-                <form method="post" href="../cart">
+
+                <form method="post" action="../cart">
                     <input hidden name="id" value="<%out.print(String.valueOf(article.getId()));%>"/>
                     <input hidden name="quantity" value="1"/>
-                    <a type="submit" class="btn-buynow">Add to cart</a>
+                    <input type="submit" class="btn-buynow" value="Send to cart"></input>
                 </form>
                 <%} else {%>
                 <span><h1>Article unavailable</h1></span>

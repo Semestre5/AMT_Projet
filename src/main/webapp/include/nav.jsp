@@ -14,7 +14,6 @@
             <li class="propClone"><a href=".">Home</a></li>
             <li class="propClone"><a href="shop">Shop</a></li>
             <li class="propClone"><a href="cart">Cart</a></li>
-            <li class="propClone"><a href="contact">Contact</a></li>
             <%
               if (session.getAttribute("idUserSession") == null) {
             %>
