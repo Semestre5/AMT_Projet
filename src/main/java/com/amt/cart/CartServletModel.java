@@ -2,31 +2,26 @@ package com.amt.cart;
 
 import com.DAO.Access.ArticleOps;
 import com.DAO.Access.CartOps;
-import com.DAO.Objects.Article;
 import com.DAO.Objects.Cart;
 import com.DAO.Objects.CartId;
 import lombok.Getter;
 
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CartServletModel {
     @Getter private final List<Cart> cartProductList;
-    private Integer session;
-    @Getter private final boolean isMember;
-    CartServletModel(HttpServletRequest request, boolean isMember){
-        this.isMember = isMember;
+    @Getter private Integer idSession = null;
+    CartServletModel(Integer idSession){
         this.cartProductList = new ArrayList<>();
-        if (isMember) {
-            this.session = (Integer) request.getSession(false).getAttribute("idUserSession"); //TODO change it pls
-            this.cartProductList.addAll(CartOps.fetchAllByUser(session));
-        }
-        else
-            this.session = null;
-    }
 
+        // the user is a Member and retrieve his personal Cart
+        if (idSession != null) {
+            this.idSession = idSession;
+            this.cartProductList.addAll(CartOps.fetchAllByUser(idSession));
+        }
+    }
 
     /**
      * Update the current state of cart with an Article. Can suppress, edit or add an Article
@@ -35,15 +30,16 @@ public class CartServletModel {
      * @param quantity quantity of associated Article
      */
     public void update(int idArticle, int quantity) throws Exception/* throws Exception*/ {
+        // the product is in the Cart
         if (has(idArticle)){
-            if (quantity == 0){ // suppression of article
+            if (quantity == 0){ // suppression of article in cart when 0 quantity
                 delete(idArticle);
             }
             else { // modification of article quantity in cart
                 for (Cart cartProduct : cartProductList) {
                     if (cartProduct.getId().getIdArticle() == idArticle) {
                         cartProduct.setQuantity(quantity);
-                        if (session != null)
+                        if (idSession != null)
                             CartOps.update(cartProduct); //update in db
                         break;
                     }
@@ -59,8 +55,8 @@ public class CartServletModel {
      * Suppress all Articles from Cart. If the user is connected, it suppresses all Cart in db too.
      */
     public void deleteAll(){
-        if (session != null){
-            CartOps.deleteAll(session);
+        if (idSession != null){
+            CartOps.deleteAll(idSession);
         }
         else{
             this.cartProductList.clear();
@@ -88,12 +84,12 @@ public class CartServletModel {
     private void add(int idProduct, int quantity) throws Exception {
         CartId cartID = new CartId();
         cartID.setIdArticle(idProduct);
-        cartID.setIdUser(this.session);
+        cartID.setIdUser(this.idSession);
         Cart cart = new Cart(quantity);
         cart.setId(cartID);
-        if (session != null){ //online, we save the cart
+        if (idSession != null){ //online, we save the cart
             if (CartOps.save(cart) == null){
-                throw new Exception("not added");
+                throw new Exception("the product has not been added in database");
             }
         }
         else{
@@ -108,43 +104,13 @@ public class CartServletModel {
     private void delete(int idProduct){
         for (int i = 0; i < cartProductList.size(); i++) {
             if (cartProductList.get(i).getId().getIdArticle() == idProduct) {
-                if (session != null){
+                if (idSession != null){
                     CartOps.deleteOne(cartProductList.get(i).getId());
                 }
                 else{
                     cartProductList.remove(i);
                 }
-            }
-        }
-    }
-
-    /**
-     * Update the content of Cart in this
-     */
-    public void updateContent() {
-        //TODO mettre à jour session (voir si deco)
-        if (session != null)
-            updateAll();
-    }
-
-    /**
-     * Update the database in this
-     */
-    private void updateAll(){
-        this.cartProductList.clear();
-        this.cartProductList.addAll(CartOps.fetchAllByUser(session));
-    }
-
-    /**
-     * Verify if the user is still connected
-     * @param request Last user request
-     */
-    private void updateSession(HttpServletRequest request){
-        if (request.getSession(false) != null) {
-            Object sessionID = request.getSession(false).getAttribute("idUserSession");
-            if (sessionID != null && sessionID.getClass() == Integer.class) {
-                this.session = (Integer) sessionID;
-                this.cartProductList.addAll(CartOps.fetchAllByUser(session));
+                return;
             }
         }
     }

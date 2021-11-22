@@ -28,6 +28,7 @@ public class ArticleOps {
         // adding article to DB
         sessionObj.save(article);
         transObj.commit();
+        sessionObj.close();
         logger.info("Successfully commited article"+article.getId()+"to DB");
         return article.getId();
     }
@@ -69,6 +70,7 @@ public class ArticleOps {
         Transaction transObj = sessionObj.beginTransaction();
         Article  tmpArticle =  fetchOne(articleId);
         sessionObj.delete(tmpArticle);
+        sessionObj.close();
         logger.info("Article"+ tmpArticle.getId()+"successfully deleted");
 
     }
@@ -89,7 +91,6 @@ public class ArticleOps {
         }
 
     }
-
 
     public static List<?> fetchAllByCategory( Category category){
         Session sessionObj = _init().openSession();
