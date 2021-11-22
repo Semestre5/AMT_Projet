@@ -1,6 +1,6 @@
-<%@ page import="com.amt.object.Product" %>
-<%@ page import="com.DAO.Objects.Article" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="com.DAO.Objects.Article" %>
+<%@ page import="com.DAO.Access.ArticleOps" %>
 <%
     Article article = (Article) request.getAttribute("articleDetails");
 %>
@@ -55,7 +55,16 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <a href="#" class="btn btn-buynow"><%out.print(article.getPrice());%> - Add to cart</a>
+                <%if (article.isSellable()) {%>
+
+                <form method="post" action="../cart">
+                    <input hidden name="id" value="<%out.print(String.valueOf(article.getId()));%>"/>
+                    <input hidden name="quantity" value="1"/>
+                    <input type="submit" class="btn-buynow" value="Send to cart"></input>
+                </form>
+                <%} else {%>
+                <span><h1>Article unavailable</h1></span>
+                <%}%>
                 <div class="properties-box">
                     <ul class="unstyle">
                         <li><b class="propertyname">Version:</b> 1.0</li>

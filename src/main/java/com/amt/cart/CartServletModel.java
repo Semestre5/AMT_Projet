@@ -37,7 +37,7 @@ public class CartServletModel {
      * @param idArticle id of the element to add, suppres or modify in cart
      * @param quantity quantity of associated Article
      */
-    public void update(int idArticle, int quantity)/* throws Exception*/ {
+    public void update(int idArticle, int quantity) throws Exception/* throws Exception*/ {
         if (has(idArticle)){
             if (quantity == 0){ // suppression of article
                 delete(idArticle);
@@ -45,10 +45,9 @@ public class CartServletModel {
             else { // modification of article quantity in cart
                 for (Cart cartProduct : cartProductList) {
                     if (cartProduct.getId().getIdArticle() == idArticle) {
+                        cartProduct.setQuantity(quantity);
                         if (session != null)
                             CartOps.update(cartProduct); //update in db
-                        else
-                            cartProduct.setQuantity(quantity);
                         break;
                     }
                 }
@@ -89,15 +88,16 @@ public class CartServletModel {
      * @param idProduct id of the Product, must exist in db
      * @param quantity quantity to add in Cart
      */
-    private void add(int idProduct, int quantity){
-        Article article = ArticleOps.fetchOne(idProduct); //throw if not exists
+    private void add(int idProduct, int quantity) throws Exception {
         CartId cartID = new CartId();
-        cartID.setIdArticle(article.getId());
+        cartID.setIdArticle(idProduct);
         cartID.setIdUser(this.session);
         Cart cart = new Cart(quantity);
         cart.setId(cartID);
         if (session != null){ //online, we save the cart
-            CartOps.save(cart);
+            if (CartOps.save(cart) == null){
+                throw new Exception("not added");
+            }
         }
         else{
             cartProductList.add(cart);
@@ -144,7 +144,7 @@ public class CartServletModel {
      */
     private void updateSession(HttpServletRequest request){
         if (request.getSession(false) != null) {
-            Object sessionID = request.getSession(false).getAttribute("idUser");
+            Object sessionID = request.getSession(false).getAttribute("idUserSession");
             if (sessionID != null && sessionID.getClass() == Integer.class) {
                 this.session = (Integer) sessionID;
                 this.cartProductList.addAll(CartOps.fetchAllByUser(session));

@@ -2,6 +2,7 @@
 <%@ page import="com.amt.shop.ShopServlet" %>
 <%@ page import="com.DAO.Objects.Article" %>
 <%@ page import="com.DAO.Objects.Category" %>
+<%@ page import="com.DAO.Access.ArticleOps" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
     List<Article> articles = (List<Article>) request.getAttribute(ShopServlet.ARTICLES_ATTR);
@@ -75,14 +76,19 @@
                             <h1><%out.print(a.getName());%></h1>
                         </a>
                         <span class="price">
-                            <span class="edd_price"> <%out.print(a.getPrice());%></span>
+                            <span class="edd_price"><%out.print(a.isSellable() ? "CHF " + a.getPrice() : "");%></span>
                         </span>
-                            <form method="post" href="/cart">
-                                <input hidden name="id" value="<%out.print(String.valueOf(a.getId()));%>"/>
-                                <input hidden name="quantity" value="1"/> <!-- we set 1 to add one object -->
-                                <input type="submit" class="btn-buynow" value="Send to cart">
-                            </form>
-                        </a>
+                        <%if (a.isSellable()) {%>
+                        <form method="post" action="cart">
+                            <input hidden name="id" value="<%out.print(String.valueOf(a.getId()));%>"/>
+                            <input hidden name="quantity" value="1"/>
+                            <span style="display: flex; justify-content: center">
+                                <input type="submit" class="btn-buynow" value="Add to Cart"/>
+                            </span>
+                        </form>
+                        <%} else {%>
+                        <h4>Article unavailable</h4>
+                        <%}%>
                     </div>
                 </div>
             </div>
