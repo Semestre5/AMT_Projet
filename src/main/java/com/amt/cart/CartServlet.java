@@ -35,7 +35,7 @@ public class CartServlet extends HttpServlet {
             Article article = ArticleOps.fetchOne(id);
 
             // if the requested modification of cart claimed is invalid, we throw it.
-            if (article == null || quantity < 0 || !ArticleOps.isSellable(article)){
+            if (article == null || quantity < 0 || !article.isSellable()){
                 throw new Exception("An invalid update of cart has been claimed");
             }
             cart.update(id, quantity);

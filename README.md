@@ -17,6 +17,8 @@ The server is [Tomcat 9.0.54](https://tomcat.apache.org/download-90.cgi)
 
 To start developping, clone the repo. Open the repo using IntelliJ. You then need to define the configuration
 
+### Using intelliJ and Tomcat
+
 - Import as maven project:
 
 ![image-20211119155607471](README.assets/image-20211119155607471.png)
@@ -41,11 +43,21 @@ And execute ``mvn clean install``
 
 
 
-- Click apply and ok and you are good to go !
+- Click apply and ok.
+
+### Docker and database
+
+We are using a MySQL Database in a docker container.
+
+- First install [Docker desktop](https://www.docker.com/products/docker-desktop)
+- Then go in the project directory then to database folder
+- Run ``script.sh`` , this will run build the docker image and run the container
+
+You can now start coding, gl hf ! 
 
 ## Usage
 
-Well, if you did the installation right, you can click on the run button ()
+Well, if you did the installation right, you can click on the run button.
 
 ## Contributing
 

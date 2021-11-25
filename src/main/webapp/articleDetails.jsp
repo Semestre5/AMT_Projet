@@ -21,8 +21,19 @@
     {
         var value = parseInt(document.getElementById('number').value, 10);
         value = isNaN(value) ? 0 : value;
-        value--;
+        if (value > 1) {
+            value--;
+        }
         document.getElementById('number').value = value;
+    }
+    function validNumber(){
+        var value = parseInt(document.getElementById('number').value, 10);
+        value = isNaN(value) ? 0 : value;
+        if (value <= 0) {
+            document.getElementById("message").innerHTML = "Quantity must be positive";
+            return false;
+        }
+        return true;
     }
 </script>
 
@@ -72,15 +83,15 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <%if (ArticleOps.isSellable(article)) {%>
-
-                <form method="post" action="../cart">
+                <%if (article.isSellable()) {%>
+                <form method="post" action="../cart" onsubmit="return validNumber()">
                     <span style="display: flex;justify-content: space-evenly">
                         <input hidden name="id" value="<%out.print(String.valueOf(article.getId()));%>"/>
                         <input type="button" onclick="decrementValue()" class="edd_cart_remove_item_btn" value="&nbsp-&nbsp">
                         <input type="number" name="quantity" id="number" value="1"/>
                         <input type="button" onclick="incrementValue()" class="edd_cart_remove_item_btn" value="&nbsp+&nbsp">
                     </span>
+                    <span id = "message" style="color:red"> </span>
                     <br>
                     <span style="display: flex; justify-content: center">
                         <input style="width: 100%" type="submit" class="btn-buynow" value="Send to cart"/>
@@ -89,25 +100,25 @@
                 <%} else {%>
                 <span><h1>Article unavailable</h1></span>
                 <%}%>
-                <div class="properties-box">
-                    <ul class="unstyle">
-                        <li><b class="propertyname">Version:</b> 1.0</li>
-                        <li><b class="propertyname">Image Size:</b> 2340x1200</li>
-                        <li><b class="propertyname">Files Included:</b> mp3, audio, jpeg, png</li>
-                        <li><b class="propertyname">Documentation:</b> Well Documented</li>
-                        <li><b class="propertyname">License:</b> GNU</li>
-                        <li><b class="propertyname">Requires:</b> Easy Digital Downloads</li>
-                        <li><b class="propertyname">Environment:</b> Wordpress</li>
-                        <li><b class="propertyname">Any Field Etc:</b> Any Detail</li>
-                        <li><b class="propertyname">Number:</b> Up to 20 specifications in this box</li>
-                    </ul>
+                    <!-- <div class="properties-box">
+                        <ul class="unstyle">
+                            <li><b class="propertyname">Version:</b> 1.0</li>
+                            <li><b class="propertyname">Image Size:</b> 2340x1200</li>
+                            <li><b class="propertyname">Files Included:</b> mp3, audio, jpeg, png</li>
+                            <li><b class="propertyname">Documentation:</b> Well Documented</li>
+                            <li><b class="propertyname">License:</b> GNU</li>
+                            <li><b class="propertyname">Requires:</b> Easy Digital Downloads</li>
+                            <li><b class="propertyname">Environment:</b> Wordpress</li>
+                            <li><b class="propertyname">Any Field Etc:</b> Any Detail</li>
+                            <li><b class="propertyname">Number:</b> Up to 20 specifications in this box</li>
+                        </ul>
+                    </div> -->
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- FOOTER =============================-->
+    <!-- FOOTER =============================-->
 <%@include file="include/footer.html" %>
 
 </body>
