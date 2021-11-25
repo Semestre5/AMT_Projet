@@ -85,22 +85,15 @@ public class ArticleOps {
 
     public static List<?> fetchAllByCategory( Category category){
         Session sessionObj = _init().openSession();
-        Set<Category> cats = new HashSet<Category>();
-        cats.add(category);
-        List<?> articleList = sessionObj.createQuery("from Article a where :category in elements(categories) ").setParameter( "category",cats ).list();
+
+        List<?> articleList = sessionObj.createQuery("from Article article inner join article.categories cats where cats.id = :category").setParameter( "category",category.getId() ).list();
         logger.info("Number of articles : "+articleList.size());
         sessionObj.close();
         return articleList;
     }
 
 
-    public static List<?> fetchAllByCategories(Set categories){
-        Session sessionObj = _init().openSession();
-        List<?> articleList = sessionObj.createQuery("from Article a where :category in elements(categories) ").setParameter( "category",categories ).list();
-        logger.info("Number of articles : "+articleList.size());
-        sessionObj.close();
-        return articleList;
-    }
+
 
 
 
