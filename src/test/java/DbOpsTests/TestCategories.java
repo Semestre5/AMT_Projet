@@ -39,7 +39,7 @@ public class TestCategories {
 
     }*/
 
-    /*
+
 
 
     @Test
@@ -72,6 +72,6 @@ public class TestCategories {
         System.out.println("There is "+articles.size()+" article under this category");
     }
 
-    */
+
 }
      
