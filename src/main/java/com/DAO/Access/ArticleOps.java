@@ -28,6 +28,7 @@ public class ArticleOps {
         // adding article to DB
         sessionObj.save(article);
         transObj.commit();
+        sessionObj.close();
         logger.info("Successfully commited article"+article.getId()+"to DB");
         return article.getId();
     }
@@ -69,6 +70,7 @@ public class ArticleOps {
         Transaction transObj = sessionObj.beginTransaction();
         Article  tmpArticle =  fetchOne(articleId);
         sessionObj.delete(tmpArticle);
+        sessionObj.close();
         logger.info("Article"+ tmpArticle.getId()+"successfully deleted");
 
     }
@@ -82,8 +84,7 @@ public class ArticleOps {
     }
 
 
-
-    public static List<?> fetchAllByCategory( Category category){
+ public static List<?> fetchAllByCategory( Category category){
         Session sessionObj = _init().openSession();
         Set<Category> cats = new HashSet<Category>();
         cats.add(category);
@@ -92,16 +93,4 @@ public class ArticleOps {
         sessionObj.close();
         return articleList;
     }
-
-
-    public static List<?> fetchAllByCategories(Set categories){
-        Session sessionObj = _init().openSession();
-        List<?> articleList = sessionObj.createQuery("from Article a where :category in elements(categories) ").setParameter( "category",categories ).list();
-        logger.info("Number of articles : "+articleList.size());
-        sessionObj.close();
-        return articleList;
-    }
-
-
-
 }
