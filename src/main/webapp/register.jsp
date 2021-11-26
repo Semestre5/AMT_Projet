@@ -5,8 +5,8 @@
 <script>
   function verifyPassword() {
     var pwd = document.getElementById("password").value;
-    if(!pwd.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&])[A-Za-z\d#$^+=!*()@%&]{8,}$/)){
-      document.getElementById("message").innerHTML = "**Password must be at least 8 char long, should contain at " +
+    if(!pwd.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&.])[A-Za-z\d#$^+=!*()@%&.]{8,}$/)){
+      document.getElementById("message").innerHTML = "Password must be at least 8 char long, should contain at " +
               "least one uppercase char, one lowercase char, one digit and one special character";
       return false;
     }

@@ -1,5 +1,6 @@
 package com.amt.login;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.servlet.*;
@@ -25,9 +26,9 @@ public class LoginServlet extends HttpServlet {
 
         JSONObject resultLogin = checkLogin(username, password);
 
-        if(resultLogin.getString("code").equals("200")) {
+        if(resultLogin.getInt("code") == 200) {
             JSONObject account = resultLogin.getJSONObject("account");
-            String idUser = account.getString("id");
+            Integer idUser = account.getInt("id");
             String roleUser = account.getString("role");
 
             HttpSession session = request.getSession();
@@ -64,17 +65,21 @@ public class LoginServlet extends HttpServlet {
         // Récupération du code de la réponse
         int status = connection.getResponseCode();
 
+        JSONObject response = new JSONObject();
+
         // Récupération du contenu de la réponse
-        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        String inputLine;
-        StringBuilder content = new StringBuilder();
-        while ((inputLine = in.readLine()) != null) {
-            content.append(inputLine);
+        if(status == 200){
+            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String inputLine;
+            StringBuilder content = new StringBuilder();
+            while ((inputLine = in.readLine()) != null) {
+                content.append(inputLine);
+            }
+            in.close();
+            response = new JSONObject(content.toString());
         }
-        in.close();
 
         // Création d'un JSON pour la réponse
-        JSONObject response = new JSONObject(content);
         response.put("code", status);
 
         return response;

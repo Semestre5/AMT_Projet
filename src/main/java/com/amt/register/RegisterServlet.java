@@ -30,14 +30,16 @@ public class RegisterServlet extends HttpServlet {
 
         JSONObject resultRegister = checkRegister(username, password);
 
-        if(resultRegister.getString("code").equals("201")) {
-            String idUser = resultRegister.getString("id");
+        if(resultRegister.getInt("code") == 201) {
+            Integer idUser = resultRegister.getInt("id");
 
-            User u = new User();
-            u.setId(Integer.parseInt(idUser));
-            UserOps.register(u);
+            /*User u = new User();
+            u.setId(idUser);
+            UserOps.register(u);*/
 
             response.sendRedirect("login");
+        } else {
+            response.sendRedirect("register");
         }
     }
 
@@ -65,17 +67,21 @@ public class RegisterServlet extends HttpServlet {
         // Récupération du code de la réponse
         int status = connection.getResponseCode();
 
+        JSONObject response = new JSONObject();
+
         // Récupération du contenu de la réponse
-        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        String inputLine;
-        StringBuilder content = new StringBuilder();
-        while ((inputLine = in.readLine()) != null) {
-            content.append(inputLine);
+        if(status == 201) {
+            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String inputLine;
+            StringBuilder content = new StringBuilder();
+            while ((inputLine = in.readLine()) != null) {
+                content.append(inputLine);
+            }
+            in.close();
+            response = new JSONObject(content.toString());
         }
-        in.close();
 
         // Création d'un JSON pour la réponse
-        JSONObject response = new JSONObject(content);
         response.put("code", status);
 
         return response;
