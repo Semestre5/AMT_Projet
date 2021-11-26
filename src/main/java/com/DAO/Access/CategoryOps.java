@@ -43,7 +43,4 @@ public class CategoryOps {
         logger.info( "Categories : "+  categoryList.size());
         return categoryList;
     }
-
-
-
 }

@@ -21,6 +21,7 @@ public class ArticleDetailsServlet extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("/articleDetails.jsp");
             rd.forward(request, response);
         } catch (Exception e){
+            
             response.sendRedirect("http://localhost:8085/template_war_exploded");
         }
     }
