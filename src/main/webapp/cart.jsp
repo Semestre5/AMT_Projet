@@ -70,7 +70,7 @@
                             <td class="edd_cart_item_name">
                                 <a href="shop/<%out.print(String.valueOf(article.getId()));%>">
                                     <div class="edd_cart_item_image">
-                                        <img width="25" height="25" src="./resources/images/scorilo2-70x70.jpg" alt="">
+                                        <img width="25" height="25" src="<%out.print(String.valueOf(article.getLink()));%>" alt="">
                                     </div>
                                     <span class="edd_checkout_cart_item_title"><%out.print(article.getName());%></span>
                                 </a>

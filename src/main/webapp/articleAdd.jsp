@@ -1,12 +1,5 @@
 <%@ page import="com.DAO.Objects.Article" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%
-    boolean duplicatedError = false;
-    if (request.getAttribute("errorDuplicate") != null){
-        duplicatedError = true;
-    }
-    Article duplicate = (Article) request.getAttribute("duplicate");
-%>
 <!DOCTYPE html>
 <html>
 <%@include file="include/head.html"%>
@@ -31,9 +24,10 @@
 <section class="item content">
     <div class="container toparea">
         <div class="row">
-            <%if (duplicatedError){%>
+            <%if (request.getAttribute("duplicatedName") != null && request.getAttribute("duplicatedID") != null){%>
             <p class="text-primary danger"> The object you created already exists you can find it here : </p>
-            <a href="shop/<%out.print(duplicate.getId());%>" class="text-primary danger"><%out.print(duplicate.getName());%></a>
+            <a href="shop/<%out.print( request.getAttribute("duplicatedID"));%>" class="text-primary danger">
+                <%out.print(request.getAttribute("duplicatedName"));%></a>
             <%}%>
         </div>
         <div class="row">
@@ -43,11 +37,11 @@
                 <!-- Laisser id =contactform, c'est pour le visuel -->
                 <form id="contactform" method="POST" action="articleAdd" enctype="multipart/form-data">
                     <div class="form">
-                        <input type="text" name="name" placeholder="Name" required>
-                        <input type="number" name="quantity" placeholder="Quantity" required>
+                        <input type="text" name="name" placeholder="Name *" required>
+                        <input type="number" name="quantity" placeholder="Quantity *" required>
                         <input type="file" name="image">
                         <textarea rows="5" name="description" placeholder="Description"></textarea>
-                        <input type="number" name="price" placeholder="Price"> <br>
+                        <input type="number" name="price" placeholder="Price" step="0.01"> <br>
                         <h3><input type="submit" value="Add article"/></h3>
                     </div>
                 </form>

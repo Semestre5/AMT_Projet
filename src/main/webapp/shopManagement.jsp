@@ -54,7 +54,9 @@
                 <div class=productbox>
                     <div class=fadeshop>
                         <div class="product-name text-center">
-                            <%out.print(a.getName());%>
+                            <a href="shop/<%out.print(a.getId());%>">
+                                <%out.print(a.getName());%>
+                            </a>
                         </div>
                         <span class="maxproduct"><a href="shop/<%out.print(a.getId());%>"><img src="<% out.print(a.getLink());%>" alt=""></a></span>
                     </div>

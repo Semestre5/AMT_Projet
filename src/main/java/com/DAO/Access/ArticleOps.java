@@ -9,7 +9,6 @@ import org.hibernate.cfg.Configuration;
 import org.jboss.logging.Logger;
 
 import java.util.HashSet;
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
@@ -93,4 +92,15 @@ public class ArticleOps {
         sessionObj.close();
         return articleList;
     }
+
+    public static Integer isStored(String name){
+        Session sessionObj = _init().openSession();
+        List<Article> list = sessionObj
+                .createQuery("from Article where name = :name", Article.class)
+                .setParameter( "name",name )
+                .getResultList();
+        sessionObj.close();
+        return list.size() > 0 ? list.get(0).getId() : null;
+    }
 }
+

@@ -18,7 +18,6 @@ import java.util.Objects;
         maxRequestSize = 1024 * 1024 * 10  // 10 MB
 )
 public class ArticleAddServlet extends HttpServlet {
-    private static final String BASE_IMG_URL = "https://media.istockphoto.com/vectors/yellow-warning-sign-work-in-progress-background-vector-id1253437873?k=20&m=1253437873&s=612x612&w=0&h=S0hzCYCgPCufkdZaHlCDTCu_LP066lD99njJm8RuPgg=";
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher rd = request.getRequestDispatcher("articleAdd.jsp");
@@ -27,49 +26,47 @@ public class ArticleAddServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        // we get the parameters
+        String name = request.getParameter("name");
+        Integer quantity = Integer.valueOf(request.getParameter("quantity"));
         String description = request.getParameter("description");
         String priceInput = request.getParameter("price");
         BigDecimal price = BigDecimal.valueOf(0);
-        String imageLink = request.getParameter("image");
-        String name = request.getParameter("name");
-        Integer quantity = Integer.valueOf(request.getParameter("quantity"));
-        uploadImage(request.getPart("image"));
-        if(Objects.equals(description, "")){
+
+        if(description == null || description.isEmpty()){
             description = "The seller hasn't implemented a description yet";
         }
-        /*if(!Objects.equals(priceInput, "")){
-            price =  BigDecimal.valueOf(Long.parseLong(priceInput));
-        }*/
-        Article newArticle = new Article(BigDecimal.valueOf(1),description,name,quantity, imageLink);
-        List<Article> currentArticles = (List<Article>) ArticleOps.fetchAll();
-        boolean already_exists = false;
-        Article duplicate = null;
-        for(Article a: currentArticles){
-            if (a.getName().equals(newArticle.getName())){
-                already_exists = true;
-                duplicate = a;
-            }
+        if(priceInput != null && !priceInput.isEmpty()){
+            price =  BigDecimal.valueOf(Double.parseDouble(priceInput));
         }
-        if(!already_exists){
+        Integer id = ArticleOps.isStored(name);
+        if(id == null){
+            // we try to upload only when we are sure the other parameter are ok
+            String imageLink = uploadImage(request);
+            Article newArticle = new Article(price, description, name, quantity, imageLink);
             ArticleOps.registerArticle(newArticle);
             response.sendRedirect(request.getContextPath() + "/shopManagement");
         }else{
-            request.setAttribute("errorDuplicate", true);
-            request.setAttribute("duplicate", duplicate);
+            request.setAttribute("duplicatedName", name);
+            request.setAttribute("duplicatedID", id);
             RequestDispatcher rd = request.getRequestDispatcher("articleAdd.jsp");
             rd.forward(request, response);
         }
     }
 
-    private void uploadImage(Part filePart) throws IOException {
-        if (filePart != null) {
+    private String uploadImage(HttpServletRequest request) throws IOException, ServletException {
+        Part filePart = request.getPart("image");
+        if (filePart != null && filePart.getSize() > 0) {
             String fileName = getFileName(filePart);
-            File uploadDir = new File( getServletContext().getRealPath("/images") );
-            if ( ! uploadDir.exists() )
+            File uploadDir = new File(getServletContext().getRealPath("/images"));
+            if (!uploadDir.exists())
                 uploadDir.mkdir();
             String fullPath = getServletContext().getRealPath("/images") + File.separator + fileName;
             filePart.write(fullPath);
+            return "./images" + File.separator + fileName;
+        }
+        else{
+            return "./images/DEFAULT_IMAGE.jpg";
         }
     }
 
