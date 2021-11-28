@@ -70,7 +70,7 @@ public class Article {
         return this.price.intValue() != 0 && this.quantity != 0;
     }
 
-    @ManyToMany(cascade={CascadeType.MERGE, CascadeType.PERSIST},fetch=FetchType.EAGER)
+    @ManyToMany(cascade={CascadeType.MERGE, CascadeType.PERSIST},fetch=FetchType.LAZY)
     @JoinTable(
             name = "article_category",
             joinColumns = {@JoinColumn(name ="idCategory")},

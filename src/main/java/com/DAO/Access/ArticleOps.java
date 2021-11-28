@@ -111,6 +111,8 @@ public class ArticleOps {
         try {
         transObj = ss.beginTransaction();
         Query<Article> query = ss.createQuery( "from Article ", Article.class );
+        query.setCacheable( true );
+        query.setCacheRegion( "Items" );
         articleList = query.getResultList();
         transObj.commit();
         } catch (Exception e){
