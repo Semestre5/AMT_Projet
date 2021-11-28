@@ -29,11 +29,8 @@ public class ArticleOps {
             transObj.commit();
             logger.info("Successfully commited article"+article.getId()+"to DB");
         } catch (Exception e){
-            // in case of error we rollback the transaction
-            if (transObj != null){
-                transObj.rollback();
-            }
-            // This block must always be executed
+            logger.error("Something went wrong",e);
+            transObj.rollback();
         } finally {
             ss.close();
             return article.getId();
