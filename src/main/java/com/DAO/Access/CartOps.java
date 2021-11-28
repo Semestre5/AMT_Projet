@@ -2,90 +2,133 @@ package com.DAO.Access;
 
 import com.DAO.Objects.Cart;
 import com.DAO.Objects.CartId;
+import com.DAO.SessionManager;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
+import org.jboss.logging.Logger;
 
+import java.lang.reflect.Array;
 import java.util.List;
 
 public class CartOps {
-    private static SessionFactory fc;
-    /*
-    * build a session using the session factory
-    * */
-    public static SessionFactory _init() {
-        // Creating Configuration Instance & Passing Hibernate Configuration File
-        return new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
-    }
+    static Session ss;
+    public final static Logger logger = Logger.getLogger(CartOps.class);
 
     public static CartId save(Cart cartObj) {
-        Session sessionObj = _init().openSession();
+        ss = SessionManager.sessionFactory.getCurrentSession();
         //Creating Transaction Object
-        Transaction transObj = sessionObj.beginTransaction();
-        sessionObj.save(cartObj);
-        // Transaction Is Committed To Database
-        transObj.commit();
-        sessionObj.close();
-        return cartObj.getId();
+        Transaction transObj = null;
+
+        try {
+            transObj = ss.beginTransaction();
+            ss.save( cartObj );
+            transObj.commit();
+        } catch (Exception e) {
+            logger.error( "Something went wrong" + e );
+            transObj.rollback();
+        } finally {
+            ss.close();
+            return cartObj.getId();
+        }
     }
 
-    public static Cart fetchOne(CartId cartId){
-        Session sessionObj = _init().openSession();
-        // transaction object
-        sessionObj.beginTransaction();
-        Cart cartObj =  sessionObj.load(Cart.class, cartId);
+    public static Cart fetchOne(CartId cartId) {
+        ss = SessionManager.sessionFactory.getCurrentSession();
+        Transaction transObj = null;
+        Cart cartObj = null;
 
-        // closing session
-        sessionObj.close();
-        return cartObj;
+        try {
+            transObj = ss.beginTransaction();
+            cartObj = ss.load( Cart.class, cartId );
+            transObj.commit();
+
+        } catch (Exception e) {
+            logger.error( "Something went wrong" + e );
+        } finally {
+            ss.close();
+            return cartObj;
+        }
     }
 
     public static List<Cart> fetchAllByUser(Integer idUser) {
-        String request = "from Cart where id.idUser = :idUser";
-        Session sessionObj = _init().openSession();
-        List<Cart> cartList = sessionObj.createQuery(request, Cart.class).setParameter("idUser", idUser).getResultList();
+        ss = SessionManager.sessionFactory.getCurrentSession();
+        Transaction transObj = null;
+        List<Cart> cartList = null;
+        try {
+            transObj = ss.beginTransaction();
+            Query query = ss.createQuery( "from Cart where id.idUser = :idUser" ).setParameter( "idUser", idUser );
+            cartList = query.getResultList();
+            transObj.commit();
 
-        // Closing The Session Object
-        sessionObj.close();
-        return cartList;
+        } catch (Exception e) {
+            logger.error( "Something went wrong" + e );
+            transObj.rollback();
+
+        } finally {
+            ss.close();
+            return cartList;
+        }
     }
 
     public static void deleteOne(CartId cartId){
-        Session sessionObj = _init().openSession();
-        Transaction transObj = sessionObj.beginTransaction();
-        Cart tmpCart =  fetchOne(cartId);
-        sessionObj.delete(tmpCart);
-
-        transObj.commit();
-        sessionObj.close();
+        ss = SessionManager.sessionFactory.getCurrentSession();
+        Transaction transObj = null;
+        Cart tmpCart = null;
+        try {
+            transObj = ss.beginTransaction();
+            tmpCart = fetchOne(cartId);
+            ss.delete(tmpCart);
+            transObj.commit();
+        }catch (Exception e) {
+            transObj.rollback();
+            logger.error( "Something went wrong"+e );
+        }finally{
+            ss.close();
+        }
     }
 
     public static void deleteAll(Integer UserID){
-        Session sessionObj = _init().openSession();
-        Transaction transObj = sessionObj.beginTransaction();
-        // or String hqlDelete = "delete Customer where name = :oldName";
-        sessionObj
-                .createQuery( "delete Cart c where c.id.idUser = :idUser")
-                .setParameter( "idUser", UserID )
-                .executeUpdate();
-        transObj.commit();
-        sessionObj.close();
+        ss = SessionManager.sessionFactory.getCurrentSession();
+        Transaction transObj = null;
+        Cart tmpCart = null;
+        try {
+            transObj = ss.beginTransaction();
+
+            ss.createQuery( "delete Cart c where c.id.idUser = :idUser")
+                    .setParameter( "idUser", UserID )
+                    .executeUpdate();
+
+            transObj.commit();
+        }catch (Exception e) {
+            transObj.rollback();
+            logger.error( "Something went wrong"+e );
+        }finally{
+            ss.close();
+        }
+
     }
 
 
     public static void update(Cart cart){
-        Session sessionObj = _init().openSession();
+        ss = SessionManager.sessionFactory.getCurrentSession();
         // transaction object
-        Transaction transObj = sessionObj.beginTransaction();
-        // fetching object to update
-        Cart cartObj = (Cart) sessionObj.load(Cart.class, cart.getId());
+        Transaction transObj = null;
+        Cart cartObj = null;
+        try {
+            transObj = ss.beginTransaction();
+            // fetching & updating cart
+            cartObj = ss.load(Cart.class, cart.getId());
+            cartObj.setQuantity( cart.getQuantity());
 
-        // updating article columns
-        cartObj.setQuantity( cart.getQuantity());
-
-        // commit updates
-        transObj.commit();
-        sessionObj.close();
+            transObj.commit();
+        }catch (Exception e) {
+            transObj.rollback();
+            logger.error( "Something went wrong"+e );
+        }finally{
+            ss.close();
+        }
     }
 }
