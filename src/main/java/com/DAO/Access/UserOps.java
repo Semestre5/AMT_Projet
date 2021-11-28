@@ -34,6 +34,7 @@ public class UserOps {
         sessionObj.save(userObj);
         // Transaction Is Committed To Database
         transObj.commit();
+        sessionObj.close();
         logger.info("Successfully Created " + userObj.toString());
         return userObj.getId();
     }

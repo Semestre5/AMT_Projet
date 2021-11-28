@@ -23,6 +23,9 @@ public class Article {
     public static Article TEST_ARTICLE2 = new Article( new BigDecimal("39.99"), "this a nice theme",
             "Mega cool Theme", 0, "./resources/images/product2-2.jpg");
 
+
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
