@@ -93,18 +93,21 @@ CREATE TABLE IF NOT EXISTS `mydb`.`cart` (
 ENGINE = InnoDB;
 
 
-INSERT INTO article (price, description, name, quantity) VALUES ('100', "Marteau de grande qualité","Marteau", '4');
-INSERT INTO article (price, description, name, quantity) VALUES ('59.90', "Pelle de grande qualité","Pelle", '2');
-INSERT INTO article (price, description, name, quantity) VALUES ('1.10', "Clou de grande qualité","Clou", '4');
+INSERT INTO article (price, description, name, quantity) VALUES ('100', "Great quality hammer","Hammer", '4');
+INSERT INTO article (price, description, name, quantity) VALUES ('59.90', "Great quality shovel","Shovel", '2');
+INSERT INTO article (price, description, name, quantity) VALUES ('1.10', "Great quality nail","Nail", '4');
 
-INSERT INTO category(name) VALUES("Outils");
-INSERT INTO category(name) VALUES("Extérieur");
+INSERT INTO category(name) VALUES("Tools");
+INSERT INTO category(name) VALUES("Outdoor");
+INSERT INTO category(name) VALUES("Single use");
+INSERT INTO category(name) VALUES("Paint");
 
 INSERT INTO article_category(idArticle, idCategory) VALUES('1','1');
-INSERT INTO article_category(idArticle, idCategory) VALUES('2','1');
-INSERT INTO article_category(idArticle, idCategory) VALUES('3','2');
 INSERT INTO article_category(idArticle, idCategory) VALUES('1','2');
+INSERT INTO article_category(idArticle, idCategory) VALUES('2','1');
+INSERT INTO article_category(idArticle, idCategory) VALUES('2','2');
+INSERT INTO article_category(idArticle, idCategory) VALUES('3','3');
 
-INSERT INTO category(name) VALUES("Tractopelle");
+
 
 

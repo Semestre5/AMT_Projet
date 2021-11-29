@@ -10,6 +10,49 @@
 <!DOCTYPE html>
 <html>
 <%@include file="include/head.html" %>
+<style>
+    .category_fl_box {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+
+    .category_item {
+        checked: false;
+        border: 1px solid black;
+        flex-basis: 150px;
+        margin: 6px;
+        background-color: white;
+        color: #939393;
+        text-align: center;
+        align-content: center;
+        border-radius: 15px;
+    }
+
+    .form_button {
+        border: 1px solid black;
+        flex-basis: 150px;
+        margin: 6px;
+        background-color: #006d49;
+        color: white;
+
+    }
+
+</style>
+<script>
+    function setClickedColor(checkboxId){
+        checkboxId.classes.
+        if(checkboxId.style.backgroundColor === "transparent"){
+            checkboxId.style.backgroundColor = "#1b857c";
+            checkboxId.style.color = "white";
+            checkboxId.style.checked = "true";
+        } else {
+            checkboxId.style.backgroundColor = "transparent";
+            checkboxId.style.color = '#939393';
+            checkboxId.style.checked = "false";
+        }
+    }
+</script>
 <body>
 <!-- HEADER =============================-->
 <%@include file="include/nav.jsp" %>
@@ -43,11 +86,14 @@
             </div>
         </div>
         <div class="form-check">
-            <form method="post" action="shop" id="categoryForm">
+            <form method="post" class="category_fl_box" action="shop" id="categoryForm">
+                <button type="submit" class="button form_button">Sort</button>
                 <%for (Category cat: categories) {%>
-                <input class="form-check-input" type="checkbox" value="<%out.print(cat.getId());%>" name="category"> <%out.print(cat.getName());%></input>
+                <span class="category_item" onclick="setClickedColor(this, this.checked)" checked="false">
+                    <input class="form-check-input category_item" type="checkbox" style="display: none" id="cat<%out.print(cat.getId());%>" value="<%out.print(cat.getId());%>" name="category" >
+                    <label for="cat<%out.print(cat.getId());%>" style="display: block"><%out.print(cat.getName());%></label>
+                </span>
                 <%}%>
-                <button type="submit" class="button">Sort</button>
             </form>
         </div>
         <div class="row">
