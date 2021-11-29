@@ -17,8 +17,8 @@
                         <%
                             if (session.getAttribute("idUser") == null) {
                         %>
-                        <li class="propClone"><a href="../register">Register</a></li>
                         <li class="propClone"><a href="../login">Login</a></li>
+                        <li class="propClone"><a href="../logindev">Login_Dev</a></li>
                         <%
                         } else {
                         %>

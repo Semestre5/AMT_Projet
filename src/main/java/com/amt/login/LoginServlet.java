@@ -1,6 +1,5 @@
 package com.amt.login;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.servlet.*;
