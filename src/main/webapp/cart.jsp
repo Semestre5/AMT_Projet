@@ -68,22 +68,27 @@
                         %>
                         <tr class="edd_cart_item" id="edd_cart_item_0_25" data-download-id="25">
                             <td class="edd_cart_item_name">
-                                <div class="edd_cart_item_image">
-                                    <img width="25" height="25" src="./resources/images/scorilo2-70x70.jpg" alt="">
-                                </div>
-                                <span class="edd_checkout_cart_item_title"><%out.print(article.getName());%></span>
+                                <a href="shop/<%out.print(String.valueOf(article.getId()));%>">
+                                    <div class="edd_cart_item_image">
+                                        <img width="25" height="25" src="<%out.print(String.valueOf(article.getLink()));%>" alt="">
+                                    </div>
+                                    <span class="edd_checkout_cart_item_title"><%out.print(article.getName());%></span>
+                                </a>
                             </td>
                             <td>
                                 <span style="display: flex; justify-content: space-evenly; align-items: center">
                                     <form method="post">
-                                        <input hidden name="id" value="<%out.print(String.valueOf(article.getId()));%>">
-                                        <input hidden name="quantity" value="<%out.print(String.valueOf(cartProduct.getQuantity() - 1));%>">
+                                        <input hidden name="id"
+                                               value="<%out.print(String.valueOf(article.getId()));%>">
+                                        <input hidden name="quantity"
+                                               value="<%out.print(String.valueOf(cartProduct.getQuantity() - 1));%>">
                                         <input type="submit" class="edd_cart_remove_item_btn" value="&nbsp-&nbsp">
                                     </form>
                                     <%out.print(String.valueOf(cartProduct.getQuantity()));%>
                                     <form method="post">
                                         <input hidden name="id" value="<%out.print(String.valueOf(article.getId()));%>">
-                                        <input hidden name="quantity" value="<%out.print(String.valueOf(cartProduct.getQuantity() + 1));%>">
+                                        <input hidden name="quantity"
+                                               value="<%out.print(String.valueOf(cartProduct.getQuantity() + 1));%>">
                                         <input type="submit" class="edd_cart_remove_item_btn" value="&nbsp+&nbsp">
                                     </form>
                                 </span>

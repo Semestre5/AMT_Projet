@@ -9,7 +9,6 @@ import org.hibernate.cfg.Configuration;
 import org.jboss.logging.Logger;
 
 import java.util.HashSet;
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
@@ -28,6 +27,7 @@ public class ArticleOps {
         // adding article to DB
         sessionObj.save(article);
         transObj.commit();
+        sessionObj.close();
         logger.info("Successfully commited article"+article.getId()+"to DB");
         return article.getId();
     }
@@ -69,6 +69,7 @@ public class ArticleOps {
         Transaction transObj = sessionObj.beginTransaction();
         Article  tmpArticle =  fetchOne(articleId);
         sessionObj.delete(tmpArticle);
+        sessionObj.close();
         logger.info("Article"+ tmpArticle.getId()+"successfully deleted");
 
     }
@@ -82,8 +83,7 @@ public class ArticleOps {
     }
 
 
-
-    public static List<?> fetchAllByCategory( Category category){
+ public static List<?> fetchAllByCategory( Category category){
         Session sessionObj = _init().openSession();
         Set<Category> cats = new HashSet<Category>();
         cats.add(category);
@@ -93,15 +93,14 @@ public class ArticleOps {
         return articleList;
     }
 
-
-    public static List<?> fetchAllByCategories(Set categories){
+    public static Integer isStored(String name){
         Session sessionObj = _init().openSession();
-        List<?> articleList = sessionObj.createQuery("from Article a where :category in elements(categories) ").setParameter( "category",categories ).list();
-        logger.info("Number of articles : "+articleList.size());
+        List<Article> list = sessionObj
+                .createQuery("from Article where name = :name", Article.class)
+                .setParameter( "name",name )
+                .getResultList();
         sessionObj.close();
-        return articleList;
+        return list.size() > 0 ? list.get(0).getId() : null;
     }
-
-
-
 }
+
