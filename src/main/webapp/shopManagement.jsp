@@ -17,7 +17,7 @@
         <div class="col-md-12 text-center">
             <div class="text-pageheader">
                 <div class="subtext-image" data-scrollreveal="enter bottom over 1.7s after 0.0s">
-                    Gestion du catalogue
+                    Shop management
                 </div>
             </div>
         </div>
@@ -33,7 +33,7 @@
             <!-- Colonnes, à répartir sur 12 pour remplir la page, on peut mettre autant de colonnes qu'on veut tant qu'on
                  reste sur 12 (6 colonnes de 2 par exemple) -->
             <div class="col-md-6">
-                <a href="product.add">
+                <a href="articleAdd">
                     <button>Ajouter un nouvel article</button>
                 </a>
             </div>
@@ -54,7 +54,9 @@
                 <div class=productbox>
                     <div class=fadeshop>
                         <div class="product-name text-center">
-                            <%out.print(a.getName());%>
+                            <a href="shop/<%out.print(a.getId());%>">
+                                <%out.print(a.getName());%>
+                            </a>
                         </div>
                         <span class="maxproduct"><a href="shop/<%out.print(a.getId());%>"><img src="<% out.print(a.getLink());%>" alt=""></a></span>
                     </div>

@@ -1,4 +1,4 @@
-package com.amt.catalog;
+package com.amt.shopManagement;
 
 import com.DAO.Access.ArticleOps;
 import com.DAO.Objects.Article;
