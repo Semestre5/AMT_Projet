@@ -106,7 +106,5 @@ INSERT INTO article_category(idArticle, idCategory) VALUES('3','2');
 INSERT INTO article_category(idArticle, idCategory) VALUES('1','2');
 
 INSERT INTO category(name) VALUES("Tractopelle");
-INSERT INTO category(name) VALUES("Tractopelle1");
-INSERT INTO category(name) VALUES("Tractopelle2");
 
 
