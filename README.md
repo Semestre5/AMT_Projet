@@ -10,6 +10,22 @@
 - [Contributing](#contributing)
 - [License](#license)
 
+## UML
+
+As the project is based on JEE, we didn't show our different servlet, because it is mainly used for showing the different models datas. 
+
+![UML](README.assets/UML.PNG)
+
+## Diagramme de séquence
+
+### Show the Cart
+
+![Show_Cart](README.assets/Show_Cart.png)
+
+### Update the Cart
+
+![update_cart](README.assets/update_cart.png)
+
 ## Installation
 
 Project is developped using [IntelliJ](https://www.jetbrains.com/fr-fr/idea/) IDE.
