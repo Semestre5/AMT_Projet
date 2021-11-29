@@ -13,6 +13,8 @@ public class CartServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         CartServletModel cart = session(request);
+
+        // DPE - Dans cas simple, retourner le model est ok, mais est-ce que c'est toujours le cas ?
         request.setAttribute("cart", cart);
         RequestDispatcher rd = request.getRequestDispatcher("cart.jsp");
         rd.forward(request, response);

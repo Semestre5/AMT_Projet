@@ -20,8 +20,12 @@ public class CartOps {
     }
 
     public static CartId save(Cart cartObj) {
+
+        // DPE - Duplication du openSession
         Session sessionObj = _init().openSession();
         //Creating Transaction Object
+
+        // DPE - Utiliser les transactions, c'est une bonne idée, mais est-ce que c'est bien utile dans ce cas ?
         Transaction transObj = sessionObj.beginTransaction();
         sessionObj.save(cartObj);
         // Transaction Is Committed To Database

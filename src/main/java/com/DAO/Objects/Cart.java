@@ -8,6 +8,8 @@ import javax.persistence.*;
 })
 @Entity
 public class Cart {
+
+    // DPE - Si tu ne crées pas le constructeur vide, tu en as par default donc pas besoin de l'écrire ;)
     public Cart() {
     }
 
@@ -20,6 +22,8 @@ public class Cart {
 
     @Column(name = "quantity")
     private Integer quantity;
+
+    // DPE - Est-ce que vous connaissez lombok https://projectlombok.org/ ?
 
     public Integer getQuantity() {
         return quantity;

@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+
 @WebServlet(name = "queryServlet", value = "/queryServlet")
 public class QueryServlet extends HttpServlet {
 

@@ -1,5 +1,6 @@
 package com.amt.cart;
 
+// DPE - Si jamais Intellij à une fonction pour supprimer les imports pas utilisé "Optimize imports"
 import com.DAO.Access.ArticleOps;
 import com.DAO.Access.CartOps;
 import com.DAO.Objects.Article;
@@ -12,12 +13,19 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
+//DPE - Servlet ?
+// DPE - Pourquoi devoir maintenir une list en mémoire ?
+// DPE - Je pense que vous devriez envisager à utiliser une classe "service" qui va gérer la logique (Exemple : les tests sur la session)
 public class CartServletModel {
     @Getter private final List<Cart> cartProductList;
     private Integer session;
     CartServletModel(HttpServletRequest request){
+
+        // DPE - Laisser des de ce style faudrait éviter
         this.session = 1; //TODO change it pls
         this.cartProductList = new ArrayList<>();
+
+        // DPE - https://medium.com/swlh/return-early-pattern-3d18a41bba8
         if (session != null)
             this.cartProductList.addAll(CartOps.fetchAllByUser(session));
         else {
@@ -32,6 +40,7 @@ public class CartServletModel {
 
 
     /**
+     * DPE - Petit article intéressant https://medium.com/@rafaelferreiram/applying-single-responsability-principle-srp-645ebf6d68a8
      * Update the current state of cart with an Article. Can suppress, edit or add an Article
      * Note : If the user is connecter, the cart is save, otherwise, it would last the same time as the servlet
      * @param idArticle id of the element to add, suppres or modify in cart
@@ -89,6 +98,8 @@ public class CartServletModel {
      * @param quantity quantity to add in Cart
      */
     private void add(int idProduct, int quantity) throws Exception {
+
+        //DPE - Si vous avez un constructeur avec les bons paramètres pas besoin d'utiliser les setters ;)
         CartId cartID = new CartId();
         cartID.setIdArticle(idProduct);
         cartID.setIdUser(this.session);
