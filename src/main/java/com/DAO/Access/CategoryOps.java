@@ -1,5 +1,6 @@
 package com.DAO.Access;
 
+import com.DAO.Objects.Article;
 import com.DAO.Objects.Category;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -18,6 +19,7 @@ public class CategoryOps {
         return new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
     }
 
+    //TODO modify this to look like the registerArticle in ArticleOps (not good to pass the name)
     public static Integer addCategory(String name){
         Session sessionObj = _init().openSession();
         Transaction transObj = sessionObj.beginTransaction();
@@ -28,6 +30,8 @@ public class CategoryOps {
         logger.info("Successfully added"+newCategory.getName()+" category");
         return newCategory.getId();
     }
+
+    //TODO add updateCategory (dunno if needed yet)
 
     public static Category fetchOne(Integer id){
         Session sessionObj = _init().openSession();
@@ -42,5 +46,15 @@ public class CategoryOps {
         sessionObj.close();
         logger.info( "Categories : "+  categoryList.size());
         return categoryList;
+    }
+
+    public static Integer isStored(String name){
+        Session sessionObj = _init().openSession();
+        List<Category> list = sessionObj
+                .createQuery("from Category where name = :name", Category.class)
+                .setParameter( "name",name )
+                .getResultList();
+        sessionObj.close();
+        return list.size() > 0 ? list.get(0).getId() : null;
     }
 }

@@ -34,12 +34,12 @@
                  reste sur 12 (6 colonnes de 2 par exemple) -->
             <div class="col-md-6">
                 <a href="articleAdd">
-                    <button>Ajouter un nouvel article</button>
+                    <button class="clearfix button">Ajouter un nouvel article</button>
                 </a>
             </div>
             <div class="col-md-6">
-                <a href="category.add">
-                    <button>Ajouter une nouvelle catégorie</button>
+                <a href="categoryAdd">
+                    <button class="clearfix button">Ajouter une nouvelle catégorie</button>
                 </a>
             </div>
         </div>
