@@ -36,16 +36,19 @@
         </div>
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
-                <form method="post" action="login" id="contactform">
+                <form method="post" action="logindev" id="contactform">
                     <div class="form">
-                        <label for="username">Username</label>
-                        <input type="text" name="username" id="username" placeholder="Username *" required>
-                        <label for="password">Password</label>
-                        <input type="password" name="password" id="password" placeholder="Password *" required>
+                        <label for="idUser">ID</label>
+                        <input type="number" name="idUser" id="idUser" placeholder="ID *" required>
+                        <label for="selectRole">Role</label>
+                        <select class="form-control" id="selectRole" name="selectRole">
+                            <option value="user">user</option>
+                            <option value="admin">admin</option>
+                        </select>
+                        <br>
                         <input type="submit" id="submit" class="clearfix btn" value="Login">
                     </div>
                 </form>
-                <h4 class="text-center">Not registered yet ? <a href="register">Create a new account</a></h4>
             </div>
         </div>
     </div>
