@@ -1,7 +1,5 @@
 package com.amt.register;
 
-import com.DAO.Access.UserOps;
-import com.DAO.Objects.User;
 import org.json.JSONObject;
 
 import javax.servlet.*;
@@ -32,10 +30,6 @@ public class RegisterServlet extends HttpServlet {
 
         if(resultRegister.getInt("code") == 201) {
             Integer idUser = resultRegister.getInt("id");
-
-            /*User u = new User();
-            u.setId(idUser);
-            UserOps.register(u);*/
 
             response.sendRedirect("login");
         } else {

@@ -21,10 +21,16 @@
             <li class="propClone"><a href="logindev">Login_Dev</a></li>
             <%
             } else {
+              String userRole = (String) session.getAttribute("roleUser");
+              if (userRole.equals("admin")) {
+            %>
+            <li class="propClone"><a href="shopManagement">Management</a></li>
+            <%
+              } // end if role
             %>
             <li class="propClone"><a href="logout">Logout</a></li>
             <%
-              }
+              } // end if id
             %>
           </ul>
         </div>

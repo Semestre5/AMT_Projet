@@ -1,5 +1,7 @@
 package com.amt.login;
 
+import com.DAO.Access.UserOps;
+import com.DAO.Objects.User;
 import org.json.JSONObject;
 
 import javax.servlet.*;
@@ -29,6 +31,16 @@ public class LoginServlet extends HttpServlet {
             JSONObject account = resultLogin.getJSONObject("account");
             Integer idUser = account.getInt("id");
             String roleUser = account.getString("role");
+
+            // Test to add the user in DB
+            try {
+                User u = new User();
+                u.setId(idUser);
+                UserOps.register(u);
+            // If user already exist
+            } catch (Exception e) {
+                System.out.println("User already exist");
+            }
 
             HttpSession session = request.getSession();
             session.setAttribute("idUser", idUser);

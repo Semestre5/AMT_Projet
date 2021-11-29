@@ -20,8 +20,14 @@ import java.util.Objects;
 public class ArticleAddServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher rd = request.getRequestDispatcher("articleAdd.jsp");
-        rd.forward(request, response);
+        HttpSession session = request.getSession(false);
+        String roleUser = (String) session.getAttribute("roleUser");
+        if (session != null && roleUser.equals("admin")) {
+            RequestDispatcher rd = request.getRequestDispatcher("articleAdd.jsp");
+            rd.forward(request, response);
+        } else {
+            response.sendRedirect(".");
+        }
     }
 
     @Override
