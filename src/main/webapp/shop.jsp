@@ -17,16 +17,29 @@
         justify-content: flex-start;
     }
 
-    .category_item {
-        checked: false;
+    .category_span {
+        flex-basis: 150px;
+    }
+
+    .category_label_base{
+        width: 100%;
         border: 1px solid black;
         flex-basis: 150px;
         margin: 6px;
-        background-color: white;
-        color: #939393;
         text-align: center;
         align-content: center;
         border-radius: 15px;
+        user-select: none;
+    }
+
+    .unchecked_category_label {
+        background-color: white;
+        color: #939393;
+    }
+
+    .checked_category_label{
+        background-color: #1b857c;
+        color: white;
     }
 
     .form_button {
@@ -35,21 +48,19 @@
         margin: 6px;
         background-color: #006d49;
         color: white;
-
     }
+
+
 
 </style>
 <script>
-    function setClickedColor(checkboxId){
-        checkboxId.classes.
-        if(checkboxId.style.backgroundColor === "transparent"){
-            checkboxId.style.backgroundColor = "#1b857c";
-            checkboxId.style.color = "white";
-            checkboxId.style.checked = "true";
+    function setClickedColor(checkbox){
+        if(checkbox.classList.contains("checked_category_label")){
+            checkbox.classList.remove("checked_category_label")
+            checkbox.classList.add("unchecked_category_label")
         } else {
-            checkboxId.style.backgroundColor = "transparent";
-            checkboxId.style.color = '#939393';
-            checkboxId.style.checked = "false";
+            checkbox.classList.add("checked_category_label")
+            checkbox.classList.remove("unchecked_category_label")
         }
     }
 </script>
@@ -89,58 +100,59 @@
             <form method="post" class="category_fl_box" action="shop" id="categoryForm">
                 <button type="submit" class="button form_button">Sort</button>
                 <%for (Category cat: categories) {%>
-                <span class="category_item" onclick="setClickedColor(this, this.checked)" checked="false">
-                    <input class="form-check-input category_item" type="checkbox" style="display: none" id="cat<%out.print(cat.getId());%>" value="<%out.print(cat.getId());%>" name="category" >
-                    <label for="cat<%out.print(cat.getId());%>" style="display: block"><%out.print(cat.getName());%></label>
+                <span class="category_span">
+                    <input class="form-check-input" type="checkbox" style="display: none;" id="cat<%out.print(cat.getId());%>" value="<%out.print(cat.getId());%>" name="category" >
+                    <label class="category_label_base unchecked_category_label" onclick="setClickedColor(this)" for="cat<%out.print(cat.getId());%>"><%out.print(cat.getName());%></label>
                 </span>
                 <%}%>
             </form>
         </div>
         <div class="row">
             <%if (articles.isEmpty()){%>
-            <h1>
-                No articles to display
-            </h1>
-            <%} else for (Article a: articles) {%>
             <div class="col-md-4">
-                <div class=productbox>
-                    <div class=fadeshop>
-                        <div class="captionshop text-center" style="display: none;">
-                            <h3><%out.print(a.getName());%></h3>
-                            <p>
-                                <%out.print(a.getDescription());%>
-                            </p>
-                            <p>
-                                <a href="#" class="learn-more detailslearn"><i class="fa fa-shopping-cart"></i> Purchase</a>
-                                <a href="#" class="learn-more detailslearn"><i class="fa fa-link"></i> Details</a>
-                            </p>
+                <h1>
+                    No articles to display
+                </h1>
+                <%} else for (Article a: articles) {%>
+                <div class="col-md-4">
+                    <div class=productbox>
+                        <div class=fadeshop>
+                            <div class="captionshop text-center" style="display: none;">
+                                <h3><%out.print(a.getName());%></h3>
+                                <p>
+                                    <%out.print(a.getDescription());%>
+                                </p>
+                                <p>
+                                    <a href="#" class="learn-more detailslearn"><i class="fa fa-shopping-cart"></i> Purchase</a>
+                                    <a href="#" class="learn-more detailslearn"><i class="fa fa-link"></i> Details</a>
+                                </p>
+                            </div>
+                            <span class="maxproduct"><img src="<% out.print(a.getLink());%>" alt=""></span>
                         </div>
-                        <span class="maxproduct"><img src="<% out.print(a.getLink());%>" alt=""></span>
-                    </div>
-                    <div class="product-details">
-                        <a href="shop/<%out.print(a.getId());%>">
-                            <h1><%out.print(a.getName());%></h1>
-                        </a>
-                        <span class="price">
+                        <div class="product-details">
+                            <a href="shop/<%out.print(a.getId());%>">
+                                <h1><%out.print(a.getName());%></h1>
+                            </a>
+                            <span class="price">
                             <span class="edd_price"><%out.print(a.isSellable() ? "CHF " + a.getPrice() : "");%></span>
                         </span>
-                        <%if (a.isSellable()) {%>
-                        <form method="post" action="cart">
-                            <input hidden name="id" value="<%out.print(String.valueOf(a.getId()));%>"/>
-                            <input hidden name="quantity" value="1"/>
-                            <span style="display: flex; justify-content: center">
+                            <%if (a.isSellable()) {%>
+                            <form method="post" action="cart">
+                                <input hidden name="id" value="<%out.print(String.valueOf(a.getId()));%>"/>
+                                <input hidden name="quantity" value="1"/>
+                                <span style="display: flex; justify-content: center">
                                 <input type="submit" class="btn-buynow" value="Add to Cart"/>
                             </span>
-                        </form>
-                        <%} else {%>
-                        <h4>Article unavailable</h4>
-                        <%}%>
+                            </form>
+                            <%} else {%>
+                            <h4>Article unavailable</h4>
+                            <%}%>
+                        </div>
                     </div>
                 </div>
+                <%}%>
             </div>
-            <%}%>
         </div>
-    </div>
 </section>
 
 <!-- FOOTER =============================-->

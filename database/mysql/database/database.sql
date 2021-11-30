@@ -101,6 +101,9 @@ INSERT INTO category(name) VALUES("Tools");
 INSERT INTO category(name) VALUES("Outdoor");
 INSERT INTO category(name) VALUES("Single use");
 INSERT INTO category(name) VALUES("Paint");
+INSERT INTO category(name) VALUES("Electric tools");
+INSERT INTO category(name) VALUES("Clothes");
+INSERT INTO category(name) VALUES("Safety");
 
 INSERT INTO article_category(idArticle, idCategory) VALUES('1','1');
 INSERT INTO article_category(idArticle, idCategory) VALUES('1','2');
