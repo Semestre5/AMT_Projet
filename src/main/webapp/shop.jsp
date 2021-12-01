@@ -115,16 +115,6 @@
                 <div class="col-md-4">
                     <div class=productbox>
                         <div class=fadeshop>
-                            <div class="captionshop text-center" style="display: none;">
-                                <h3><%out.print(a.getName());%></h3>
-                                <p>
-                                    <%out.print(a.getDescription());%>
-                                </p>
-                                <p>
-                                    <a href="#" class="learn-more detailslearn"><i class="fa fa-shopping-cart"></i> Purchase</a>
-                                    <a href="#" class="learn-more detailslearn"><i class="fa fa-link"></i> Details</a>
-                                </p>
-                            </div>
                             <span class="maxproduct article_image"><img src="<% out.print(a.getLink());%>" alt=""></span>
                         </div>
                         <div class="product-details">
@@ -132,8 +122,8 @@
                                 <h1><%out.print(a.getName());%></h1>
                             </a>
                             <span class="price">
-                            <span class="edd_price"><%out.print(a.isSellable() ? "CHF " + a.getPrice() : "");%></span>
-                        </span>
+                                <span class="edd_price"><%out.print(a.isSellable() ? "CHF " + a.getPrice() : "");%></span>
+                            </span>
                             <%if (a.isSellable()) {%>
                             <form method="post" action="cart">
                                 <input hidden name="id" value="<%out.print(String.valueOf(a.getId()));%>"/>
