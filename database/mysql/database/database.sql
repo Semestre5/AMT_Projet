@@ -93,9 +93,9 @@ CREATE TABLE IF NOT EXISTS `mydb`.`cart` (
 ENGINE = InnoDB;
 
 
-INSERT INTO article (price, description, name, quantity, link) VALUES ('100', "Great quality hammer","Hammer", '4', './images/DEFAULT_IMAGE.jpg');
-INSERT INTO article (price, description, name, quantity, link) VALUES ('59.90', "Great quality shovel","Shovel", '2', './images/DEFAULT_IMAGE.jpg');
-INSERT INTO article (price, description, name, quantity, link) VALUES ('1.10', "Great quality nail","Nail", '4', './images/DEFAULT_IMAGE.jpg');
+INSERT INTO article (price, description, name, quantity, link) VALUES ('100', "Great quality hammer","Hammer", '4', './images/hammer.jpg');
+INSERT INTO article (price, description, name, quantity, link) VALUES ('59.90', "Great quality shovel","Shovel", '2', './images/shovel.jpg');
+INSERT INTO article (price, description, name, quantity, link) VALUES ('1.10', "Great quality nail","Nail", '4', './images/nail.jpg');
 INSERT INTO article (price, description, name, quantity, link) VALUES ('0', "No price here","No Price", '4', './images/DEFAULT_IMAGE.jpg');
 INSERT INTO article (price, description, name, quantity, link) VALUES ('12', "quantity 0", "0 Quantity", '0', './images/DEFAULT_IMAGE.jpg');
 

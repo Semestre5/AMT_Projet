@@ -33,18 +33,22 @@
         background-color: white;
         color: #939393;
     }
-
     .checked_category_label{
         background-color: #1b857c;
         color: white;
     }
-
     .form_button {
         border: 1px solid black;
         flex-basis: 150px;
         margin: 6px;
         background-color: #006d49;
         color: white;
+    }
+    .article_image{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        align-content: center;
     }
 </style>
 <script>
@@ -121,7 +125,7 @@
                                     <a href="#" class="learn-more detailslearn"><i class="fa fa-link"></i> Details</a>
                                 </p>
                             </div>
-                            <span class="maxproduct"><img src="<% out.print(a.getLink());%>" alt=""></span>
+                            <span class="maxproduct article_image"><img src="<% out.print(a.getLink());%>" alt=""></span>
                         </div>
                         <div class="product-details">
                             <a href="shop/<%out.print(a.getId());%>">
