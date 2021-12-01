@@ -23,6 +23,9 @@ public class Article {
     public static Article TEST_ARTICLE2 = new Article( new BigDecimal("39.99"), "this a nice theme",
             "Mega cool Theme", 0, "./resources/images/product2-2.jpg");
 
+
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -67,7 +70,7 @@ public class Article {
         return this.price.intValue() != 0 && this.quantity != 0;
     }
 
-    @ManyToMany(cascade={CascadeType.MERGE, CascadeType.PERSIST},fetch=FetchType.EAGER)
+    @ManyToMany(cascade={CascadeType.MERGE, CascadeType.PERSIST},fetch=FetchType.LAZY)
     @JoinTable(
             name = "article_category",
             joinColumns = {@JoinColumn(name ="idCategory")},
