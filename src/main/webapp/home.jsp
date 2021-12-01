@@ -78,14 +78,12 @@
         </div>
         <div class="row">
 
-            <%int i=0;
-                if (articles.isEmpty()){%>
+            <%if (articles.isEmpty()){%>
             <div class="col-md-4">
                 <h1>
                     No articles to display
                 </h1>
-                <%} else for (Article a: articles) {
-                if(++i>3) break;%>
+                <%} else for (Article a: articles) {%>
                 <div class="col-md-4">
                     <div class=productbox>
                         <div class=fadeshop>

@@ -39,7 +39,7 @@ public class ArticleOps {
 
 
     public static Article fetchOne(Integer articleId){
-         ss = SessionManager.sessionFactory.getCurrentSession();
+        ss = SessionManager.sessionFactory.getCurrentSession();
         Article articleObj = null;
         // transaction object
         Transaction transaction = null;
@@ -64,29 +64,29 @@ public class ArticleOps {
         ss = SessionManager.sessionFactory.getCurrentSession();
         // transaction object
         Transaction transObj = null;
-       try{
-         transObj = ss.beginTransaction();
-        // fetching object to update
-        Article articleObj = (Article) ss.load(Article.class,article.getId());
-        // updating article columns
-        articleObj.setName( article.getName() );
-        articleObj.setDescription( article.getDescription());
-        articleObj.setPrice( article.getPrice() );
-        articleObj.setQuantity(article.getQuantity());
-        articleObj.setLink( article.getLink());
-        // commit updates
-        transObj.commit();
-       }catch (Exception e){
-           transObj.rollback();
-           System.out.println("Something wrong occured."+e);
-       }finally {
-           ss.close();
-           logger.info( "Article" + article.getId() + " updated successfully" );
-       }
+        try{
+            transObj = ss.beginTransaction();
+            // fetching object to update
+            Article articleObj = (Article) ss.load(Article.class,article.getId());
+            // updating article columns
+            articleObj.setName( article.getName() );
+            articleObj.setDescription( article.getDescription());
+            articleObj.setPrice( article.getPrice() );
+            articleObj.setQuantity(article.getQuantity());
+            articleObj.setLink( article.getLink());
+            // commit updates
+            transObj.commit();
+        }catch (Exception e){
+            transObj.rollback();
+            System.out.println("Something wrong occured."+e);
+        }finally {
+            ss.close();
+            logger.info( "Article" + article.getId() + " updated successfully" );
+        }
     }
 
     public static void deleteArticle(Integer articleId) {
-         ss  = SessionManager.sessionFactory.openSession();
+        ss  = SessionManager.sessionFactory.openSession();
         Transaction transObj = null;
         Article tmpArticle = null;
         try {
@@ -109,12 +109,12 @@ public class ArticleOps {
         Transaction transObj = null;
         List<?> articleList = null;
         try {
-        transObj = ss.beginTransaction();
-        Query<Article> query = ss.createQuery( "from Article ", Article.class );
-        query.setCacheable( true );
-        query.setCacheRegion( "Items" );
-        articleList = query.getResultList();
-        transObj.commit();
+            transObj = ss.beginTransaction();
+            Query<Article> query = ss.createQuery( "from Article ", Article.class );
+            query.setCacheable( true );
+            query.setCacheRegion( "Items" );
+            articleList = query.getResultList();
+            transObj.commit();
         } catch (Exception e){
             transObj.rollback();
             logger.error( "Something went wrong"+e );
@@ -123,28 +123,51 @@ public class ArticleOps {
             logger.info( "Number of available articles is : " + articleList.size() );
             return articleList;
         }
+    }
 
+    // SELECT * FROM article ORDER BY article.id DESC LIMIT 3
+    public static List<?> fetchLastThree(){
+        ss = SessionManager.sessionFactory.openSession();
+
+        Transaction transObj = null;
+        List<?> articleList = null;
+        try {
+            transObj = ss.beginTransaction();
+            Query<Article> query = ss.createQuery( "from Article order by id desc", Article.class );
+            query.setMaxResults(3);
+            query.setCacheable( true );
+            query.setCacheRegion( "Items" );
+            articleList = query.getResultList();
+            transObj.commit();
+        } catch (Exception e){
+            transObj.rollback();
+            logger.error( "Something went wrong"+e );
+        }finally {
+            ss.close();
+            logger.info( "Number of available articles is : " + articleList.size() );
+            return articleList;
+        }
     }
 
 
- public static List<?> fetchAllByCategory( Category category){
-       ss   = SessionManager.sessionFactory.openSession();
-     Transaction transObj = null;
-     List<?> articleList = null;
-     Set<Category> cats = new HashSet<Category>();
-     cats.add(category);
-     try {
-         transObj = ss.beginTransaction();
-         articleList = ss.createQuery("from Article a where :category in elements(categories) ").setParameter( "category",cats ).list();
-         transObj.commit();
-     }catch (Exception e) {
-         transObj.rollback();
-         logger.error( "Something wrong occured"+e);
-     }finally{
-         logger.info("Number of articles : "+articleList.size());
-         ss.close();
-         return articleList;
-     }
+    public static List<?> fetchAllByCategory( Category category){
+        ss   = SessionManager.sessionFactory.openSession();
+        Transaction transObj = null;
+        List<?> articleList = null;
+        Set<Category> cats = new HashSet<Category>();
+        cats.add(category);
+        try {
+            transObj = ss.beginTransaction();
+            articleList = ss.createQuery("from Article a where :category in elements(categories) ").setParameter( "category",cats ).list();
+            transObj.commit();
+        }catch (Exception e) {
+            transObj.rollback();
+            logger.error( "Something wrong occured"+e);
+        }finally{
+            logger.info("Number of articles : "+articleList.size());
+            ss.close();
+            return articleList;
+        }
     }
     public static Integer isStored(String name) {
         ss = SessionManager.sessionFactory.openSession();
