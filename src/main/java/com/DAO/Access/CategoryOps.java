@@ -31,8 +31,6 @@ public class CategoryOps {
         return newCategory.getId();
     }
 
-    //TODO add updateCategory (dunno if needed yet)
-
     public static Category fetchOne(Integer id){
         Session sessionObj = _init().openSession();
         Category cat = (Category) sessionObj.load(Category.class,id);

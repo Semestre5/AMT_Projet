@@ -1,5 +1,9 @@
-<%@ page import="com.DAO.Objects.Article" %>
+<%@ page import="com.DAO.Objects.Category" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.amt.shopManagement.CategoryAddServlet" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<% List<Category> categories = (List<Category>) request.getAttribute(CategoryAddServlet.CATEGORIES); %>
 <!DOCTYPE html>
 <html>
 <%@include file="include/head.html"%>
@@ -23,20 +27,22 @@
 <!-- CONTENT =============================-->
 <section class="item content">
     <div class="container toparea">
-        <div class="col-md-6">
+        <a href="shopManagement">
+            <button class="clearfix button">Retour au Shop Management</button>
+        </a>
+        <div class="row">
+            <!-- TODO MAKE THIS HTML CLEANER -->
             <div class="row">
-                <%if (request.getAttribute("duplicatedName") != null && request.getAttribute("duplicatedID") != null){%>
-                <p class="text-primary danger"> The object you created already exists you can find it here : </p>
-                <a href="shop/<%out.print( request.getAttribute("duplicatedID"));%>" class="text-primary danger">
-                    <%out.print(request.getAttribute("duplicatedName"));%></a>
+                <%if (request.getAttribute("duplicatedName") != null){%>
+                    <p class="text-primary danger"> The category you created already exists </p>
                 <%}%>
             </div>
             <div class="row">
                 <!-- Colonnes, à répartir sur 12 pour remplir la page, on peut mettre autant de colonnes qu'on veut tant qu'on
                      reste sur 12 (6 colonnes de 2 par exemple) -->
-                <div class="col-lg-8 col-lg-offset-2">
+                <div class="col-lg-8">
                     <!-- Laisser id =contactform, c'est pour le visuel -->
-                    <form id="contactform" method="POST" action="categoryAdd" enctype="multipart/form-data">
+                    <form id="contactform" method="POST" action="categoryAdd">
                         <div class="form">
                             <input type="text" name="name" placeholder="Name *" required>
                             <h3><input type="submit" value="Add category"/></h3>
@@ -45,10 +51,16 @@
                 </div>
             </div>
         </div>
-        <div class="cold-md-6">
-            <!--- TODO ajouter une liste de catégories -->
+        <div class="row">
+            <!--- TODO ajouter un bouton pour supprimer les catégories -->
+            <ul class="list-group">
+                <%if (categories == null || categories.isEmpty()){%>
+                <li class="list-group-item">No categories to display</li>
+                <%} else for (Category c : categories){%>
+                <li class="list-group-item"><%out.print(c.getName());%></li>
+                <%}%>
+            </ul>
         </div>
-
     </div>
 </section>
 

@@ -32,6 +32,7 @@
         <div class="row">
             <!-- Colonnes, à répartir sur 12 pour remplir la page, on peut mettre autant de colonnes qu'on veut tant qu'on
                  reste sur 12 (6 colonnes de 2 par exemple) -->
+            <!-- TODO travailler le visuel des boutons -->
             <div class="col-md-6">
                 <a href="articleAdd">
                     <button class="clearfix button">Ajouter un nouvel article</button>
@@ -39,7 +40,7 @@
             </div>
             <div class="col-md-6">
                 <a href="categoryAdd">
-                    <button class="clearfix button">Ajouter une nouvelle catégorie</button>
+                    <button class="clearfix button">Gestion des catégories</button>
                 </a>
             </div>
         </div>
@@ -48,6 +49,7 @@
             <h1>
                 No articles to display
             </h1>
+            <!-- TODO ajouter la modif de plusieurs choses des articles, en particuliers leur catégorie , limiter la taille des images ?-->
             <%}
                 for (Article a: articles) {%>
             <div class="col-md-4">
