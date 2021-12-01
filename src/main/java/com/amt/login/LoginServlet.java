@@ -48,7 +48,9 @@ public class LoginServlet extends HttpServlet {
 
             response.sendRedirect(".");
         } else {
-            response.sendRedirect("login");
+            request.setAttribute("statusCode", resultLogin.getInt("code"));
+            RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+            rd.forward(request, response);
         }
     }
 

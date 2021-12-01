@@ -2,6 +2,22 @@
 <!DOCTYPE html>
 <html>
 <%@include file="include/head.html" %>
+<script>
+    function verifyStatus() {
+        <%
+            Integer statusCode = (Integer) request.getAttribute("statusCode");
+            if(statusCode != null && statusCode == 403){
+        %>
+        document.getElementById("message").innerHTML = "The username and/or password is incorrect";
+        <%
+            }
+        %>
+    }
+
+    window.onload = function() {
+        verifyStatus();
+    }
+</script>
 <body>
 <!-- HEADER =============================-->
 <%@include file="include/nav.jsp" %>
@@ -42,6 +58,7 @@
                         <input type="text" name="username" id="username" placeholder="Username *" required>
                         <label for="password">Password</label>
                         <input type="password" name="password" id="password" placeholder="Password *" required>
+                        <span id = "message" style="color:red"></span>
                         <input type="submit" id="submit" class="clearfix btn" value="Login">
                     </div>
                 </form>

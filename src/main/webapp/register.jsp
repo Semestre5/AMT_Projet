@@ -12,6 +12,21 @@
     }
     return true;
   }
+
+  function verifyStatus() {
+    <%
+        Integer statusCode = (Integer) request.getAttribute("statusCode");
+        if(statusCode != null && statusCode == 409){
+    %>
+      document.getElementById("message").innerHTML = "This username is already used, please choose another one";
+    <%
+        }
+    %>
+  }
+
+  window.onload = function() {
+      verifyStatus();
+  }
 </script>
 <body>
 <!-- HEADER =============================-->
@@ -53,7 +68,7 @@
             <input type="text" name="username" id="username" placeholder="Username *" required>
             <label for="password">Password</label>
             <input type="password" name="password" id="password" placeholder="Password *" required>
-            <span id = "message" style="color:red"> </span>
+            <span id = "message" style="color:red"></span>
             <input type="submit" id="submit" class="clearfix btn" value="Register">
           </div>
         </form>
