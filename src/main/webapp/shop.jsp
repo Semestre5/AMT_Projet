@@ -16,11 +16,9 @@
         flex-direction: row;
         justify-content: flex-start;
     }
-
     .category_span {
         flex-basis: 150px;
     }
-
     .category_label_base{
         width: 100%;
         border: 1px solid black;
@@ -31,7 +29,6 @@
         border-radius: 15px;
         user-select: none;
     }
-
     .unchecked_category_label {
         background-color: white;
         color: #939393;
@@ -49,9 +46,6 @@
         background-color: #006d49;
         color: white;
     }
-
-
-
 </style>
 <script>
     function setClickedColor(checkbox){
