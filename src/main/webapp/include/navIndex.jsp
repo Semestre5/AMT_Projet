@@ -41,10 +41,10 @@
         <div class="col-md-12 text-center">
           <div class="text-homeimage">
             <div class="maintext-image" data-scrollreveal="enter top over 1.5s after 0.1s">
-              Increase Digital Sales
+              Build it like nobody is watching
             </div>
             <div class="subtext-image" data-scrollreveal="enter bottom over 1.7s after 0.3s">
-              Boost revenue with Scorilo
+              Be the new Bob
             </div>
           </div>
         </div>

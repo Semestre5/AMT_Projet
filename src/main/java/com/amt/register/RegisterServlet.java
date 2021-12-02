@@ -1,5 +1,6 @@
 package com.amt.register;
 
+import com.DAO.Access.ArticleOps;
 import org.json.JSONObject;
 
 import javax.servlet.*;
@@ -29,11 +30,11 @@ public class RegisterServlet extends HttpServlet {
         JSONObject resultRegister = checkRegister(username, password);
 
         if(resultRegister.getInt("code") == 201) {
-            Integer idUser = resultRegister.getInt("id");
-
             response.sendRedirect("login");
         } else {
-            response.sendRedirect("register");
+            request.setAttribute("statusCode", resultRegister.getInt("code"));
+            RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
+            rd.forward(request, response);
         }
     }
 
