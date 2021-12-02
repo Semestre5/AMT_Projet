@@ -98,6 +98,7 @@
                             </span>
                             <%if (a.isSellable()) {%>
                             <form method="post" action="cart">
+                                <input hidden name="incremental">
                                 <input hidden name="id" value="<%out.print(String.valueOf(a.getId()));%>"/>
                                 <input hidden name="quantity" value="1"/>
                                 <span style="display: flex; justify-content: center">

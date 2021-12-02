@@ -8,6 +8,7 @@ import org.hibernate.cfg.*;
 import org.hibernate.service.ServiceRegistry;
 import org.jboss.logging.Logger;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 
@@ -66,5 +67,4 @@ public class UserOps {
         logger.info("Users Available In Database Are?= " + userList.size());
         return userList;
     }
-
 }

@@ -1,4 +1,4 @@
-package com.amt.logout;
+package com.amt.authentication;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -10,8 +10,13 @@ public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        session.removeAttribute("idUser");
-        session.removeAttribute("roleUser");
-        response.sendRedirect(".");
+        if(session.getAttribute("idUser") != null) {
+            session.removeAttribute("idUser");
+            session.removeAttribute("roleUser");
+            response.sendRedirect("home");
+        } else {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            response.setHeader("Location", "home");
+        }
     }
 }
