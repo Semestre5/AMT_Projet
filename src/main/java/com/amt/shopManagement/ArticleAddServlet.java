@@ -2,6 +2,7 @@ package com.amt.shopManagement;
 
 import com.DAO.Access.ArticleOps;
 import com.DAO.Objects.Article;
+import com.amt.authentication.CheckCredentials;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -20,43 +21,46 @@ import java.util.Objects;
 public class ArticleAddServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
-        String roleUser = (String) session.getAttribute("roleUser");
-        if (session != null && roleUser.equals("admin")) {
+        if (CheckCredentials.isAdmin(request)) {
             RequestDispatcher rd = request.getRequestDispatcher("articleAdd.jsp");
             rd.forward(request, response);
         } else {
-            response.sendRedirect(".");
+            response.sendRedirect("home");
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // we get the parameters
-        String name = request.getParameter("name");
-        Integer quantity = Integer.valueOf(request.getParameter("quantity"));
-        String description = request.getParameter("description");
-        String priceInput = request.getParameter("price");
-        BigDecimal price = BigDecimal.valueOf(0);
+        if (CheckCredentials.isAdmin(request)) {
+            // we get the parameters
+            String name = request.getParameter("name");
+            Integer quantity = Integer.valueOf(request.getParameter("quantity"));
+            String description = request.getParameter("description");
+            String priceInput = request.getParameter("price");
+            BigDecimal price = BigDecimal.valueOf(0);
 
-        if(description == null || description.isEmpty()){
-            description = "The seller hasn't implemented a description yet";
-        }
-        if(priceInput != null && !priceInput.isEmpty()){
-            price =  BigDecimal.valueOf(Double.parseDouble(priceInput));
-        }
-        Integer id = ArticleOps.isStored(name);
-        if(id == null){
-            // we try to upload only when we are sure the other parameter are ok
-            String imageLink = uploadImage(request);
-            Article newArticle = new Article(price, description, name, quantity, imageLink);
-            ArticleOps.registerArticle(newArticle);
-            response.sendRedirect(request.getContextPath() + "/shopManagement");
-        }else{
-            request.setAttribute("duplicatedName", name);
-            request.setAttribute("duplicatedID", id);
-            RequestDispatcher rd = request.getRequestDispatcher("articleAdd.jsp");
-            rd.forward(request, response);
+            if(description == null || description.isEmpty()){
+                description = "The seller hasn't implemented a description yet";
+            }
+            if(priceInput != null && !priceInput.isEmpty()){
+                price =  BigDecimal.valueOf(Double.parseDouble(priceInput));
+            }
+            Integer id = ArticleOps.isStored(name);
+            if(id == null){
+                // we try to upload only when we are sure the other parameter are ok
+                String imageLink = uploadImage(request);
+                Article newArticle = new Article(price, description, name, quantity, imageLink);
+                ArticleOps.registerArticle(newArticle);
+                response.sendRedirect(request.getContextPath() + "/shopManagement");
+            }else{
+                request.setAttribute("duplicatedName", name);
+                request.setAttribute("duplicatedID", id);
+                RequestDispatcher rd = request.getRequestDispatcher("articleAdd.jsp");
+                rd.forward(request, response);
+            }
+        } else {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setHeader("Location", "home");
         }
     }
 
@@ -85,6 +89,4 @@ public class ArticleAddServlet extends HttpServlet {
         }
         return null;
     }
-
-
 }
