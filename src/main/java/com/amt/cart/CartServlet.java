@@ -23,6 +23,7 @@ public class CartServlet extends HttpServlet {
     @SneakyThrows
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         CartModel cart = retrieveCart(request);
         Map<String, String[]> parameterName = request.getParameterMap();
 
