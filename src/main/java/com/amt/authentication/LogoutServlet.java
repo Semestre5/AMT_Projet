@@ -1,4 +1,4 @@
-package com.amt.logout;
+package com.amt.authentication;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

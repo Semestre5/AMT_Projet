@@ -1,2 +1,2 @@
-// Redirect to home page
+<!-- Redirect to home page -->
 <%response.sendRedirect("./home");%>
