@@ -1,11 +1,7 @@
-package com.amt.register;
+package com.amt.authentication;
 
-import com.DAO.Access.ArticleOps;
 import org.json.JSONObject;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,33 +10,15 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
-@WebServlet(name = "RegisterServlet", value = "/register")
-public class RegisterServlet extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
-        rd.forward(request, response);
-    }
+public class CheckCredentials {
+    public static final String loginPath = "auth/login";
+    public static final String registerPath = "accounts/register";
+    public static final String localhost = "http://localhost:8091/";
+    public static final String server = "http://10.0.1.92:8080/";
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-
-        JSONObject resultRegister = checkRegister(username, password);
-
-        if(resultRegister.getInt("code") == 201) {
-            response.sendRedirect("login");
-        } else {
-            request.setAttribute("statusCode", resultRegister.getInt("code"));
-            RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
-            rd.forward(request, response);
-        }
-    }
-
-    private JSONObject checkRegister(String username, String password) throws IOException {
+    public static JSONObject checkCredentials(String username, String password, String path) throws IOException {
         // Création de la requête HTTP
-        URL url = new URL("http://localhost:8091/accounts/register");
+        URL url = new URL(localhost + path);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setDoOutput(true);
         connection.setDoInput(true);
@@ -65,7 +43,7 @@ public class RegisterServlet extends HttpServlet {
         JSONObject response = new JSONObject();
 
         // Récupération du contenu de la réponse
-        if(status == 201) {
+        if(status >= 200 && status <= 299){
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String inputLine;
             StringBuilder content = new StringBuilder();
