@@ -14,8 +14,6 @@ import java.util.stream.Collectors;
 
 @WebServlet(name = "ShopServlet", value = "/shop")
 public class ShopServlet extends HttpServlet {
-    private final List<Category> TEST_CATEGORIES = new ArrayList<>();
-    private final List<Article> articles = Arrays.asList(Article.TEST_ARTICLE1, Article.TEST_ARTICLE2);
     public static final String CATEGORY_ATTR = "categories";
     public static final String ARTICLES_ATTR = "articles";
 

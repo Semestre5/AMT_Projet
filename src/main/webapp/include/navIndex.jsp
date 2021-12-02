@@ -15,16 +15,22 @@
             <li class="propClone"><a href="shop">Shop</a></li>
             <li class="propClone"><a href="cart">Cart</a></li>
             <%
-              if (session.getAttribute("idUserSession") == null) {
+              if (session.getAttribute("idUser") == null) {
             %>
-            <li class="propClone"><a href="register">Register</a></li>
             <li class="propClone"><a href="login">Login</a></li>
+            <li class="propClone"><a href="logindev">Login_Dev</a></li>
             <%
             } else {
+              String userRole = (String) session.getAttribute("roleUser");
+              if (userRole.equals("admin")) {
+            %>
+            <li class="propClone"><a href="shopManagement">Management</a></li>
+            <%
+              } // end if role
             %>
             <li class="propClone"><a href="logout">Logout</a></li>
             <%
-              }
+              } // end if id
             %>
           </ul>
         </div>
@@ -35,10 +41,10 @@
         <div class="col-md-12 text-center">
           <div class="text-homeimage">
             <div class="maintext-image" data-scrollreveal="enter top over 1.5s after 0.1s">
-              Increase Digital Sales
+              Build it like nobody is watching
             </div>
             <div class="subtext-image" data-scrollreveal="enter bottom over 1.7s after 0.3s">
-              Boost revenue with Scorilo
+              Be the new Bob
             </div>
           </div>
         </div>

@@ -54,8 +54,8 @@ public class CartServlet extends HttpServlet {
     private CartServletModel retrieveData(HttpServletRequest request){
         HttpSession session = request.getSession(false);
         // we are online, so we reset our data every actions
-        if (session != null && session.getAttribute("idUserSession") != null ) {
-            return new CartServletModel((Integer) session.getAttribute("idUserSession"));
+        if (session != null && session.getAttribute("idUser") != null ) {
+            return new CartServletModel((Integer) session.getAttribute("idUser"));
         }
         // we have a Cart in cache
         if (session != null && session.getAttribute("cart")!= null){

@@ -1,49 +1,75 @@
 package com.DAO.Access;
 
-import com.DAO.Objects.Article;
 import com.DAO.Objects.Category;
+import com.DAO.SessionManager;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 import org.jboss.logging.Logger;
-import org.hibernate.service.ServiceRegistry;
 
 import java.util.List;
 
 public class CategoryOps {
+    static Session ss;
     private final static Logger logger = Logger.getLogger(CategoryOps.class);
 
-    public static SessionFactory _init(){
-        return new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
-    }
 
-    //TODO modify this to look like the registerArticle in ArticleOps (not good to pass the name)
-    public static Integer addCategory(String name){
-        Session sessionObj = _init().openSession();
-        Transaction transObj = sessionObj.beginTransaction();
-        Category newCategory=new Category(name);
-        sessionObj.save(newCategory);
-        transObj.commit();
-        sessionObj.close();
-        logger.info("Successfully added"+newCategory.getName()+" category");
+    public static Integer addCategory(String name) {
+        ss = SessionManager.sessionFactory.getCurrentSession();
+        Transaction transObj = null;
+        Category newCategory = null;
+        try {
+            transObj = ss.beginTransaction();
+            newCategory = new Category( name );
+            ss.save( newCategory );
+            transObj.commit();
+            logger.info( "Added category !" + name );
+        } catch (Exception e) {
+            logger.error( "Something wrong occured" + e );
+            transObj.rollback();
+
+        } finally {
+            ss.close();
+        }
         return newCategory.getId();
     }
 
-    public static Category fetchOne(Integer id){
-        Session sessionObj = _init().openSession();
-        Category cat = (Category) sessionObj.load(Category.class,id);
-        sessionObj.close();
-        return cat;
+    public static Category fetchOne(Integer id) {
+        ss = SessionManager.sessionFactory.getCurrentSession();
+        Transaction transObj = null;
+        Category cat = null;
+        try {
+            transObj = ss.beginTransaction();
+            cat = (Category) ss.load( Category.class, id );
+            transObj.commit();
+
+        } catch (Exception e) {
+            transObj.rollback();
+            logger.error( "Something wrong occured" + e );
+        } finally {
+            ss.close();
+            return cat;
+        }
+
     }
 
     public static List fetchAll(){
-        Session sessionObj = _init().openSession();
-        List categoryList = sessionObj.createQuery( "from Category " ).list();
-        sessionObj.close();
-        logger.info( "Categories : "+  categoryList.size());
-        return categoryList;
+            ss = SessionManager.sessionFactory.getCurrentSession();
+            Transaction transObj = null;
+            List<Category> categories = null;
+            try {
+                transObj = ss.beginTransaction();
+                Query<Category> query = ss.createQuery( "from Category ",Category.class );
+                categories = query.getResultList();
+                transObj.commit();
+
+            }catch (Exception e) {
+                transObj.rollback();
+                logger.info( "Something wrong occured"+e);
+            }finally{
+                logger.info( "Loaded"+categories.size()+" categories successfully" );
+                return categories;
+            }
     }
 
     public static Integer isStored(String name){
