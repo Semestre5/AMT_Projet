@@ -1,6 +1,7 @@
 package com.amt.shopManagement;
 
 import com.DAO.Access.ArticleOps;
+import com.amt.authentication.CheckCredentials;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -16,14 +17,13 @@ public class ShopManagementServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession(false);
-        String roleUser = (String) session.getAttribute("roleUser");
-        if (session != null && roleUser.equals("admin")) {
+        if (CheckCredentials.isAdmin(request)) {
             request.setAttribute("articles", ArticleOps.fetchAll());
             RequestDispatcher rd = request.getRequestDispatcher("shopManagement.jsp");
             rd.forward(request, response);
         } else {
-            response.sendRedirect(".");
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setHeader("Location", "home");
         }
     }
 }

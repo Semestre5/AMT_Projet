@@ -35,6 +35,10 @@ public class LoginDevServlet extends HttpServlet {
         session.setAttribute("idUser", idUser);
         session.setAttribute("roleUser", roleUser);
 
-        response.sendRedirect(".");
+        if (roleUser.equals("admin")) {
+            response.sendRedirect("shopManagement");
+        } else {
+            response.sendRedirect("home");
+        }
     }
 }

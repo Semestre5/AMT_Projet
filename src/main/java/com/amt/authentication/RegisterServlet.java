@@ -11,23 +11,35 @@ import java.io.IOException;
 public class RegisterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
-        rd.forward(request, response);
+        HttpSession session = request.getSession(false);
+        if(session.getAttribute("idUser") == null) {
+            RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
+            rd.forward(request, response);
+        } else {
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            response.setHeader("Location", "home");
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+        HttpSession session = request.getSession(false);
+        if(session.getAttribute("idUser") == null) {
+            String username = request.getParameter("username");
+            String password = request.getParameter("password");
 
-        JSONObject resultRegister = CheckCredentials.checkCredentials(username, password, CheckCredentials.registerPath);
+            JSONObject resultRegister = CheckCredentials.checkCredentials(username, password, CheckCredentials.registerPath);
 
-        if(resultRegister.getInt("code") == 201) {
-            response.sendRedirect("login");
+            if(resultRegister.getInt("code") == 201) {
+                response.sendRedirect("login");
+            } else {
+                request.setAttribute("statusCode", resultRegister.getInt("code"));
+                RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
+                rd.forward(request, response);
+            }
         } else {
-            request.setAttribute("statusCode", resultRegister.getInt("code"));
-            RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
-            rd.forward(request, response);
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            response.setHeader("Location", "home");
         }
     }
 }

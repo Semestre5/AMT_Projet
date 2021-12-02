@@ -2,6 +2,8 @@ package com.amt.authentication;
 
 import org.json.JSONObject;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -58,5 +60,11 @@ public class CheckCredentials {
         response.put("code", status);
 
         return response;
+    }
+
+    public static boolean isAdmin(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        String roleUser = (String) session.getAttribute("roleUser");
+        return roleUser != null && roleUser.equals("admin");
     }
 }
