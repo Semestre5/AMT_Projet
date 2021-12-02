@@ -29,4 +29,11 @@ public class ShopManagementServlet extends HttpServlet {
             response.sendRedirect(".");
         }
     }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if(request.getParameter("articleId")!= null && request.getParameter("categoryId") != null){
+
+        }
+    }
 }

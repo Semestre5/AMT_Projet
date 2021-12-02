@@ -2,9 +2,13 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.DAO.Objects.Article" %>
 <%@ page import="com.DAO.Access.ArticleOps" %>
+<%@ page import="com.DAO.Objects.Category" %>
+<%@ page import="com.amt.shopManagement.ShopManagementServlet" %>
 
 <%
-    List<Article> articles = (List<Article>) request.getAttribute("articles");
+    List<Article> articles = (List<Article>) request.getAttribute(ShopManagementServlet.ARTICLES);
+    List<Category> categories = (List<Category>) request.getAttribute(ShopManagementServlet.CATEGORIES);
+
 %>
 <!DOCTYPE html>
 <html>
@@ -74,6 +78,19 @@
                             <input hidden name="id" value="<%out.print(String.valueOf(a.getId()));%>"/>
                             <input type="number" name="newQuantity">
                             <input type="submit" value="Change quantity">
+                        </form>
+                        <p>Categories :</p>
+                        <%for (Category c : a.getCategories()){
+                            out.print(c.getName());
+                        }%>
+                        <form method="POST">
+                            <input hidden name="articleId" value="<%out.print(String.valueOf(a.getId()));%>"/>
+                            <label for="category">Choose a category:</label>
+                            <select id="category" name="categoryId">
+                                <%for  (Category c : categories){%>
+                                <option value="<%out.print(String.valueOf(c.getId()));%>"><%out.print(c.getName());%></option>
+                                <%}%>
+                            </select>
                         </form>
                     </div>
                 </div>

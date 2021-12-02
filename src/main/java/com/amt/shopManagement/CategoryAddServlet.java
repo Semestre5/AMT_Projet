@@ -16,6 +16,8 @@ import java.util.Map;
 @WebServlet(name = "CategoryAddServlet", value = "/categoryAdd")
 public class CategoryAddServlet extends HttpServlet {
     public static final String CATEGORIES = "categories";
+    public static final String NEED_CONFIRMATION = "needConfirmation";
+    public static final String ARTICLES_CONCERNED = "articlesConcerned";
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute(CATEGORIES, CategoryOps.fetchAll());
@@ -39,6 +41,13 @@ public class CategoryAddServlet extends HttpServlet {
                 CategoryOps.deleteCategory(idCategory);
                 response.sendRedirect(request.getContextPath() + "/categoryAdd");
             } else {
+                if(parameterName.containsKey(NEED_CONFIRMATION)){
+
+                }else{
+                    request.setAttribute(NEED_CONFIRMATION, true);
+                    request.setAttribute(ARTICLES_CONCERNED, category.getArticles());
+                }
+
 
             }
         }else{
