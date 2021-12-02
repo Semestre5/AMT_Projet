@@ -67,7 +67,7 @@ public class Article {
     }
 
     public boolean isSellable(){
-        return this.price.intValue() > 0 && this.quantity > 0;
+        return this.price.compareTo(BigDecimal.ZERO) > 0 && this.quantity > 0;
     }
 
     @ManyToMany(cascade={CascadeType.MERGE, CascadeType.PERSIST},fetch=FetchType.LAZY)
@@ -79,9 +79,16 @@ public class Article {
     @Getter
     private Set<Category> categories = new HashSet<Category>();
 
-    public void addCategory(Category category){
-        categories.add(category);
+    public void addCategory(Category category) {
+        this.categories.add(category);
+        category.getArticles().add(this);
     }
+
+    public void removeCategory(Category category) {
+        this.categories.remove(category);
+        category.getArticles().remove(this);
+    }
+
     public void addCategoryList( List<Category> categoryList){
         categories.addAll( categoryList );
     }

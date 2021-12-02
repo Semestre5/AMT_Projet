@@ -1,6 +1,7 @@
 package com.amt.shopManagement;
 
 import com.DAO.Access.ArticleOps;
+import com.DAO.Access.CategoryOps;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -9,7 +10,8 @@ import java.io.IOException;
 
 @WebServlet(name = "ShopManagementServlet", value = "/shopManagement")
 public class ShopManagementServlet extends HttpServlet {
-
+    public static final String CATEGORIES = "categories";
+    public static final String ARTICLES = "articles";
     public ShopManagementServlet() {
         super();
     }
@@ -19,7 +21,8 @@ public class ShopManagementServlet extends HttpServlet {
         HttpSession session = request.getSession(false);
         String roleUser = (String) session.getAttribute("roleUser");
         if (session != null && roleUser.equals("admin")) {
-            request.setAttribute("articles", ArticleOps.fetchAll());
+            request.setAttribute(ARTICLES, ArticleOps.fetchAll());
+            request.setAttribute(CATEGORIES, CategoryOps.fetchAll());
             RequestDispatcher rd = request.getRequestDispatcher("shopManagement.jsp");
             rd.forward(request, response);
         } else {

@@ -24,7 +24,7 @@ public class ShopServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute(ARTICLES_ATTR, ArticleOps.fetchAll());
-        request.setAttribute(CATEGORY_ATTR, CategoryOps.fetchAll());
+        request.setAttribute(CATEGORY_ATTR, removeEmptyCategories(CategoryOps.fetchAll()));
         RequestDispatcher rd = request.getRequestDispatcher("/shop.jsp");
         rd.forward(request, response);
     }
@@ -56,12 +56,22 @@ public class ShopServlet extends HttpServlet {
         } else {
             request.setAttribute(ARTICLES_ATTR, ArticleOps.fetchAll());
         }
-        request.setAttribute(CATEGORY_ATTR, CategoryOps.fetchAll());
+        request.setAttribute(CATEGORY_ATTR, removeEmptyCategories(CategoryOps.fetchAll()));
         RequestDispatcher dispatcher = request.getRequestDispatcher("/shop.jsp");
         dispatcher.forward(request, response);
     }
 
     public void destroy() {
 
+    }
+
+    private List<Category> removeEmptyCategories(List<Category> categoryList){
+        List<Category> temp = new ArrayList<Category>();
+        for(Category c : categoryList ){
+            if(!c.getArticles().isEmpty()){
+                temp.add(c);
+            }
+        }
+        return temp;
     }
 }

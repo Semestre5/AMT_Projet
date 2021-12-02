@@ -33,7 +33,18 @@ public class Category {
     private String name;
 
     @ManyToMany(mappedBy = "categories",fetch=FetchType.EAGER,cascade={CascadeType.MERGE,CascadeType.PERSIST})
+    @Getter
     private Set<Article> articles = new HashSet<Article>();
+
+    public void addArticle(Article article) {
+        this.articles.add(article);
+        article.getCategories().add(this);
+    }
+
+    public void removeArticle(Article article) {
+        this.articles.remove(article);
+        article.getCategories().remove(this);
+    }
 
     public void addArticleToCategory(Article article){
         articles.add(article);

@@ -1,6 +1,8 @@
 package com.DAO.Access;
 
 import com.DAO.Objects.Article;
+import com.DAO.Objects.ArticleCategory;
+import com.DAO.Objects.ArticleCategoryId;
 import com.DAO.Objects.Category;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -191,6 +193,27 @@ public class ArticleOps {
         }
 
 
+    }
+
+    public static ArticleCategoryId addCategory(Integer idArticle, Integer idCategory) {
+        ss = SessionManager.sessionFactory.openSession();
+        Transaction transObj = null;
+        ArticleCategoryId articleCategoryid = null;
+        try {
+            transObj = ss.beginTransaction();
+            articleCategoryid = new ArticleCategoryId(idArticle, idCategory);
+            ArticleCategory articleCategory = new ArticleCategory(articleCategoryid);
+            ss.save(articleCategory);
+            transObj.commit();
+            logger.info( "Added relation between article " + idArticle + " and category " + idCategory );
+            return articleCategoryid;
+        } catch (Exception e) {
+            logger.error( "Something wrong occured" + e );
+            transObj.rollback();
+            return null;
+        } finally {
+            ss.close();
+        }
     }
 }
 

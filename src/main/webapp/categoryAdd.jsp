@@ -52,12 +52,19 @@
             </div>
         </div>
         <div class="row">
-            <!--- TODO ajouter un bouton pour supprimer les catégories -->
             <ul class="list-group">
                 <%if (categories == null || categories.isEmpty()){%>
                 <li class="list-group-item">No categories to display</li>
                 <%} else for (Category c : categories){%>
-                <li class="list-group-item"><%out.print(c.getName());%></li>
+                <li class="list-group-item">
+                    <p><%out.print(c.getName());%></p>
+                    <!--TODO this is only here for debugging purposes, remove later -->
+                    <p><%out.print(c.getArticles());%></p>
+                    <form method="post">
+                        <input hidden name="id" value="<%out.print(String.valueOf(c.getId()));%>"/>
+                        <input type="submit" class="edd_cart_remove_item_btn" value="Delete">
+                    </form>
+                </li>
                 <%}%>
             </ul>
         </div>
