@@ -1,6 +1,5 @@
 package com.amt.cart;
 
-import com.DAO.Access.ArticleOps;
 import com.DAO.Access.CartOps;
 import com.DAO.Objects.Cart;
 import com.DAO.Objects.CartId;
@@ -9,11 +8,13 @@ import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public class CartServletModel {
+public class CartModel {
     @Getter private final List<Cart> cartProductList;
+    // the id of the session won't change
     @Getter private Integer idSession = null;
-    CartServletModel(Integer idSession){
+    CartModel(Integer idSession){
         this.cartProductList = new ArrayList<>();
 
         // the user is a Member and retrieve his personal Cart
@@ -24,30 +25,39 @@ public class CartServletModel {
     }
 
     /**
-     * Update the current state of cart with an Article. Can suppress, edit or add an Article
+     * Update the current state of cart with an Article. If Article doesn't exist, it do nothing
      * Note : If the user is connecter, the cart is save, otherwise, it would last the same time as the servlet
      * @param idArticle id of the element to add, suppres or modify in cart
      * @param quantity quantity of associated Article
      */
     public void update(int idArticle, int quantity) throws Exception/* throws Exception*/ {
-        // the product is in the Cart
-        if (has(idArticle)){
-            if (quantity == 0){ // suppression of article in cart when 0 quantity
-                delete(idArticle);
-            }
-            else { // modification of article quantity in cart
-                for (Cart cartProduct : cartProductList) {
-                    if (cartProduct.getId().getIdArticle() == idArticle) {
-                        cartProduct.setQuantity(quantity);
-                        if (idSession != null)
-                            CartOps.update(cartProduct); //update in db
-                        break;
-                    }
-                }
+        for (Cart cartProduct : cartProductList) {
+            if (cartProduct.getId().getIdArticle() == idArticle) {
+                cartProduct.setQuantity(quantity);
+                if (idSession != null)
+                    CartOps.update(cartProduct); //update in db
+                break;
             }
         }
-        else if (quantity > 0){
-            add(idArticle, quantity);
+    }
+
+    /*public void update(int idArticle, int quantity){
+
+    }*/
+
+    /**
+     * Increment the quantity of an article with existing quantity in Cart
+     * @param idArticle id of modified Article in Cart
+     * @param quantity added quantity
+     */
+    public void update_incremental(Integer idArticle, Integer quantity){
+        for (Cart cartProduct : cartProductList) {
+            if (Objects.equals(cartProduct.getId().getIdArticle(), idArticle)) {
+                cartProduct.setQuantity(cartProduct.getQuantity() + quantity);
+                if (idSession != null)
+                    CartOps.update(cartProduct); //update in db
+                break;
+            }
         }
     }
 
@@ -68,7 +78,7 @@ public class CartServletModel {
      * @param idArticle Id of the Article we look for
      * @return true if exist
      */
-    private boolean has(int idArticle){
+    public boolean has(int idArticle){
         for (Cart cartProduct : cartProductList){
             if (cartProduct.getId().getIdArticle() == idArticle)
                 return true;
@@ -81,7 +91,7 @@ public class CartServletModel {
      * @param idProduct id of the Product, must exist in db
      * @param quantity quantity to add in Cart
      */
-    private void add(int idProduct, int quantity) throws Exception {
+    public void add(int idProduct, int quantity) throws Exception {
         CartId cartID = new CartId();
         cartID.setIdArticle(idProduct);
         cartID.setIdUser(this.idSession);
@@ -101,7 +111,7 @@ public class CartServletModel {
      * Delete an Article in Cart
      * @param idProduct id of the suppressed Article
      */
-    private void delete(int idProduct){
+    public void delete(int idProduct){
         for (int i = 0; i < cartProductList.size(); i++) {
             if (cartProductList.get(i).getId().getIdArticle() == idProduct) {
                 if (idSession != null){

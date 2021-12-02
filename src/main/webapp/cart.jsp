@@ -1,10 +1,10 @@
-<%@ page import="com.amt.cart.CartServletModel" %>
+<%@ page import="com.amt.cart.CartModel" %>
 <%@ page import="com.DAO.Objects.Cart" %>
 <%@ page import="com.DAO.Objects.Article" %>
 <%@ page import="com.DAO.Access.ArticleOps" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
-    CartServletModel cart = (CartServletModel) request.getAttribute("cart");
+    CartModel cart = (CartModel) request.getAttribute("cart");
 %>
 <!DOCTYPE html>
 <html>
@@ -42,6 +42,7 @@
             </div>
         </div>
         <div id="edd_checkout_wrap" class="col-md-8 col-md-offset-2">
+            <% if (!cart.getCartProductList().isEmpty()) { %>
             <form id="edd_checkout_cart_form" method="post">
                 <div id="edd_checkout_cart_wrap">
                     <table id="edd_checkout_cart" class="ajaxed">
@@ -130,6 +131,15 @@
                     </table>
                 </div>
             </form>
+            <%
+            }
+            else { %>
+                <h2 style="align-content: center">Your cart is empty</h2>
+                <h4 style="align-content: center">Go to our <a href="shop">shop</a></h4>
+            <br><br><br><br>
+            <%
+            }
+            %>
             </div>
         </div>
     </div>

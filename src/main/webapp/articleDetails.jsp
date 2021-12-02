@@ -87,6 +87,7 @@
                 <form method="post" action="../cart" onsubmit="return validNumber()">
                     <span style="display: flex;justify-content: space-evenly">
                         <input hidden name="id" value="<%out.print(String.valueOf(article.getId()));%>"/>
+                        <input hidden name="incremental"/>
                         <input type="button" onclick="decrementValue()" class="edd_cart_remove_item_btn" value="&nbsp-&nbsp">
                         <input type="number" name="quantity" id="number" value="1"/>
                         <input type="button" onclick="incrementValue()" class="edd_cart_remove_item_btn" value="&nbsp+&nbsp">
