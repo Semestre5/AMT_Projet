@@ -1,6 +1,7 @@
 package com.DAO.Access;
 
 import com.DAO.Objects.Article;
+import com.DAO.Objects.ArticleCategory;
 import com.DAO.Objects.Category;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -189,8 +190,6 @@ public class ArticleOps {
             ss.close();
             return list.isEmpty() ? null :list.get( 0 ).getId() ;
         }
-
-
     }
 }
 
