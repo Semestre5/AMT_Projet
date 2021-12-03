@@ -80,9 +80,11 @@
                             <input type="submit" value="Change quantity">
                         </form>
                         <p>Categories :</p>
-                        <%for (Category c : a.getCategories()){
-                            out.print(c.getName());
-                        }%>
+                        <ul>
+                            <%for (Category c : a.getCategories()){ %>
+                            <li> <%out.print(c.getName());%> </li>
+                            <%}%>
+                        </ul>
                         <form method="POST">
                             <input hidden name="articleId" value="<%out.print(String.valueOf(a.getId()));%>"/>
                             <label for="category">Choose a category:</label>
@@ -91,6 +93,7 @@
                                 <option value="<%out.print(String.valueOf(c.getId()));%>"><%out.print(c.getName());%></option>
                                 <%}%>
                             </select>
+                            <input type="submit" value="Add Category to Current Article">
                         </form>
                     </div>
                 </div>

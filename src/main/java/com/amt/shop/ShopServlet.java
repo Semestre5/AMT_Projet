@@ -28,7 +28,7 @@ public class ShopServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (!CheckCredentials.isAdmin(request)) {
             request.setAttribute(ARTICLES_ATTR, ArticleOps.fetchAll());
-            request.setAttribute(CATEGORY_ATTR, CategoryOps.fetchAll());
+            request.setAttribute(CATEGORY_ATTR, removeEmptyCategories(CategoryOps.fetchAll()));
             RequestDispatcher rd = request.getRequestDispatcher("/shop.jsp");
             rd.forward(request, response);
         } else {

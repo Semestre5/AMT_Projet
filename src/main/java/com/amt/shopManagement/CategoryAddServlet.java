@@ -27,40 +27,43 @@ public class CategoryAddServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String name = request.getParameter("name");
+
         Map<String, String[]> parameterName = request.getParameterMap();
-        Integer id = CategoryOps.isStored(name);
         if(parameterName.containsKey("id")){
             int idCategory = Integer.parseInt(request.getParameter("id"));
             Category category = CategoryOps.fetchOne(idCategory);
-
-            // we check if the category has articles linked to it
-            Boolean noArticles = category.getArticles().isEmpty();
-
-            if(noArticles){
+            if(category.getArticles().isEmpty()){
+                //TODO fix problem with deleting a category, probably backend ?
                 CategoryOps.deleteCategory(idCategory);
                 response.sendRedirect(request.getContextPath() + "/categoryAdd");
             } else {
-                if(parameterName.containsKey(NEED_CONFIRMATION)){
-
-                }else{
-                    request.setAttribute(NEED_CONFIRMATION, true);
-                    request.setAttribute(ARTICLES_CONCERNED, category.getArticles());
-                }
-
-
+                //TODO work on the deletion of a category with articles
+                request.setAttribute(NEED_CONFIRMATION, category.getId());
+                request.setAttribute(ARTICLES_CONCERNED, category.getArticles());
+                request.setAttribute(CATEGORIES, CategoryOps.fetchAll());
+                RequestDispatcher rd = request.getRequestDispatcher("categoryAdd.jsp");
+                rd.forward(request, response);
             }
-        }else{
+        }else if (parameterName.containsKey("name")){
+            String name = request.getParameter("name");
+            Integer id = CategoryOps.isStored(name);
             if(id == null){
                 CategoryOps.addCategory(name);
                 response.sendRedirect(request.getContextPath() + "/categoryAdd");
             }else{
                 request.setAttribute("duplicatedName", name);
-                //TODO look at if there's another way to handle that (the request is not done otherwise)
                 request.setAttribute(CATEGORIES, CategoryOps.fetchAll());
                 RequestDispatcher rd = request.getRequestDispatcher("categoryAdd.jsp");
                 rd.forward(request, response);
             }
+        }else if(parameterName.containsKey("delete_anyways")){
+            Integer categoryId = Integer.valueOf(request.getParameter("idCategorywithArticles"));
+            Category category = CategoryOps.fetchOne(categoryId);
+            for (Article a: category.getArticles()){
+                a.removeCategory(category);
+            }
+            CategoryOps.deleteCategory(categoryId);
+            response.sendRedirect(request.getContextPath() + "/categoryAdd");
         }
     }
 }

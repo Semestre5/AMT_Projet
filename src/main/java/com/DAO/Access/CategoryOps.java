@@ -83,7 +83,7 @@ public class CategoryOps {
             tmpCategory = fetchOne( categoryId );
             ss.delete( tmpCategory );
             transObj.commit();
-            logger.info( " Category " + tmpCategory.getId() + " named " + tmpCategory.getName() + " is deleted" );
+            logger.info( " Category " + tmpCategory.getId() + " named " + tmpCategory.getName() + " has been deleted" );
         } catch (Exception e) {
             transObj.rollback();
             System.out.println( "Something wrong occured " + e );

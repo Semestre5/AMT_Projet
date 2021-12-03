@@ -1,6 +1,8 @@
 package com.amt.shopManagement;
 
 import com.DAO.Access.ArticleOps;
+import com.DAO.Objects.Article;
+import com.DAO.Objects.Category;
 import com.amt.authentication.CheckCredentials;
 import com.DAO.Access.CategoryOps;
 
@@ -33,7 +35,20 @@ public class ShopManagementServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if(request.getParameter("articleId")!= null && request.getParameter("categoryId") != null){
-
+            Integer articleId = Integer.valueOf(request.getParameter("articleId"));
+            Integer categoryId = Integer.valueOf(request.getParameter("categoryId"));
+            Article article = ArticleOps.fetchOne(articleId);
+            Category category = CategoryOps.fetchOne(categoryId);
+            Boolean articleHasCategory = false;
+            for(Category c : article.getCategories()){
+                if (c.getId() == category.getId()){
+                    articleHasCategory = true;
+                }
+            }
+            if(!articleHasCategory){
+                ArticleOps.addCategory(article.getId(), category.getId());
+            }
+            response.sendRedirect(request.getContextPath() + "/shopManagement");
         }
     }
 }

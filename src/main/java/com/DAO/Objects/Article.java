@@ -70,9 +70,10 @@ public class Article {
         return this.price.compareTo(BigDecimal.ZERO) > 0 && this.quantity > 0;
     }
 
-    @ManyToMany(cascade={CascadeType.MERGE, CascadeType.PERSIST},fetch=FetchType.LAZY)
+    @ManyToMany(cascade={CascadeType.MERGE, CascadeType.PERSIST},fetch=FetchType.EAGER)
     @JoinTable(
             name = "article_category",
+            //TODO ils sont inversés par rapport aux exemples, normal ?
             joinColumns = {@JoinColumn(name ="idCategory")},
             inverseJoinColumns = {@JoinColumn(name="idArticle")}
     )

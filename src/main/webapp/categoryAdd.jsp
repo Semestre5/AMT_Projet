@@ -1,9 +1,13 @@
 <%@ page import="com.DAO.Objects.Category" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.amt.shopManagement.CategoryAddServlet" %>
+<%@ page import="com.DAO.Objects.Article" %>
+<%@ page import="java.util.Set" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<% List<Category> categories = (List<Category>) request.getAttribute(CategoryAddServlet.CATEGORIES); %>
+<% List<Category> categories = (List<Category>) request.getAttribute(CategoryAddServlet.CATEGORIES);
+   Set<Article> articlesConcerned = (Set<Article>) request.getAttribute(CategoryAddServlet.ARTICLES_CONCERNED);
+%>
 <!DOCTYPE html>
 <html>
 <%@include file="include/head.html"%>
@@ -58,8 +62,22 @@
                 <%} else for (Category c : categories){%>
                 <li class="list-group-item">
                     <p><%out.print(c.getName());%></p>
-                    <!--TODO this is only here for debugging purposes, remove later -->
-                    <p><%out.print(c.getArticles());%></p>
+                    <% if(request.getAttribute(CategoryAddServlet.NEED_CONFIRMATION) != null &&
+                            c.getId() == request.getAttribute(CategoryAddServlet.NEED_CONFIRMATION)){%>
+                        <p> The category you want to delete contains the following articles :</p>
+                        <ul>
+                        <% if (articlesConcerned != null){
+                            for (Article categoryArticles: articlesConcerned){ %>
+                            <li><%out.print(categoryArticles.getName());%></li>
+                            <% }
+                            } %>
+                        </ul>
+                        <form method="post">
+                            <input hidden name="delete_anyways" value="true"/>
+                            <input hidden name="idCategorywithArticles" value="<%out.print(String.valueOf(c.getId()));%>"/>
+                            <input type="submit" class="edd_cart_remove_item_btn" value="Delete Anyways">
+                        </form>
+                    <%}%>
                     <form method="post">
                         <input hidden name="id" value="<%out.print(String.valueOf(c.getId()));%>"/>
                         <input type="submit" class="edd_cart_remove_item_btn" value="Delete">
