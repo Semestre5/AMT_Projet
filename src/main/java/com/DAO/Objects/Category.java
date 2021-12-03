@@ -7,6 +7,7 @@ import org.hibernate.annotations.Proxy;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Table(name = "category", indexes = {
@@ -53,4 +54,10 @@ public class Category {
         articles.addAll(listArticles);
     }
 
+    public boolean equals(Object o){
+        if (o == this) return true;
+        if (!(o instanceof Article)) return false;
+        Category other = (Category) o;
+        return Objects.equals(other.getId(), this.id);
+    }
 }
