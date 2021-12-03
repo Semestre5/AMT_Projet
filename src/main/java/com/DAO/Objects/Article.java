@@ -73,7 +73,6 @@ public class Article {
     @ManyToMany(cascade={CascadeType.PERSIST},fetch=FetchType.EAGER)
     @JoinTable(
             name = "article_category",
-            //TODO ils sont inversés par rapport aux exemples, normal ?
             joinColumns = {@JoinColumn(name ="idArticle")},
             inverseJoinColumns = {@JoinColumn(name="idCategory")}
     )

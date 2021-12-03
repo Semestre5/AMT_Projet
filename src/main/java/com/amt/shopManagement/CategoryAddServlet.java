@@ -33,11 +33,9 @@ public class CategoryAddServlet extends HttpServlet {
             int idCategory = Integer.parseInt(request.getParameter("id"));
             Category category = CategoryOps.fetchOne(idCategory);
             if(category.getArticles().isEmpty()){
-                //TODO fix problem with deleting a category, probably backend ?
                 CategoryOps.deleteCategory(idCategory);
                 response.sendRedirect(request.getContextPath() + "/categoryAdd");
             } else {
-                //TODO work on the deletion of a category with articles
                 request.setAttribute(NEED_CONFIRMATION, category.getId());
                 request.setAttribute(ARTICLES_CONCERNED, category.getArticles());
                 request.setAttribute(CATEGORIES, CategoryOps.fetchAll());
@@ -59,9 +57,6 @@ public class CategoryAddServlet extends HttpServlet {
         }else if(parameterName.containsKey("delete_anyways")){
             Integer categoryId = Integer.valueOf(request.getParameter("idCategorywithArticles"));
             Category category = CategoryOps.fetchOne(categoryId);
-            for (Article a: category.getArticles()){
-                a.removeCategory(category);
-            }
             CategoryOps.deleteCategory(categoryId);
             response.sendRedirect(request.getContextPath() + "/categoryAdd");
         }

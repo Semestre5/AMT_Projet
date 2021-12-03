@@ -81,8 +81,10 @@ public class CategoryOps {
         Category tmpCategory = null;
         try {
             transObj = ss.beginTransaction();
-            tmpCategory = fetchOne( categoryId );
-            ss.delete( tmpCategory );
+            tmpCategory = ss.load(Category.class, categoryId );
+            if(tmpCategory!=null){
+                ss.delete(tmpCategory);
+            }
             transObj.commit();
             logger.info( " Category " + tmpCategory.getId() + " named " + tmpCategory.getName() + " has been deleted" );
         } catch (Exception e) {
@@ -109,27 +111,6 @@ public class CategoryOps {
         } finally {
             ss.close();
             return list.isEmpty() ? null :list.get(0).getId();
-        }
-    }
-
-    //TODO supprimer ? c'est inutile pour l'instant
-    public static boolean hasArticle(Integer idCategory){
-        ss = SessionManager.sessionFactory.getCurrentSession();
-        Boolean hasArticle = false;
-        List<ArticleCategory> list = null;
-        Transaction transObj = null;
-        try {
-            transObj = ss.beginTransaction();
-            list = ss.createQuery( "from ArticleCategory where id.idCategory = :idCategory", ArticleCategory.class )
-                    .setParameter( "idCategory", idCategory )
-                    .getResultList();
-            transObj.commit();
-        }catch (Exception e) {
-            transObj.rollback();
-            logger.info( "Something wrong occured"+e);
-        }finally {
-            logger.info( "Loaded articles for category "+ idCategory + " successfully" );
-            return list != null;
         }
     }
 }
