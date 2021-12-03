@@ -43,6 +43,7 @@ public class CategoryOps {
         try {
             transObj = ss.beginTransaction();
             cat = (Category) ss.load( Category.class, id );
+            logger.info("Successfully fetched the category with id : "+ id);
             transObj.commit();
 
         } catch (Exception e) {

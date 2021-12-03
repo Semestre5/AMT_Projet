@@ -53,7 +53,6 @@
             <h1>
                 No articles to display
             </h1>
-            <!-- TODO ajouter la modif de plusieurs choses des articles, en particuliers leur catégorie , limiter la taille des images ?-->
             <%}
                 for (Article a: articles) {%>
             <div class="col-md-4">
