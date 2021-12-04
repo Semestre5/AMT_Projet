@@ -33,19 +33,23 @@
 <!-- CONTENT =============================-->
 <section class="item content">
     <div class="container toparea">
-        <div class="row">
+        <div class="row btn-group-justified">
             <!-- Colonnes, à répartir sur 12 pour remplir la page, on peut mettre autant de colonnes qu'on veut tant qu'on
                  reste sur 12 (6 colonnes de 2 par exemple) -->
             <!-- TODO travailler le visuel des boutons -->
             <div class="col-md-6">
-                <a href="articleAdd">
-                    <button class="clearfix button">Ajouter un nouvel article</button>
-                </a>
+                <p class="text-center" style="display: flex; justify-content: center">
+                    <a href="articleAdd">
+                        <button class="btn-buynow btn">Ajouter un nouvel article</button>
+                    </a>
+                </p>
             </div>
             <div class="col-md-6">
-                <a href="categoryAdd">
-                    <button class="clearfix button">Gestion des catégories</button>
-                </a>
+                <p class="text-center" style="display: flex; justify-content: center">
+                    <a href="categoryAdd">
+                        <button class="btn-buynow btn">Gestion des catégories</button>
+                    </a>
+                </p>
             </div>
         </div>
         <div class="row">

@@ -6,6 +6,7 @@ import com.DAO.Access.ArticleOps;
 import com.DAO.Access.CategoryOps;
 import com.DAO.Objects.Article;
 import com.DAO.Objects.Category;
+import com.amt.authentication.CheckCredentials;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -20,9 +21,13 @@ public class CategoryAddServlet extends HttpServlet {
     public static final String ARTICLES_CONCERNED = "articlesConcerned";
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute(CATEGORIES, CategoryOps.fetchAll());
-        RequestDispatcher rd = request.getRequestDispatcher("categoryAdd.jsp");
-        rd.forward(request, response);
+        if (CheckCredentials.isAdmin(request)) {
+            request.setAttribute(CATEGORIES, CategoryOps.fetchAll());
+            RequestDispatcher rd = request.getRequestDispatcher("categoryAdd.jsp");
+            rd.forward(request, response);
+        } else {
+            response.sendRedirect("home");
+        }
     }
 
     @Override
