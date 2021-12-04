@@ -27,9 +27,8 @@
             <%if (request.getAttribute("duplicatedName") != null && request.getAttribute("duplicatedID") != null){%>
             <div class="col-lg-8 col-lg-offset-2">
                 <div class="alert alert-danger content">
-                 <p class="text-danger text-center"> The object you wanted to create already exists :<br>
-                     <a href="shop/<%out.print( request.getAttribute("duplicatedID"));%>" class="text-danger">
-                         <%out.print(request.getAttribute("duplicatedName"));%></a>
+                 <p class="text-danger text-center">
+                     The object (<%out.print(request.getAttribute("duplicatedName"));%>) you wanted to create already exists<br>
                  </p>
                 </div>
             </div>

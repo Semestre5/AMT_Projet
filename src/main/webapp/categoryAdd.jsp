@@ -31,20 +31,21 @@
 <!-- CONTENT =============================-->
 <section class="item content">
     <div class="container toparea">
-        <a href="shopManagement">
-            <button class="clearfix button">Retour au Shop Management</button>
-        </a>
         <div class="row">
             <!-- TODO MAKE THIS HTML CLEANER -->
             <div class="row">
                 <%if (request.getAttribute("duplicatedName") != null){%>
-                    <p class="text-primary danger"> The category you created already exists </p>
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="alert alert-danger content">
+                        <p class="text-danger text-center"> The category you wanted to create already exists </p>
+                    </div>
+                </div>
                 <%}%>
             </div>
             <div class="row">
                 <!-- Colonnes, à répartir sur 12 pour remplir la page, on peut mettre autant de colonnes qu'on veut tant qu'on
                      reste sur 12 (6 colonnes de 2 par exemple) -->
-                <div class="col-lg-8">
+                <div class="col-lg-8 col-lg-offset-2">
                     <!-- Laisser id =contactform, c'est pour le visuel -->
                     <form id="contactform" method="POST" action="categoryAdd">
                         <div class="form">
@@ -56,35 +57,45 @@
             </div>
         </div>
         <div class="row">
-            <ul class="list-group">
-                <%if (categories == null || categories.isEmpty()){%>
-                <li class="list-group-item">No categories to display</li>
-                <%} else for (Category c : categories){%>
-                <li class="list-group-item">
-                    <p><%out.print(c.getName());%></p>
-                    <% if(request.getAttribute(CategoryAddServlet.NEED_CONFIRMATION) != null &&
+            <div class="col-lg-8 col-lg-offset-2">
+                <div class="text-center">
+                <ul class="list-group">
+                    <%if (categories == null || categories.isEmpty()){%>
+                    <li class="list-group-item">No categories to display</li>
+                    <%} else for (Category c : categories){%>
+                    <li class="list-group-item">
+                        <p><%out.print(c.getName());%></p>
+                        <% if(request.getAttribute(CategoryAddServlet.NEED_CONFIRMATION) != null &&
                             c.getId() == request.getAttribute(CategoryAddServlet.NEED_CONFIRMATION)){%>
-                        <p> The category you want to delete contains the following articles :</p>
-                        <ul>
-                        <% if (articlesConcerned != null){
-                            for (Article categoryArticles: articlesConcerned){ %>
-                            <li><%out.print(categoryArticles.getName());%></li>
-                            <% }
-                            } %>
-                        </ul>
-                        <form method="post">
-                            <input hidden name="delete_anyways" value="true"/>
-                            <input hidden name="idCategorywithArticles" value="<%out.print(String.valueOf(c.getId()));%>"/>
-                            <input type="submit" class="edd_cart_remove_item_btn" value="Delete Anyways">
-                        </form>
+                            <div class="alert-warning alert">
+                            <p> The category you want to delete contains the following articles :</p>
+                            <ul class="list-group">
+                            <% if (articlesConcerned != null){
+                                for (Article categoryArticles: articlesConcerned){ %>
+                                <!--TODO on peut faire ça sans le inline qui est pas terrible ? -->
+                                <li class="list-group-item alert-warning alert" style="padding: 5px; border: none;background-color: #fcf8e3">
+                                    <%out.print(categoryArticles.getName());%>
+                                </li>
+                                <% }
+                                } %>
+                            </ul>
+                            <form method="post">
+                                <input hidden name="delete_anyways" value="true"/>
+                                <input hidden name="idCategorywithArticles" value="<%out.print(String.valueOf(c.getId()));%>"/>
+                                <input type="submit" class="edd_cart_remove_item_btn" value="Delete Anyways">
+                            </form>
+                            </div>
+                            <%} else {%>
+                            <form method="post">
+                                <input hidden name="id" value="<%out.print(String.valueOf(c.getId()));%>"/>
+                                <input type="submit" class="edd_cart_remove_item_btn" value="Delete">
+                            </form>
+                            <%}%>
+                    </li>
                     <%}%>
-                    <form method="post">
-                        <input hidden name="id" value="<%out.print(String.valueOf(c.getId()));%>"/>
-                        <input type="submit" class="edd_cart_remove_item_btn" value="Delete">
-                    </form>
-                </li>
-                <%}%>
-            </ul>
+                </ul>
+                </div>
+            </div>
         </div>
     </div>
 </section>
