@@ -13,6 +13,17 @@
 <!DOCTYPE html>
 <html>
 <%@include file="include/head.html"%>
+<style>
+    .article_image{
+        width:331px;
+        height:216px;
+        object-fit:contain;
+    }
+    .categories-display{
+        border: groove;
+        margin: 2px;
+    }
+</style>
 <body>
 <!-- HEADER =============================-->
 <%@include file="include/nav.jsp"%>
@@ -62,32 +73,35 @@
             <div class="col-md-4">
                 <div class=productbox>
                     <div class=fadeshop>
-                        <div class="product-name text-center">
-                            <a href="shop/<%out.print(a.getId());%>">
-                                <%out.print(a.getName());%>
-                            </a>
-                        </div>
-                        <span class="maxproduct"><a href="shop/<%out.print(a.getId());%>"><img src="<% out.print(a.getLink());%>" alt=""></a></span>
+                        <span class="maxproduct article_image"><img src="<% out.print(a.getLink());%>" alt=""></span>
                     </div>
                     <div class="product-details">
+                        <h1><%out.print(a.getName());%></h1>
                         <span class="price">
-                            <span class="edd_price"><%out.print(a.isSellable() ? "CHF " + a.getPrice() : "");%></span>
+                            <span class="edd_price">Price : <%out.print(a.getPrice());%></span>
                         </span>
                         <%if (!a.isSellable()) {%>
                             <h4>Article unavailable</h4>
+                        <%} else { %>
+                            <h4>Article available</h4>
                         <%}%>
                         <p>Quantity : <%out.print(a.getQuantity());%></p>
                         <form method="POST" href="editquantity" action="editquantity">
                             <input hidden name="id" value="<%out.print(String.valueOf(a.getId()));%>"/>
                             <input type="number" name="newQuantity">
-                            <input type="submit" value="Change quantity">
+                            <input class="btn-success" type="submit" value="Change quantity">
                         </form>
-                        <p>Categories :</p>
-                        <ul>
-                            <%for (Category c : a.getCategories()){ %>
-                            <li> <%out.print(c.getName());%> </li>
-                            <%}%>
-                        </ul>
+                        <div class="categories-display" style="height: 75px; overflow: auto;">
+                            <p>Categories :</p>
+                            <ul class="list-group">
+                                <%for (Category c : a.getCategories()){ %>
+                                <li class="list-group-item" style="padding: 2px; border: none;">
+                                    <%out.print(c.getName());%>
+                                </li>
+
+                                <%}%>
+                            </ul>
+                        </div>
                         <form method="POST">
                             <input hidden name="articleId" value="<%out.print(String.valueOf(a.getId()));%>"/>
                             <label for="category">Choose a category:</label>
@@ -97,7 +111,7 @@
                                 <option value="<%out.print(String.valueOf(c.getId()));%>"><%out.print(c.getName());%></option>
                                 <%}}%>
                             </select>
-                            <input type="submit" value="Add Category to Current Article">
+                            <input class="btn-success" type="submit" value="Add Category to Current Article">
                         </form>
                     </div>
                 </div>
