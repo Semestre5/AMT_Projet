@@ -92,9 +92,10 @@
                             <input hidden name="articleId" value="<%out.print(String.valueOf(a.getId()));%>"/>
                             <label for="category">Choose a category:</label>
                             <select id="category" name="categoryId">
-                                <%for  (Category c : categories){%>
+                                <%for  (Category c : categories){
+                                    if (!a.hasCategory(c)){%>
                                 <option value="<%out.print(String.valueOf(c.getId()));%>"><%out.print(c.getName());%></option>
-                                <%}%>
+                                <%}}%>
                             </select>
                             <input type="submit" value="Add Category to Current Article">
                         </form>

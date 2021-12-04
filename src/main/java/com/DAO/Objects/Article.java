@@ -1,5 +1,6 @@
 package com.DAO.Objects;
 
+import com.DAO.Access.CategoryOps;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.Proxy;
@@ -89,6 +90,17 @@ public class Article {
         category.getArticles().remove(this);
     }
 
+    //TODO contains marchait pas pour ça, peut-être modifier le equals ? jsp si c'est propre ou pas
+    public boolean hasCategory(Category category){
+        Boolean hasCategory = false;
+        for(Category c : this.getCategories()){
+            if( c.getId() == category.getId()){
+                hasCategory = true;
+            }
+        }
+        return hasCategory;
+    }
+
     public void addCategoryList( List<Category> categoryList){
         categories.addAll( categoryList );
     }
@@ -99,5 +111,6 @@ public class Article {
         Article other = (Article) o;
         return Objects.equals(other.getId(), this.id);
     }
+
 
 }
