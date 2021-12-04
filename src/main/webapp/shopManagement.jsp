@@ -23,6 +23,14 @@
         border: groove;
         margin: 2px;
     }
+    .btn-admin{
+        width: 450px;
+        position: inherit;
+    }
+    .container-btn-admin{
+        display: flex;
+        justify-content: center;
+    }
 </style>
 <body>
 <!-- HEADER =============================-->
@@ -44,23 +52,19 @@
 <!-- CONTENT =============================-->
 <section class="item content">
     <div class="container toparea">
-        <div class="row btn-group-justified">
+        <div class="row" style="margin-bottom: 10px">
             <!-- Colonnes, à répartir sur 12 pour remplir la page, on peut mettre autant de colonnes qu'on veut tant qu'on
                  reste sur 12 (6 colonnes de 2 par exemple) -->
             <!-- TODO travailler le visuel des boutons -->
-            <div class="col-md-6">
-                <p class="text-center" style="display: flex; justify-content: center">
-                    <a href="articleAdd">
-                        <button class="btn-buynow btn">Ajouter un nouvel article</button>
-                    </a>
-                </p>
+            <div class="col-md-6 container-btn-admin">
+                <a href="articleAdd">
+                    <button class="btn-buynow btn-admin">Ajouter un nouvel article</button>
+                </a>
             </div>
-            <div class="col-md-6">
-                <p class="text-center" style="display: flex; justify-content: center">
-                    <a href="categoryAdd">
-                        <button class="btn-buynow btn">Gestion des catégories</button>
-                    </a>
-                </p>
+            <div class="col-md-6 container-btn-admin">
+                <a href="categoryAdd">
+                    <button class="btn-buynow btn-admin">Gestion des catégories</button>
+                </a>
             </div>
         </div>
         <div class="row">
@@ -92,13 +96,12 @@
                             <input class="btn-success" type="submit" value="Change quantity">
                         </form>
                         <div class="categories-display" style="height: 75px; overflow: auto;">
-                            <p>Categories :</p>
+                            <h4>Categories :</h4>
                             <ul class="list-group">
                                 <%for (Category c : a.getCategories()){ %>
                                 <li class="list-group-item" style="padding: 2px; border: none;">
                                     <%out.print(c.getName());%>
                                 </li>
-
                                 <%}%>
                             </ul>
                         </div>
