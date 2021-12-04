@@ -25,9 +25,14 @@
     <div class="container toparea">
         <div class="row">
             <%if (request.getAttribute("duplicatedName") != null && request.getAttribute("duplicatedID") != null){%>
-            <p class="text-primary danger"> The object you created already exists you can find it here : </p>
-            <a href="shop/<%out.print( request.getAttribute("duplicatedID"));%>" class="text-primary danger">
-                <%out.print(request.getAttribute("duplicatedName"));%></a>
+            <div class="col-lg-8 col-lg-offset-2">
+                <div class="alert alert-danger content">
+                 <p class="text-danger text-center"> The object you wanted to create already exists :<br>
+                     <a href="shop/<%out.print( request.getAttribute("duplicatedID"));%>" class="text-danger">
+                         <%out.print(request.getAttribute("duplicatedName"));%></a>
+                 </p>
+                </div>
+            </div>
             <%}%>
         </div>
         <div class="row">

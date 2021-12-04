@@ -34,6 +34,7 @@ public class ShopManagementServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //TODO add input validation here
         if(request.getParameter("articleId")!= null && request.getParameter("categoryId") != null){
             Integer articleId = Integer.valueOf(request.getParameter("articleId"));
             Integer categoryId = Integer.valueOf(request.getParameter("categoryId"));
