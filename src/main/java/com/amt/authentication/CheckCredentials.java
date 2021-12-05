@@ -26,6 +26,7 @@ public class CheckCredentials {
         connection.setDoInput(true);
         connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
         connection.setRequestProperty("Accept", "application/json");
+        connection.setRequestProperty("Authentication", "Bearer czvFbg2kmvqbcu(7Ux+c");
         connection.setRequestMethod("POST");
 
         // Création de l'objet JSON à transmettre dans la requête HTTP
