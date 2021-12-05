@@ -20,12 +20,13 @@ public class CheckCredentials {
 
     public static JSONObject checkCredentials(String username, String password, String path) throws IOException {
         // Création de la requête HTTP
-        URL url = new URL(localhost + path);
+        URL url = new URL(server + path);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setDoOutput(true);
         connection.setDoInput(true);
         connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
         connection.setRequestProperty("Accept", "application/json");
+        connection.setRequestProperty("Authentication", "Bearer czvFbg2kmvqbcu(7Ux+c");
         connection.setRequestMethod("POST");
 
         // Création de l'objet JSON à transmettre dans la requête HTTP
