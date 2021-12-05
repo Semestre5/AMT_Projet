@@ -1,5 +1,6 @@
 package com.DAO.Objects;
 
+import com.DAO.Access.CategoryOps;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.Proxy;
@@ -67,21 +68,39 @@ public class Article {
     }
 
     public boolean isSellable(){
-        return this.price.intValue() > 0 && this.quantity > 0;
+        return this.price.compareTo(BigDecimal.ZERO) > 0 && this.quantity > 0;
     }
 
-    @ManyToMany(cascade={CascadeType.MERGE, CascadeType.PERSIST},fetch=FetchType.LAZY)
+    @ManyToMany(cascade={CascadeType.PERSIST},fetch=FetchType.EAGER)
     @JoinTable(
             name = "article_category",
-            joinColumns = {@JoinColumn(name ="idCategory")},
-            inverseJoinColumns = {@JoinColumn(name="idArticle")}
+            joinColumns = {@JoinColumn(name ="idArticle")},
+            inverseJoinColumns = {@JoinColumn(name="idCategory")}
     )
     @Getter
     private Set<Category> categories = new HashSet<Category>();
 
-    public void addCategory(Category category){
-        categories.add(category);
+    public void addCategory(Category category) {
+        this.categories.add(category);
+        category.getArticles().add(this);
     }
+
+    public void removeCategory(Category category) {
+        this.categories.remove(category);
+        category.getArticles().remove(this);
+    }
+
+    //TODO contains marchait pas pour ça, peut-être modifier le equals ? jsp si c'est propre ou pas
+    public boolean hasCategory(Category category){
+        Boolean hasCategory = false;
+        for(Category c : this.getCategories()){
+            if( c.getId() == category.getId()){
+                hasCategory = true;
+            }
+        }
+        return hasCategory;
+    }
+
     public void addCategoryList( List<Category> categoryList){
         categories.addAll( categoryList );
     }
@@ -92,5 +111,6 @@ public class Article {
         Article other = (Article) o;
         return Objects.equals(other.getId(), this.id);
     }
+
 
 }

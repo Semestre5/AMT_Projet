@@ -23,7 +23,7 @@ public class QuantityEditServlet extends HttpServlet {
                 editArticle.setQuantity(0);
             }
             ArticleOps.updateArticle(editArticle);
-            response.sendRedirect(request.getContextPath() + "/catalog");
+            response.sendRedirect(request.getContextPath() + "/shopManagement");
         } else {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.setHeader("Location", "home");

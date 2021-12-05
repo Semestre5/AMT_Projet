@@ -2,6 +2,7 @@ package com.DAO.Access;
 
 import com.DAO.Objects.Article;
 import com.DAO.Objects.ArticleCategory;
+import com.DAO.Objects.ArticleCategoryId;
 import com.DAO.Objects.Category;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -48,7 +49,7 @@ public class ArticleOps {
             transaction = ss.beginTransaction();
             articleObj =  ss.load(Article.class,articleId);
             if (articleObj!= null){
-                logger.info("Successfully fetched the article with id :"+articleId);
+                logger.info("Successfully fetched the article with id : "+articleId);
                 return articleObj;
             }
             transaction.commit();
@@ -189,6 +190,30 @@ public class ArticleOps {
         } finally {
             ss.close();
             return list.isEmpty() ? null :list.get( 0 ).getId() ;
+        }
+
+
+    }
+
+    public static Integer addCategory(Integer idArticle, Integer idCategory) {
+        ss = SessionManager.sessionFactory.openSession();
+        Transaction transObj = null;
+        Article article = null;
+        Category category = null;
+        try {
+            transObj = ss.beginTransaction();
+            article = ss.load(Article.class,idArticle);
+            category = ss.load(Category.class, idCategory);
+            article.addCategory(category);
+            transObj.commit();
+            logger.info( "Added relation between article " + idArticle + " and category " + idCategory );
+            return idArticle;
+        } catch (Exception e) {
+            logger.error( "Something wrong occured" + e );
+            transObj.rollback();
+            return null;
+        } finally {
+            ss.close();
         }
     }
 }

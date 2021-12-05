@@ -12,6 +12,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @WebServlet(name = "ShopServlet", value = "/shop")
 public class ShopServlet extends HttpServlet {
@@ -27,7 +28,7 @@ public class ShopServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (!CheckCredentials.isAdmin(request)) {
             request.setAttribute(ARTICLES_ATTR, ArticleOps.fetchAll());
-            request.setAttribute(CATEGORY_ATTR, CategoryOps.fetchAll());
+            request.setAttribute(CATEGORY_ATTR, removeEmptyCategories(CategoryOps.fetchAll()));
             RequestDispatcher rd = request.getRequestDispatcher("/shop.jsp");
             rd.forward(request, response);
         } else {
@@ -65,12 +66,21 @@ public class ShopServlet extends HttpServlet {
             } else {
                 request.setAttribute(ARTICLES_ATTR, ArticleOps.fetchAll());
             }
-            request.setAttribute(CATEGORY_ATTR, CategoryOps.fetchAll());
+            request.setAttribute(CATEGORY_ATTR, removeEmptyCategories(CategoryOps.fetchAll()));
             RequestDispatcher dispatcher = request.getRequestDispatcher("/shop.jsp");
             dispatcher.forward(request, response);
         } else {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.setHeader("Location", "shopManagement");
         }
+    }
+    private List<Category> removeEmptyCategories(List<Category> categoryList){
+        List<Category> temp = new ArrayList<Category>();
+        for(Category c : categoryList ){
+            if(!c.getArticles().isEmpty()){
+                temp.add(c);
+            }
+        }
+        return temp;
     }
 }

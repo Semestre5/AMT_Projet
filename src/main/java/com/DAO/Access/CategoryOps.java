@@ -1,5 +1,7 @@
 package com.DAO.Access;
 
+import com.DAO.Objects.Article;
+import com.DAO.Objects.ArticleCategory;
 import com.DAO.Objects.Category;
 import com.DAO.SessionManager;
 import org.hibernate.Session;
@@ -41,6 +43,7 @@ public class CategoryOps {
         try {
             transObj = ss.beginTransaction();
             cat = (Category) ss.load( Category.class, id );
+            logger.info("Successfully fetched the category with id : "+ id);
             transObj.commit();
 
         } catch (Exception e) {
@@ -70,5 +73,44 @@ public class CategoryOps {
                 logger.info( "Loaded"+categories.size()+" categories successfully" );
                 return categories;
             }
+    }
+
+    public static void deleteCategory(Integer categoryId) {
+        ss  = SessionManager.sessionFactory.openSession();
+        Transaction transObj = null;
+        Category tmpCategory = null;
+        try {
+            transObj = ss.beginTransaction();
+            tmpCategory = ss.load(Category.class, categoryId );
+            if(tmpCategory!=null){
+                ss.delete(tmpCategory);
+            }
+            transObj.commit();
+            logger.info( " Category " + tmpCategory.getId() + " named " + tmpCategory.getName() + " has been deleted" );
+        } catch (Exception e) {
+            transObj.rollback();
+            System.out.println( "Something wrong occured " + e );
+        } finally {
+            ss.close();
+        }
+    }
+
+    public static Integer isStored(String name){
+        ss = SessionManager.sessionFactory.openSession();
+        Transaction transObj = null;
+        List<Category> list = null;
+        try {
+            transObj = ss.beginTransaction();
+            list = ss.createQuery("from Category where name = :name", Category.class)
+                    .setParameter("name",name)
+                    .getResultList();
+            transObj.commit();
+        } catch (Exception e) {
+            transObj.rollback();
+            logger.error("Something went wrong " + e);
+        } finally {
+            ss.close();
+            return list.isEmpty() ? null :list.get(0).getId();
+        }
     }
 }

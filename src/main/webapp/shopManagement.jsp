@@ -2,13 +2,36 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.DAO.Objects.Article" %>
 <%@ page import="com.DAO.Access.ArticleOps" %>
+<%@ page import="com.DAO.Objects.Category" %>
+<%@ page import="com.amt.shopManagement.ShopManagementServlet" %>
 
 <%
-    List<Article> articles = (List<Article>) request.getAttribute("articles");
+    List<Article> articles = (List<Article>) request.getAttribute(ShopManagementServlet.ARTICLES);
+    List<Category> categories = (List<Category>) request.getAttribute(ShopManagementServlet.CATEGORIES);
+
 %>
 <!DOCTYPE html>
 <html>
 <%@include file="include/head.html"%>
+<style>
+    .article_image{
+        width:331px;
+        height:216px;
+        object-fit:contain;
+    }
+    .categories-display{
+        border: groove;
+        margin: 2px;
+    }
+    .btn-admin{
+        width: 450px;
+        position: inherit;
+    }
+    .container-btn-admin{
+        display: flex;
+        justify-content: center;
+    }
+</style>
 <body>
 <!-- HEADER =============================-->
 <%@include file="include/nav.jsp"%>
@@ -29,17 +52,18 @@
 <!-- CONTENT =============================-->
 <section class="item content">
     <div class="container toparea">
-        <div class="row">
+        <div class="row" style="margin-bottom: 10px">
             <!-- Colonnes, à répartir sur 12 pour remplir la page, on peut mettre autant de colonnes qu'on veut tant qu'on
                  reste sur 12 (6 colonnes de 2 par exemple) -->
-            <div class="col-md-6">
+            <!-- TODO travailler le visuel des boutons -->
+            <div class="col-md-6 container-btn-admin">
                 <a href="articleAdd">
-                    <button>Ajouter un nouvel article</button>
+                    <button class="btn-buynow btn-admin">Ajouter un nouvel article</button>
                 </a>
             </div>
-            <div class="col-md-6">
-                <a href="category.add">
-                    <button>Ajouter une nouvelle catégorie</button>
+            <div class="col-md-6 container-btn-admin">
+                <a href="categoryAdd">
+                    <button class="btn-buynow btn-admin">Gestion des catégories</button>
                 </a>
             </div>
         </div>
@@ -53,25 +77,44 @@
             <div class="col-md-4">
                 <div class=productbox>
                     <div class=fadeshop>
-                        <div class="product-name text-center">
-                            <a href="shop/<%out.print(a.getId());%>">
-                                <%out.print(a.getName());%>
-                            </a>
-                        </div>
-                        <span class="maxproduct"><a href="shop/<%out.print(a.getId());%>"><img src="<% out.print(a.getLink());%>" alt=""></a></span>
+                        <span class="maxproduct article_image"><img src="<% out.print(a.getLink());%>" alt=""></span>
                     </div>
                     <div class="product-details">
+                        <h1><%out.print(a.getName());%></h1>
                         <span class="price">
-                            <span class="edd_price"><%out.print(a.isSellable() ? "CHF " + a.getPrice() : "");%></span>
+                            <span class="edd_price">Price : <%out.print(a.getPrice());%></span>
                         </span>
                         <%if (!a.isSellable()) {%>
                             <h4>Article unavailable</h4>
+                        <%} else { %>
+                            <h4>Article available</h4>
                         <%}%>
                         <p>Quantity : <%out.print(a.getQuantity());%></p>
                         <form method="POST" href="editquantity" action="editquantity">
                             <input hidden name="id" value="<%out.print(String.valueOf(a.getId()));%>"/>
                             <input type="number" name="newQuantity">
-                            <input type="submit" value="Change quantity">
+                            <input class="btn-success" type="submit" value="Change quantity">
+                        </form>
+                        <div class="categories-display" style="height: 75px; overflow: auto;">
+                            <h4>Categories :</h4>
+                            <ul class="list-group">
+                                <%for (Category c : a.getCategories()){ %>
+                                <li class="list-group-item" style="padding: 2px; border: none;">
+                                    <%out.print(c.getName());%>
+                                </li>
+                                <%}%>
+                            </ul>
+                        </div>
+                        <form method="POST">
+                            <input hidden name="articleId" value="<%out.print(String.valueOf(a.getId()));%>"/>
+                            <label for="category">Choose a category:</label>
+                            <select id="category" name="categoryId">
+                                <%for  (Category c : categories){
+                                    if (!a.hasCategory(c)){%>
+                                <option value="<%out.print(String.valueOf(c.getId()));%>"><%out.print(c.getName());%></option>
+                                <%}}%>
+                            </select>
+                            <input class="btn-success" type="submit" value="Add Category to Current Article">
                         </form>
                     </div>
                 </div>
