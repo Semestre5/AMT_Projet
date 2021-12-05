@@ -20,7 +20,7 @@ public class CheckCredentials {
 
     public static JSONObject checkCredentials(String username, String password, String path) throws IOException {
         // Création de la requête HTTP
-        URL url = new URL(server + path);
+        URL url = new URL(localhost + path);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setDoOutput(true);
         connection.setDoInput(true);
