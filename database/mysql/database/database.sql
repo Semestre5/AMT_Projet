@@ -93,16 +93,26 @@ CREATE TABLE IF NOT EXISTS `mydb`.`cart` (
 ENGINE = InnoDB;
 
 
-INSERT INTO article (price, description, name, quantity) VALUES ('100', "Marteau de grande qualité","Marteau", '4');
-INSERT INTO article (price, description, name, quantity) VALUES ('59.90', "Pelle de grande qualité","Pelle", '2');
-INSERT INTO article (price, description, name, quantity) VALUES ('1.10', "Clou de grande qualité","Clou", '4');
+INSERT INTO article (price, description, name, quantity, link) VALUES ('100', "Great quality hammer","Hammer", '4', './images/hammer.jpg');
+INSERT INTO article (price, description, name, quantity, link) VALUES ('59.90', "Great quality shovel","Shovel", '2', './images/shovel.jpg');
+INSERT INTO article (price, description, name, quantity, link) VALUES ('1.10', "Great quality nail","Nail", '4', './images/nail.jpg');
+INSERT INTO article (price, description, name, quantity, link) VALUES ('0', "No price here","No Price", '4', './images/DEFAULT_IMAGE.jpg');
+INSERT INTO article (price, description, name, quantity, link) VALUES ('12', "quantity 0", "0 Quantity", '0', './images/DEFAULT_IMAGE.jpg');
 
-INSERT INTO category(name) VALUES("Outils");
-INSERT INTO category(name) VALUES("Extérieur");
+INSERT INTO category(name) VALUES("Tools");
+INSERT INTO category(name) VALUES("Outdoor");
+INSERT INTO category(name) VALUES("Single use");
+INSERT INTO category(name) VALUES("Paint");
+INSERT INTO category(name) VALUES("Electric tools");
+INSERT INTO category(name) VALUES("Clothes");
+INSERT INTO category(name) VALUES("Safety");
 
 INSERT INTO article_category(idArticle, idCategory) VALUES('1','1');
-INSERT INTO article_category(idArticle, idCategory) VALUES('2','1');
-INSERT INTO article_category(idArticle, idCategory) VALUES('3','2');
 INSERT INTO article_category(idArticle, idCategory) VALUES('1','2');
+INSERT INTO article_category(idArticle, idCategory) VALUES('2','1');
+INSERT INTO article_category(idArticle, idCategory) VALUES('2','2');
+INSERT INTO article_category(idArticle, idCategory) VALUES('3','3');
+
+
 
 

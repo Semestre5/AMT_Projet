@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class TestCategories {
-    /*
+/*
     @Test
     public void testInsertCat(){
 
@@ -21,7 +21,12 @@ public class TestCategories {
         id++;
         String name = "Cat"+id;
         Category cat = new Category ("Cat "+id);
+        CategoryOps.addCategory( cat.getName() );
+
     }
+    */
+
+    /*
     @Test
     public void testFetchOneCat(){
         Category notfound = null;
@@ -39,8 +44,8 @@ public class TestCategories {
 
     }*/
 
-    /*
 
+    /*
 
     @Test
     public void testFetchAllCat() {
@@ -71,7 +76,7 @@ public class TestCategories {
         List<?> articles = ArticleOps.fetchAllByCategory(cat);
         System.out.println("There is "+articles.size()+" article under this category");
     }
+*/
 
-    */
 }
      

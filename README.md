@@ -5,10 +5,27 @@
 
 ## Table of content
 
+- 
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [License](#license)
+
+## UML
+
+As the project is based on JEE, we didn't show our different servlet, because it is mainly used for showing the different models datas. 
+
+![UML](README.assets/UML.PNG)
+
+## Diagramme de séquence
+
+### Show the Cart
+
+![Show_Cart](README.assets/Show_Cart.png)
+
+### Update the Cart
+
+![update_cart](README.assets/update_cart.png)
 
 ## Installation
 
@@ -16,6 +33,8 @@ Project is developped using [IntelliJ](https://www.jetbrains.com/fr-fr/idea/) ID
 The server is [Tomcat 9.0.54](https://tomcat.apache.org/download-90.cgi)
 
 To start developping, clone the repo. Open the repo using IntelliJ. You then need to define the configuration
+
+### Using intelliJ and Tomcat
 
 - Import as maven project:
 
@@ -41,11 +60,21 @@ And execute ``mvn clean install``
 
 
 
-- Click apply and ok and you are good to go !
+- Click apply and ok.
+
+### Docker and database
+
+We are using a MySQL Database in a docker container.
+
+- First install [Docker desktop](https://www.docker.com/products/docker-desktop)
+- Then go in the project directory then to database folder
+- Run ``script.sh`` , this will run build the docker image and run the container
+
+You can now start coding, gl hf ! 
 
 ## Usage
 
-Well, if you did the installation right, you can click on the run button ()
+Well, if you did the installation right, you can click on the run button.
 
 ## Contributing
 

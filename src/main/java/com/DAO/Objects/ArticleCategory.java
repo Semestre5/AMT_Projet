@@ -14,6 +14,13 @@ public class ArticleCategory {
     @EmbeddedId
     private ArticleCategoryId id;
 
+    public ArticleCategory(ArticleCategoryId id){
+        this.id = id;
+    }
+
+    public ArticleCategory() {
+    }
+
     public ArticleCategoryId getId() {
         return id;
     }

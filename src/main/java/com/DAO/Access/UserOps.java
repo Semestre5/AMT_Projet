@@ -8,6 +8,7 @@ import org.hibernate.cfg.*;
 import org.hibernate.service.ServiceRegistry;
 import org.jboss.logging.Logger;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 
@@ -15,16 +16,7 @@ public class UserOps {
     private static SessionFactory fc;
     public final static Logger logger = Logger.getLogger(UserOps.class);
     public static SessionFactory _init() {
-        // Creating Configuration Instance & Passing Hibernate Configuration File
-        Configuration configObj = new Configuration();
-
-        configObj.configure( "hibernate.cfg.xml" );
-
-        ServiceRegistry serviceRegistryObj = new StandardServiceRegistryBuilder().applySettings(configObj.getProperties()).build();
-
-        // Creating Hibernate Session Factory Instance
-        return (SessionFactory)configObj.buildSessionFactory(serviceRegistryObj);
-
+        return new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
     }
 
     public static Integer register(User userObj){
@@ -75,5 +67,4 @@ public class UserOps {
         logger.info("Users Available In Database Are?= " + userList.size());
         return userList;
     }
-
 }
