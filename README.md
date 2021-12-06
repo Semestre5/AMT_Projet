@@ -74,7 +74,7 @@ You can now start coding, gl hf !
 
 ## Usage
 
-Well, if you did the installation right, you can click on the run button.
+Well, if you did the installation right, you can click on the run button, and go to http://localhost:8085/template_war_exploded/home if your browser does not open by itself.
 
 ## Contributing
 
