@@ -11,11 +11,13 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 import org.jboss.logging.Logger;
 import com.DAO.SessionManager;
+
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class ArticleOps {
+public class ArticleOps extends DbFetcherUtil{
     static Session ss ;
     public final static Logger logger = Logger.getLogger(ArticleOps.class);
 
@@ -36,29 +38,6 @@ public class ArticleOps {
         } finally {
             ss.close();
             return article.getId();
-        }
-    }
-
-
-    public static Article fetchOne(Integer articleId){
-        ss = SessionManager.sessionFactory.getCurrentSession();
-        Article articleObj = null;
-        // transaction object
-        Transaction transaction = null;
-        try {
-            transaction = ss.beginTransaction();
-            articleObj =  ss.load(Article.class,articleId);
-            if (articleObj!= null){
-                logger.info("Successfully fetched the article with id : "+articleId);
-                return articleObj;
-            }
-            transaction.commit();
-        } catch (Exception e){
-            transaction.rollback();
-            System.out.println("Something wrong occured"+e);
-        } finally {
-            ss.close();
-            return articleObj;
         }
     }
 
@@ -105,26 +84,26 @@ public class ArticleOps {
         }
     }
 
-    public static List<?> fetchAll() {
-        ss = SessionManager.sessionFactory.openSession();
+    public static Article fetchOne(Integer articleId){
+        return ((List<Article>) fetchFromDb("from Article a where a.id = :id", articleId, "id")).get(0);
+    }
 
-        Transaction transObj = null;
-        List<?> articleList = null;
-        try {
-            transObj = ss.beginTransaction();
-            Query<Article> query = ss.createQuery( "from Article ", Article.class );
-            query.setCacheable( true );
-            query.setCacheRegion( "Items" );
-            articleList = query.getResultList();
-            transObj.commit();
-        } catch (Exception e){
-            transObj.rollback();
-            logger.error( "Something went wrong"+e );
-        }finally {
-            ss.close();
-            logger.info( "Number of available articles is : " + articleList.size() );
-            return articleList;
-        }
+    public static List<Article> fetchAll() {
+        return (List<Article>) fetchFromDb("from Article");
+    }
+
+    public static Set<Article> fetchAllAsSet(){
+        return new HashSet<Article>(fetchAll());
+    }
+
+    public static List<Article> fetchAllByCategory(Category category){
+        return (List<Article>) fetchFromDb("from Article a where :category in elements(categories)", category, "category");
+    }
+
+    public static Set<?> fetchDistinctByCategoryList(List<Category> categories){
+        return new HashSet<>((List<Article>) fetchFromDb("from Article a where :catToFetch in elements(categories)",
+                categories,
+                "catToFetch"));
     }
 
     // SELECT * FROM article ORDER BY article.id DESC LIMIT 3
@@ -152,25 +131,8 @@ public class ArticleOps {
     }
 
 
-    public static List<?> fetchAllByCategory( Category category){
-        ss   = SessionManager.sessionFactory.openSession();
-        Transaction transObj = null;
-        List<?> articleList = null;
-        Set<Category> cats = new HashSet<Category>();
-        cats.add(category);
-        try {
-            transObj = ss.beginTransaction();
-            articleList = ss.createQuery("from Article a where :category in elements(categories) ").setParameter( "category",cats ).list();
-            transObj.commit();
-        }catch (Exception e) {
-            transObj.rollback();
-            logger.error( "Something wrong occured"+e);
-        }finally{
-            logger.info("Number of articles : "+articleList.size());
-            ss.close();
-            return articleList;
-        }
-    }
+
+
     public static Integer isStored(String name) {
         ss = SessionManager.sessionFactory.openSession();
         Transaction transObj = null;

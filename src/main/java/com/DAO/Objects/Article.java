@@ -112,5 +112,12 @@ public class Article {
         return Objects.equals(other.getId(), this.id);
     }
 
-
+    private static Integer[] toIntegerArray(String[] strArr){
+        if (strArr == null)
+            return new Integer[0];
+        Integer[] intArr = new Integer[strArr.length];
+        for (int i = 0; i < strArr.length; ++i)
+            intArr[i] = Integer.parseInt(strArr[i]);
+        return intArr;
+    }
 }

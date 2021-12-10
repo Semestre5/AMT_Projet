@@ -2,9 +2,11 @@
 <%@ page import="com.amt.shop.ShopServlet" %>
 <%@ page import="com.DAO.Objects.Article" %>
 <%@ page import="com.DAO.Objects.Category" %>
+<%@ page import="java.util.Set" %>
+<%@ page import="java.util.HashSet" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
-    List<Article> articles = (List<Article>) request.getAttribute(ShopServlet.ARTICLES_ATTR);
+    Set<Article> articles = (Set<Article>) request.getAttribute(ShopServlet.ARTICLES_ATTR);
     List<Category> categories = (List<Category>) request.getAttribute(ShopServlet.CATEGORY_ATTR);
 %>
 <!DOCTYPE html>

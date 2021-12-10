@@ -12,7 +12,6 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @WebServlet(name = "ShopServlet", value = "/shop")
 public class ShopServlet extends HttpServlet {
@@ -27,8 +26,11 @@ public class ShopServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (!CheckCredentials.isAdmin(request)) {
-            request.setAttribute(ARTICLES_ATTR, ArticleOps.fetchAll());
-            request.setAttribute(CATEGORY_ATTR, removeEmptyCategories(CategoryOps.fetchAll()));
+            Set<Article> articles = new HashSet<>((Set<Article>) ArticleOps.fetchAllAsSet());
+            request.setAttribute(ARTICLES_ATTR, articles);
+            List<Category> categories = (List<Category>) CategoryOps.fetchAll();
+            removeEmptyCategories(categories);
+            request.setAttribute(CATEGORY_ATTR, categories);
             RequestDispatcher rd = request.getRequestDispatcher("/shop.jsp");
             rd.forward(request, response);
         } else {
@@ -49,24 +51,17 @@ public class ShopServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (!CheckCredentials.isAdmin(request)) {
             response.setContentType("text/html");
-            String[] catIds = request.getParameterValues("category");
-            List<Category> categoriesToDisplay = new ArrayList<>();
-            List<Article> articlesToDisplay = new ArrayList<>();
-            if (catIds != null) {
-                for (String id : catIds) {
-                    Category catToFetch = CategoryOps.fetchOne(Integer.parseInt(id));
-                    List<Article> articlesToAdd = (List<Article>) ArticleOps.fetchAllByCategory(catToFetch);
-                    articlesToDisplay.addAll(articlesToAdd);
-                }
-                List<Article> distinctArticle = new ArrayList<>();
-                for(Article a: articlesToDisplay)
-                    if (!distinctArticle.contains(a))
-                        distinctArticle.add(a);
-                request.setAttribute(ARTICLES_ATTR, distinctArticle);
-            } else {
-                request.setAttribute(ARTICLES_ATTR, ArticleOps.fetchAll());
-            }
-            request.setAttribute(CATEGORY_ATTR, removeEmptyCategories(CategoryOps.fetchAll()));
+
+            Integer[] catIds = toIntegerArray(request.getParameterValues("category"));
+            Category test = CategoryOps.fetchOne(1);
+            List<Category> categories = CategoryOps.fetchAll();
+            removeEmptyCategories(categories);
+            request.setAttribute(CATEGORY_ATTR, categories);
+            System.out.print(catIds.length);
+            List<Category> articleCategoryToFetch = CategoryOps.fetchAllByIdList(catIds);
+            request.setAttribute(ARTICLES_ATTR, catIds.length == 0 ? ArticleOps.fetchAllAsSet()
+                    : ArticleOps.fetchDistinctByCategoryList(articleCategoryToFetch));
+
             RequestDispatcher dispatcher = request.getRequestDispatcher("/shop.jsp");
             dispatcher.forward(request, response);
         } else {
@@ -74,13 +69,23 @@ public class ShopServlet extends HttpServlet {
             response.setHeader("Location", "shopManagement");
         }
     }
-    private List<Category> removeEmptyCategories(List<Category> categoryList){
-        List<Category> temp = new ArrayList<Category>();
-        for(Category c : categoryList ){
-            if(!c.getArticles().isEmpty()){
-                temp.add(c);
-            }
-        }
-        return temp;
+    private void removeEmptyCategories(List<Category> categoryList){
+        categoryList.removeIf(c -> (c.getArticles().isEmpty()));
     }
+
+    private static Integer[] toIntegerArray(String[] strArr){
+        if (strArr == null)
+            return new Integer[0];
+        Integer[] intArr = new Integer[strArr.length];
+        for (int i = 0; i < strArr.length; ++i)
+            intArr[i] = Integer.parseInt(strArr[i]);
+        return intArr;
+    }
+
+    public static void main(String [] args) {
+        String[] str = {"1", "2", "3"};
+        System.out.print(toIntegerArray(str).length);
+    }
+
+
 }

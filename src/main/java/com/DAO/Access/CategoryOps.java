@@ -1,17 +1,14 @@
 package com.DAO.Access;
 
-import com.DAO.Objects.Article;
-import com.DAO.Objects.ArticleCategory;
 import com.DAO.Objects.Category;
 import com.DAO.SessionManager;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 import org.jboss.logging.Logger;
 
-import java.util.List;
+import java.util.*;
 
-public class CategoryOps {
+public class CategoryOps extends DbFetcherUtil{
     static Session ss;
     private final static Logger logger = Logger.getLogger(CategoryOps.class);
 
@@ -36,43 +33,16 @@ public class CategoryOps {
         return newCategory.getId();
     }
 
-    public static Category fetchOne(Integer id) {
-        ss = SessionManager.sessionFactory.getCurrentSession();
-        Transaction transObj = null;
-        Category cat = null;
-        try {
-            transObj = ss.beginTransaction();
-            cat = (Category) ss.load( Category.class, id );
-            logger.info("Successfully fetched the category with id : "+ id);
-            transObj.commit();
-
-        } catch (Exception e) {
-            transObj.rollback();
-            logger.error( "Something wrong occured" + e );
-        } finally {
-            ss.close();
-            return cat;
-        }
-
+    public static Category fetchOne(Integer catId) {
+        return ((List<Category>) fetchFromDb("from Category c where c.id = :id", catId, "id")).get(0);
     }
 
-    public static List fetchAll(){
-            ss = SessionManager.sessionFactory.getCurrentSession();
-            Transaction transObj = null;
-            List<Category> categories = null;
-            try {
-                transObj = ss.beginTransaction();
-                Query<Category> query = ss.createQuery( "from Category ",Category.class );
-                categories = query.getResultList();
-                transObj.commit();
+    public static List<Category> fetchAllByIdList(Integer[] ids){
+        return (List<Category>) fetchFromDb("from Category c where c.id in :ids",  Arrays.asList(ids), "ids");
+    }
 
-            }catch (Exception e) {
-                transObj.rollback();
-                logger.info( "Something wrong occured"+e);
-            }finally{
-                logger.info( "Loaded"+categories.size()+" categories successfully" );
-                return categories;
-            }
+    public static List<Category> fetchAll(){
+        return (List<Category>) fetchFromDb("from Category");
     }
 
     public static void deleteCategory(Integer categoryId) {
@@ -101,7 +71,7 @@ public class CategoryOps {
         List<Category> list = null;
         try {
             transObj = ss.beginTransaction();
-            list = ss.createQuery("from Category where name = :name", Category.class)
+            list = ss.createQuery("from Category c where c.name = :name", Category.class)
                     .setParameter("name",name)
                     .getResultList();
             transObj.commit();

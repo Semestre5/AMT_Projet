@@ -1,5 +1,6 @@
 package com.DAO.Access;
 
+import com.DAO.Objects.Article;
 import com.DAO.Objects.Cart;
 import com.DAO.Objects.CartId;
 import com.DAO.SessionManager;
@@ -13,7 +14,7 @@ import org.jboss.logging.Logger;
 import java.lang.reflect.Array;
 import java.util.List;
 
-public class CartOps {
+public class CartOps extends DbFetcherUtil{
     static Session ss;
     public final static Logger logger = Logger.getLogger(CartOps.class);
 
@@ -36,41 +37,11 @@ public class CartOps {
     }
 
     public static Cart fetchOne(CartId cartId) {
-        ss = SessionManager.sessionFactory.getCurrentSession();
-        Transaction transObj = null;
-        Cart cartObj = null;
-
-        try {
-            transObj = ss.beginTransaction();
-            cartObj = ss.load( Cart.class, cartId );
-            transObj.commit();
-
-        } catch (Exception e) {
-            logger.error( "Something went wrong" + e );
-        } finally {
-            ss.close();
-            return cartObj;
-        }
+        return ((List<Cart>) fetchFromDb("from Cart c where c.id = :id", cartId, "id")).get(0);
     }
 
     public static List<Cart> fetchAllByUser(Integer idUser) {
-        ss = SessionManager.sessionFactory.getCurrentSession();
-        Transaction transObj = null;
-        List<Cart> cartList = null;
-        try {
-            transObj = ss.beginTransaction();
-            Query query = ss.createQuery( "from Cart where id.idUser = :idUser" ).setParameter( "idUser", idUser );
-            cartList = query.getResultList();
-            transObj.commit();
-
-        } catch (Exception e) {
-            logger.error( "Something went wrong" + e );
-            transObj.rollback();
-
-        } finally {
-            ss.close();
-            return cartList;
-        }
+        return (List<Cart>) fetchFromDb("from Cart where id.idUser = :idUser", idUser, "idUser");
     }
 
     public static void deleteOne(CartId cartId){
