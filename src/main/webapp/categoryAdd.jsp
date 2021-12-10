@@ -43,14 +43,27 @@
                 <%}%>
             </div>
             <div class="row">
+                <%if (request.getAttribute(CategoryAddServlet.DELETED_CATEGORY) != null){%>
+                <div class="col-lg-8 col-lg-offset-2">
+                    <div class="alert alert-success content">
+                        <p class="text-success text-center">
+                            The category named <%out.print(request.getAttribute(CategoryAddServlet.DELETED_CATEGORY));%>
+                            has been successfully deleted.
+                        </p>
+                    </div>
+                </div>
+                <%}%>
+            </div>
+            <div class="row">
                 <!-- Colonnes, à répartir sur 12 pour remplir la page, on peut mettre autant de colonnes qu'on veut tant qu'on
                      reste sur 12 (6 colonnes de 2 par exemple) -->
                 <div class="col-lg-8 col-lg-offset-2">
                     <!-- Laisser id =contactform, c'est pour le visuel -->
                     <form id="contactform" method="POST" action="categoryAdd">
                         <div class="form">
+                            <label for="name">Name *</label>
                             <input type="text" name="name" placeholder="Name *" required>
-                            <h3><input type="submit" value="Add category"/></h3>
+                            <input type="submit" class="clearfix btn" value="Add category"/>
                         </div>
                     </form>
                 </div>

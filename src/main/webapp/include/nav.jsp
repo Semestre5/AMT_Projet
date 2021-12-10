@@ -25,6 +25,8 @@
             <%
               if (userRole != null && userRole.equals("admin")) {
             %>
+            <li class="propClone"><a href="articleAdd">Add Article</a></li>
+            <li class="propClone"><a href="categoryAdd"> Manage Categories</a></li>
             <li class="propClone"><a href="shopManagement">Management</a></li>
             <%
             } else {

@@ -52,21 +52,6 @@
 <!-- CONTENT =============================-->
 <section class="item content">
     <div class="container toparea">
-        <div class="row" style="margin-bottom: 10px">
-            <!-- Colonnes, à répartir sur 12 pour remplir la page, on peut mettre autant de colonnes qu'on veut tant qu'on
-                 reste sur 12 (6 colonnes de 2 par exemple) -->
-            <!-- TODO travailler le visuel des boutons -->
-            <div class="col-md-6 container-btn-admin">
-                <a href="articleAdd">
-                    <button class="btn-buynow btn-admin">Ajouter un nouvel article</button>
-                </a>
-            </div>
-            <div class="col-md-6 container-btn-admin">
-                <a href="categoryAdd">
-                    <button class="btn-buynow btn-admin">Gestion des catégories</button>
-                </a>
-            </div>
-        </div>
         <div class="row">
             <%if (articles.isEmpty()){%>
             <h1>

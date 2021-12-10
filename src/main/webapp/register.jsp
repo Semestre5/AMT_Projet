@@ -64,9 +64,9 @@
       <div class="col-lg-8 col-lg-offset-2">
         <form method="post" action="register" id="contactform" onsubmit="return verifyPassword()">
           <div class="form">
-            <label for="username">Username</label>
+            <label for="username">Username *</label>
             <input type="text" name="username" id="username" placeholder="Username *" required>
-            <label for="password">Password</label>
+            <label for="password">Password *</label>
             <input type="password" name="password" id="password" placeholder="Password *" required>
             <span id = "message" style="color:red"></span>
             <input type="submit" id="submit" class="clearfix btn" value="Register">

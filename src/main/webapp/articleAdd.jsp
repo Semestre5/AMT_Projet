@@ -41,12 +41,17 @@
                 <!-- Laisser id =contactform, c'est pour le visuel -->
                 <form id="contactform" method="POST" action="articleAdd" enctype="multipart/form-data">
                     <div class="form">
+                        <label for="name">Name *</label>
                         <input type="text" name="name" placeholder="Name *" required>
+                        <label for="quantity">Quantity *</label>
                         <input type="number" name="quantity" placeholder="Quantity *" required>
+                        <label for="image">Product Image</label>
                         <input type="file" name="image">
+                        <label for="description">Description</label>
                         <textarea rows="5" name="description" placeholder="Description"></textarea>
+                        <label for="price">Price</label>
                         <input type="number" name="price" placeholder="Price" step="0.01"> <br>
-                        <h3><input type="submit" value="Add article"/></h3>
+                        <input type="submit" class="clearfix btn" value="Add article"/>
                     </div>
                 </form>
             </div>

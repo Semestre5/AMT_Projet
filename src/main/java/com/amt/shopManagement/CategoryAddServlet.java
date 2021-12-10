@@ -19,6 +19,7 @@ public class CategoryAddServlet extends HttpServlet {
     public static final String CATEGORIES = "categories";
     public static final String NEED_CONFIRMATION = "needConfirmation";
     public static final String ARTICLES_CONCERNED = "articlesConcerned";
+    public static final String DELETED_CATEGORY = "deletedCategory";
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (CheckCredentials.isAdmin(request)) {
@@ -39,7 +40,10 @@ public class CategoryAddServlet extends HttpServlet {
             Category category = CategoryOps.fetchOne(idCategory);
             if(category.getArticles().isEmpty()){
                 CategoryOps.deleteCategory(idCategory);
-                response.sendRedirect(request.getContextPath() + "/categoryAdd");
+                request.setAttribute(DELETED_CATEGORY, category.getName());
+                request.setAttribute(CATEGORIES, CategoryOps.fetchAll());
+                RequestDispatcher rd = request.getRequestDispatcher("categoryAdd.jsp");
+                rd.forward(request, response);
             } else {
                 request.setAttribute(NEED_CONFIRMATION, category.getId());
                 request.setAttribute(ARTICLES_CONCERNED, category.getArticles());
@@ -63,7 +67,10 @@ public class CategoryAddServlet extends HttpServlet {
             Integer categoryId = Integer.valueOf(request.getParameter("idCategorywithArticles"));
             Category category = CategoryOps.fetchOne(categoryId);
             CategoryOps.deleteCategory(categoryId);
-            response.sendRedirect(request.getContextPath() + "/categoryAdd");
+            request.setAttribute(DELETED_CATEGORY, category.getName());
+            request.setAttribute(CATEGORIES, CategoryOps.fetchAll());
+            RequestDispatcher rd = request.getRequestDispatcher("categoryAdd.jsp");
+            rd.forward(request, response);
         }
     }
 }
