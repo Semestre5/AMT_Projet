@@ -3,8 +3,11 @@
 <html>
 <%@include file="include/head.html"%>
 <script>
+  // DPE - Dans une certaine mesure vous avez pas besoin d'utiliser du JS.
   function verifyPassword() {
     var pwd = document.getElementById("password").value;
+    // DPE - Aie aie aie, ce message est déjà présent dans la réponse que le service d'authentification
+    // Donc votre vue n'aurait pas besoin de connaitre le code juste savoir si il y a un message à afficher
     if(!pwd.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&.])[A-Za-z\d#$^+=!*()@%&.]{8,}$/)){
       document.getElementById("message").innerHTML = "Password must be at least 8 char long, should contain at " +
               "least one uppercase char, one lowercase char, one digit and one special character";

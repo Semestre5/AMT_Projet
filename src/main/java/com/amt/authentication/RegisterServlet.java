@@ -33,6 +33,7 @@ public class RegisterServlet extends HttpServlet {
             if(resultRegister.getInt("code") == 201) {
                 response.sendRedirect("login");
             } else {
+                // DPE - Pourquoi la vue aurais n
                 request.setAttribute("statusCode", resultRegister.getInt("code"));
                 RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
                 rd.forward(request, response);

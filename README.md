@@ -15,6 +15,8 @@
 
 As the project is based on JEE, we didn't show our different servlet, because it is mainly used for showing the different models datas. 
 
+> DPE - Mettre un diagramme, c'est bien, mais mettre une capture de la DB me sert pas à grand-chose. Un diagramme de domaine serait beaucoup plus utile à ce moment-là. (Ce qui m'embête, c'est l'absence de cardinalités)
+> 
 ![UML](README.assets/UML.PNG)
 
 ## Diagramme de séquence

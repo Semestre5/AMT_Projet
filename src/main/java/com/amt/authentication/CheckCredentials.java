@@ -13,6 +13,8 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 public class CheckCredentials {
+
+    // DPE - Vous devriez envisager d'utiliser des variables d'environments pour gérer les URLs
     public static final String loginPath = "auth/login";
     public static final String registerPath = "accounts/register";
     public static final String localhost = "http://localhost:8091/";
@@ -20,6 +22,9 @@ public class CheckCredentials {
 
     public static JSONObject checkCredentials(String username, String password, String path) throws IOException {
         // Création de la requête HTTP
+
+        // DPE - Imaginons que pour un autre objet vous devez créer des requêtes vous aller dupliquer le code ?
+        // Il serait intéressant de refactor pour que vous ailliez une classe pour gérer les appels asynchrones qui peut être utilisée de manière générique sur n'import quel URL
         URL url = new URL(localhost + path);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setDoOutput(true);
@@ -57,6 +62,7 @@ public class CheckCredentials {
             response = new JSONObject(content.toString());
         }
 
+        // DPE - Au lieu de gérer les erreurs avec les codes http, vous pourriez envisager d'utiliser des exceptions
         // Création d'un JSON pour la réponse
         response.put("code", status);
 
