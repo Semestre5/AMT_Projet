@@ -97,11 +97,15 @@ public class ArticleOps extends DbFetcherUtil{
     }
 
     public static List<Article> fetchAllByCategory(Category category){
-        return (List<Article>) fetchFromDb("from Article a where :category in elements(categories)", category, "category");
+        return (List<Article>) fetchFromDb(
+                "from Article a where :category in elements(categories)",
+                category,
+                "category");
     }
 
     public static Set<?> fetchDistinctByCategoryList(List<Category> categories){
-        return new HashSet<>((List<Article>) fetchFromDb("from Article a where :catToFetch in elements(categories)",
+        return new HashSet<>((List<Article>) fetchFromDb(
+                "from Article a where :catToFetch in elements(categories)",
                 categories,
                 "catToFetch"));
     }

@@ -51,9 +51,7 @@ public class ShopServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (!CheckCredentials.isAdmin(request)) {
             response.setContentType("text/html");
-
             Integer[] catIds = toIntegerArray(request.getParameterValues("category"));
-            Category test = CategoryOps.fetchOne(1);
             List<Category> categories = CategoryOps.fetchAll();
             removeEmptyCategories(categories);
             request.setAttribute(CATEGORY_ATTR, categories);

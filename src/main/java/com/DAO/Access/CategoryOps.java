@@ -36,11 +36,9 @@ public class CategoryOps extends DbFetcherUtil{
     public static Category fetchOne(Integer catId) {
         return ((List<Category>) fetchFromDb("from Category c where c.id = :id", catId, "id")).get(0);
     }
-
     public static List<Category> fetchAllByIdList(Integer[] ids){
         return (List<Category>) fetchFromDb("from Category c where c.id in :ids",  Arrays.asList(ids), "ids");
     }
-
     public static List<Category> fetchAll(){
         return (List<Category>) fetchFromDb("from Category");
     }
