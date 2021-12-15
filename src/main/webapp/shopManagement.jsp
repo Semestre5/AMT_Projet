@@ -24,17 +24,136 @@
         margin: 2px;
     }
     .btn-admin{
-        width: 450px;
+        width: 200px;
+        color:forestgreen;
         position: inherit;
+
     }
     .container-btn-admin{
         display: flex;
         justify-content: center;
     }
+    <!--Details style here -->
+    :root {
+        --primColor: #dcdcdc;
+        --secoColor: #555555;
+        --cornerRad: 4px;
+    }
+    body {
+        background-color: var(--primColor);
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 20px;
+    }
+    details {
+        margin: 40px;
+    }
+    summary {
+        writing-mode: vertical-lr;
+        text-align: center;
+        padding: 12px 10px;
+        width: 23px;
+        height: 17px;
+        background-color: var(--primColor);
+        border: 2px solid var(--secoColor);
+        border-radius: var(--cornerRad);
+        color: var(--secoColor);
+        cursor: pointer;
+        user-select: none;
+        outline: none;
+        transition: transform 200ms ease-in-out 0s;
+    }
+    summary::before,
+    summary::after {
+        position: static;
+        top: 0;
+        left: 0;
+    }
+    summary::before {
+        content: "";
+    }
+    summary::after {
+        content: "III";
+        letter-spacing: -1px;
+    }
+    summary:hover {
+        transform: scale(1.1);
+    }
+    summary::marker {
+        font-size: 0;
+    }
+    summary::-webkit-details-marker {
+        display: none;
+    }
+    details[open] .menu {
+        animation-name: menuAnim;
+    }
+    details[open] summary::before {
+        content: "X";
+    }
+    details[open] summary::after {
+        content: "";
+    }
+    .menu {
+        height: 0;
+        width: fit-content;
+        border-radius: var(--cornerRad);
+        background-color: var(--primColor);
+        box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.2);
+        margin-top: 8px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow: hidden;
+        animation: closeMenu 300ms ease-in-out forwards;
+    }
+    .menu a {
+        padding: 12px 24px;
+        margin: 0 16px;
+        color: var(--secoColor);
+        border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+        text-decoration: none;
+        text-align: center;
+        transition: filter 200ms linear 0s;
+    }
+    .menu a:nth-of-type(1) {
+        padding-top: 24px;
+    }
+    .menu a:nth-last-of-type(1) {
+        border-bottom: none;
+    }
+    .menu a:hover {
+        filter: brightness(200%);
+    }
+    details::before {
+        content: "← Gestion d'article et catégories par là !";
+        color: var(--secoColor);
+        position: absolute;
+        margin-left: 80px;
+        padding: 10px 10px;
+        opacity: 0.4;
+    }
+    details[open]::before {
+        animation: fadeMe 300ms linear forwards;
+    }
+    @keyframes menuAnim {
+        0% {
+            height: 0;
+        }
+        100% {
+            height: 312px;
+        }
+    }
+    @keyframes fadeMe {
+        0% {
+            opacity: 0.4;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
+
 </style>
-<body>
-<!-- HEADER =============================-->
-<%@include file="include/nav.jsp"%>
+<header>
 <div class="container">
     <div class="row">
         <div class="col-md-12 text-center">
@@ -46,26 +165,26 @@
         </div>
     </div>
 </div>
-</div>
 </header>
+<body>
+
+
+<%@include file="include/nav.jsp"%>
+
 
 <!-- CONTENT =============================-->
 <section class="item content">
     <div class="container toparea">
-        <div class="row" style="margin-bottom: 10px">
-            <!-- Colonnes, à répartir sur 12 pour remplir la page, on peut mettre autant de colonnes qu'on veut tant qu'on
-                 reste sur 12 (6 colonnes de 2 par exemple) -->
-            <!-- TODO travailler le visuel des boutons -->
-            <div class="col-md-6 container-btn-admin">
-                <a href="articleAdd">
-                    <button class="btn-buynow btn-admin">Ajouter un nouvel article</button>
-                </a>
-            </div>
-            <div class="col-md-6 container-btn-admin">
-                <a href="categoryAdd">
-                    <button class="btn-buynow btn-admin">Gestion des catégories</button>
-                </a>
-            </div>
+        <div>
+            <details>
+                <summary></summary>
+                <nav class="menu">
+                    <a href="shopManagement">Assets</a>
+                    <a href="articleAdd">Add Article</a>
+                    <a href="categoryAdd">Add Category</a>
+                    <a href="logout">Log out</a>
+                </nav>
+            </details>
         </div>
         <div class="row">
             <%if (articles.isEmpty()){%>
@@ -115,6 +234,7 @@
                                 <%}}%>
                             </select>
                             <input class="btn-success" type="submit" value="Add Category to Current Article">
+
                         </form>
                     </div>
                 </div>
