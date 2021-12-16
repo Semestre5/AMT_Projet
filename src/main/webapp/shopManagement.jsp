@@ -152,6 +152,90 @@
         }
     }
 
+    .wrapper {
+         position: relative;
+         width: 100%;
+         height: 100%;
+         margin-top:25px;
+         margin-bottom:80px;
+    }
+
+    button {
+        font-family: 'Ubuntu', sans-serif;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+
+        transform: translate(-50%, -50%);
+
+        width: 170px;
+        height: 40px;
+        line-height: 1;
+        font-size: 18px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        border: 3px solid black;
+        background: #fff;
+        color: black;
+        border-radius: 40px;
+        cursor: pointer;
+        overflow: hidden;
+        transition: all .35s;
+    }
+
+    button:hover {
+        background: black;
+        color: #fff;
+    }
+
+    button span {
+        opacity: 1;
+        visibility: visible;
+        transition: all .35s;
+    }
+
+    .success {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #fff;
+        border-radius: 50%;
+        z-index: 1;
+        opacity: 0;
+        visibility: hidden;
+        transition: all .35s;
+    }
+
+    .success svg {
+        width: 20px;
+        height: 20px;
+        fill: yellowgreen;
+        transform-origin: 50% 50%;
+        transform: translateY(-50%) rotate(0deg) scale(0);
+        transition: all .35s;
+    }
+
+    button.is_active {
+        width: 40px;
+        height: 40px;
+    }
+
+    button.is_active .success {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    button.is_active .success svg {
+        margin-top: 50%;
+        transform: translateY(-50%) rotate(720deg) scale(1);
+    }
+
+    button.is_active span {
+        opacity: 0;
+        visibility: hidden;
+    }
 </style>
 <header>
 <div class="container">
@@ -193,37 +277,36 @@
             </h1>
             <%}
                 for (Article a: articles) {%>
-            <div class="col-md-4">
+            <div class="wrapper">
                 <div class=productbox>
                     <div class=fadeshop>
                         <span class="maxproduct article_image"><img src="<% out.print(a.getLink());%>" alt=""></span>
                     </div>
                     <div class="product-details">
                         <h1><%out.print(a.getName());%></h1>
-                        <span class="price">
-                            <span class="edd_price">Price : <%out.print(a.getPrice());%></span>
-                        </span>
+                        <div class="wrapper">
+                            <button class ="wrapper"> Price : <%out.print(a.getPrice());%></button>
+                            <label>Categories</label>
+                            <div>
+                                <%for (Category c : a.getCategories()){ %>
+                                   <button class="btn btn-admin"><%out.print(c.getName());%></button>
+                                <%}%>
+                            </div>
+                        </div>
                         <%if (!a.isSellable()) {%>
-                            <h4>Article unavailable</h4>
+                            <h4>Unavailable</h4>
                         <%} else { %>
-                            <h4>Article available</h4>
+                            <h4>Available</h4>
                         <%}%>
                         <p>Quantity : <%out.print(a.getQuantity());%></p>
                         <form method="POST" href="editquantity" action="editquantity">
                             <input hidden name="id" value="<%out.print(String.valueOf(a.getId()));%>"/>
                             <input type="number" name="newQuantity">
-                            <input class="btn-success" type="submit" value="Change quantity">
+                            <input class="wrapper" type="submit" value="Change quantity">
                         </form>
-                        <div class="categories-display" style="height: 75px; overflow: auto;">
-                            <h4>Categories :</h4>
-                            <ul class="list-group">
-                                <%for (Category c : a.getCategories()){ %>
-                                <li class="list-group-item" style="padding: 2px; border: none;">
-                                    <%out.print(c.getName());%>
-                                </li>
-                                <%}%>
-                            </ul>
-                        </div>
+
+
+
                         <form method="POST">
                             <input hidden name="articleId" value="<%out.print(String.valueOf(a.getId()));%>"/>
                             <label for="category">Choose a category:</label>
@@ -233,7 +316,8 @@
                                 <option value="<%out.print(String.valueOf(c.getId()));%>"><%out.print(c.getName());%></option>
                                 <%}}%>
                             </select>
-                            <input class="btn-success" type="submit" value="Add Category to Current Article">
+                            <button class="wrapper" type="submit" value="Add Category to Current Article">Add Category to article
+                            </button>
 
                         </form>
                     </div>
