@@ -70,7 +70,7 @@ header .navbar-white {
 	font-family:Dosis;
 	text-transform:uppercase;
 }
-	.text-homeimage {
+.text-homeimage {
 	text-align:center;
 	color:#fff;
 	z-index:2;
@@ -84,7 +84,7 @@ header .navbar-white {
 	font-family:Dosis;
 }
 .text-pageheader {
-	 text-align:center;
+	text-align:center;
 	color:#fff;
 	z-index:2;
 	position:relative;
@@ -294,7 +294,7 @@ img {
 }
 .fadeshop {
 	position:relative;
-	 max-height:300px;
+	max-height:300px;
 }
 .properties-box {
 	padding:20px 20px 15px 20px;
@@ -431,7 +431,7 @@ img {
 	display:block;
 	background-color:#fcf8e3;
 	border:#faebcc 1px solid;
-	color:#8a6d3b;
+	color: #ececec;
 	text-align:center;
 	margin-bottom:200px;
 }
@@ -676,7 +676,7 @@ ul,ol {
 	.navbar-lg .navbar-nav>li>a {
 		padding-top:26px;
 		padding-bottom:26px;
-		 font-size:18px;
+		font-size:18px;
 	}
 	.navbar-lg .navbar-nav>li>a:hover,.navbar-lg .navbar-nav>li>a:active {
 		background:#fff;
