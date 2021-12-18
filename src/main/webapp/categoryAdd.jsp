@@ -186,7 +186,7 @@
                             <%} else {%>
                             <form method="post">
                                 <input hidden name="id" value="<%out.print(String.valueOf(c.getId()));%>"/>
-                                <input type="submit" class="edd_cart_remove_item_btn" value="Delete">
+                                <input type="submit" class="btn btn-danger" value="Delete">
                             </form>
                             <%}%>
                     </li>
