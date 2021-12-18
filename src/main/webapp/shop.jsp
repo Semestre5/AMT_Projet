@@ -75,19 +75,20 @@
 
         <div class="row">
             <form method="post" class="row" action="shop" id="categoryForm">
+                <div>
                 <ul class="nav justify-content-center">
                     <li class="nav-item">
                         <%for (Category cat: categories) {%>
-                        <button class="btn btn-info">
-                            <label for="cat<%out.print(cat.getId());%>"><%out.print(cat.getName());%></label>
+                        <button class="btn btn-light btn-sm">
+                            <label><%out.print(cat.getName());%></label>
                             <input  type="checkbox"  id="cat<%out.print(cat.getId());%>" value="<%out.print(cat.getId());%>" name="category" >
                         </button>
                         <%}%>
-                        <button type="submit" class="btn btn-primary" style="text-align: right">Sort  <span style="text-align:right;" class="glyphicon glyphicon-filter"></span></button>
+
                     </li>
-
-
-
+                </ul>
+                    <button type="submit" class="btn btn-primary btn-lg" style="float: right; margin:30px;">Filter  <span style="text-align:right;" class="glyphicon glyphicon-filter"></span></button>
+                </div>
             </form>
         </div>
         <div class="row">
