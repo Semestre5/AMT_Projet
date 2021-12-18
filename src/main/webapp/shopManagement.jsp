@@ -15,21 +15,14 @@
 <%@include file="include/head.html"%>
 <style>
     .article_image{
-        width:331px;
-        height:216px;
-        object-fit:contain;
+        width:150px;
+        height:100px;
+        text-align:center;
+        object-fit:cover;
     }
     .categories-display{
         display: block;
         margin: 2px;
-    }
-    .btn-admin{
-        width: 450px;
-        position: inherit;
-    }
-    .container-btn-admin{
-        display: flex;
-        justify-content: center;
     }
     /* Dropdown Button */
     .dropbtn {
@@ -95,7 +88,9 @@
     <div class="container toparea">
         <div class="row" style="margin-bottom: 10px">
             <div class="dropdown">
-                    <button class="dropbtn btn-success btn-lg">Ajouter</button>
+                    <button class="dropbtn btn-success btn-lg">Ajouter nouveau
+                        <span class="glyphicon glyphicon-plus" style="text-align:right"></span>
+                    </button>
                     <div class="dropdown-content">
                     <a href="articleAdd">
                         <button class="btn btn-light">Ajouter un nouvel article</button>
@@ -105,9 +100,6 @@
                         <button class="btn btn-light" >Gestion des catégories</button>
                     </a>
                 </div>
-
-
-
             </div>
 
         </div>
@@ -118,7 +110,7 @@
             </h1>
             <%}
                 for (Article a: articles) {%>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class=productbox>
                     <div class=fadeshop>
                         <span class="maxproduct article_image"><img src="<% out.print(a.getLink());%>" alt=""></span>

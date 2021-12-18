@@ -212,7 +212,7 @@ a.homebrowseitems:hover {
 }
 /*==============================================* SHOP *===============================================*/
 img {
-	max-width: 100%;
+	width:50%;
 }
 /*Product Box*/
 .maxproduct {
@@ -294,7 +294,7 @@ img {
 }
 .fadeshop {
 	position:relative;
-	max-height:300px;
+	max-height:100px;
 }
 .properties-box {
 	padding:20px 20px 15px 20px;

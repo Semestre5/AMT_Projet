@@ -26,6 +26,7 @@
               if (userRole != null && userRole.equals("admin")) {
             %>
             <li class="propClone"><a href="shopManagement">Management</a></li>
+
             <%
             } else {
             %>
@@ -44,6 +45,7 @@
             } else {
             %>
             <li class="propClone"><a href="logout">Logout</a></li>
+            <li><a>Signed in as <%out.print(userRole);%></a></li>
             <%
               } // end if id
             %>
