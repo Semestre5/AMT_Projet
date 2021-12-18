@@ -29,18 +29,7 @@
 <!-- CONTENT =============================-->
 <section class="item content">
     <div class="container toparea">
-        <div class="underlined-title">
-            <div class="editContent">
-                <h1 class="text-center latestitems">MY CART</h1>
-            </div>
-            <div class="wow-hr type_short">
-			<span class="wow-hr-h">
-			<i class="fa fa-star"></i>
-			<i class="fa fa-star"></i>
-			<i class="fa fa-star"></i>
-			</span>
-            </div>
-        </div>
+
         <div id="edd_checkout_wrap" class="col-md-8 col-md-offset-2">
             <% if (!cart.getCartProductList().isEmpty()) { %>
             <form id="edd_checkout_cart_form" method="post">
@@ -83,14 +72,14 @@
                                                value="<%out.print(String.valueOf(article.getId()));%>">
                                         <input hidden name="quantity"
                                                value="<%out.print(String.valueOf(cartProduct.getQuantity() - 1));%>">
-                                        <input type="submit" class="edd_cart_remove_item_btn" value="&nbsp-&nbsp">
+                                        <button type="submit" class="btn btn-light" value="&nbsp-&nbsp"><span class="glyphicon glyphicon-triangle-bottom"> </span></button>
                                     </form>
                                     <%out.print(String.valueOf(cartProduct.getQuantity()));%>
                                     <form method="post">
                                         <input hidden name="id" value="<%out.print(String.valueOf(article.getId()));%>">
                                         <input hidden name="quantity"
                                                value="<%out.print(String.valueOf(cartProduct.getQuantity() + 1));%>">
-                                        <input type="submit" class="edd_cart_remove_item_btn" value="&nbsp+&nbsp">
+                                        <button type="submit" class="btn btn-light" value="&nbsp+&nbsp"><span class="glyphicon glyphicon-triangle-top"> </span></button>
                                     </form>
                                 </span>
                             </td>
@@ -101,7 +90,7 @@
                                 <form method="post">
                                     <input hidden name="id" value="<%out.print(String.valueOf(article.getId()));%>"/>
                                     <input hidden name="quantity" value="0"/> <!-- we set 0 to suppress object -->
-                                    <input type="submit" class="edd_cart_remove_item_btn" value="Delete">
+                                    <input type="submit" class="btn btn-danger" value="Delete">
                                 </form>
                             </td>
                         </tr>
@@ -114,10 +103,15 @@
                             <th colspan="5">
                                 <form method="post">
                                     <input hidden name="delete">
-                                    <input type="submit" class="edd-cart-saving-button edd-submit button" id="edd-remove-cart-button" value="Remove cart">
+                                    <button type="submit" class="btn btn-danger" style="float:left;" id="edd-remove-cart-button">Remove Cart<span class="glyphicon glyphicon-remove-circle" style="margin-left:5px"></span> </button>
                                 </form>
+                                <form method="post">
+                                    <button class="btn btn-warning" style="float:right;">Checkout <span class="glyphicon glyphicon-euro" style="margin-left:5px"></span></button>
+                                </form>
+
                             </th>
                         </tr>
+
                         <tr class="edd_cart_footer_row edd_cart_discount_row" style="display:none;">
                             <th colspan="5" class="edd_cart_discount">
                             </th>
@@ -129,6 +123,7 @@
                         </tr> -->
                         </tfoot>
                     </table>
+                    <button class="btn btn-light" style="float:right;"><a href="shop"/>Back to shop <span class="glyphicon glyphicon-back"></span></button>
                 </div>
             </form>
             <%
