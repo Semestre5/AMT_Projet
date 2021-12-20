@@ -74,8 +74,9 @@
     <div class="container">
 
         <div class="row">
+            <div class="row" >
             <form method="post" class="row" action="shop" id="categoryForm">
-                <div>
+
                 <ul class="nav justify-content-center">
                     <li class="nav-item">
                         <%for (Category cat: categories) {%>
@@ -87,9 +88,10 @@
 
                     </li>
                 </ul>
-                    <button type="submit" class="btn btn-primary btn-lg" style="float: right; margin:30px;">Filter  <span style="text-align:right;" class="glyphicon glyphicon-filter"></span></button>
-                </div>
+                <button type="submit" class="btn btn-primary btn-lg" style="float: right; margin:30px;">Filter  <span style="text-align:right;" class="glyphicon glyphicon-filter"></span></button>
+
             </form>
+            </div>
         </div>
         <div class="row">
             <%if (articles.isEmpty()){%>
