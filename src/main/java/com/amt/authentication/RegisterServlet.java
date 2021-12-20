@@ -13,7 +13,7 @@ public class RegisterServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         if(session.getAttribute("idUser") == null) {
-            RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("loginRegister.jsp");
             rd.forward(request, response);
         } else {
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
@@ -35,7 +35,7 @@ public class RegisterServlet extends HttpServlet {
             } else {
                 // DPE - Pourquoi la vue aurais n
                 request.setAttribute("statusCode", resultRegister.getInt("code"));
-                RequestDispatcher rd = request.getRequestDispatcher("register.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("loginRegister.jsp");
                 rd.forward(request, response);
             }
         } else {

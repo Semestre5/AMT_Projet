@@ -11,9 +11,10 @@
 <%@include file="include/head.html"%>
 <style>
     .article_image{
-        width:331px;
-        height:216px;
-        object-fit:contain;
+        width:150px;
+        height:100px;
+
+        object-fit:fill;
     }
 </style>
 <body>
@@ -22,43 +23,7 @@
 
 
 <!-- STEPS =============================-->
-<div class="item content">
-    <div class="container toparea">
-        <div class="row text-center">
-            <div class="col-md-4">
-                <div class="col editContent">
-                    <span class="numberstep"><i class="fa fa-shopping-cart"></i></span>
-                    <h3 class="numbertext">Choose our Products</h3>
-                    <p>
-                        Bob is a skillful worker, and Bob likes his clients to have a large choice of products. Our lovely Bobby invites you to browse through our catalog to find what makes you happy.
-                    </p>
-                </div>
-                <!-- /.col-md-4 -->
-            </div>
-            <!-- /.col-md-4 col -->
-            <div class="col-md-4 editContent">
-                <div class="col">
-                    <span class="numberstep"><i class="fa fa-gift"></i></span>
-                    <h3 class="numbertext">Pay with PayPal or Card</h3>
-                    <p>
-                        Bob is a modern Bob, and Bob likes his clients to be able to pay the way they want. Our lovely Bobby allows you to pay however you want (but still money, he does not accept cows as a payment).
-                    </p>
-                </div>
-                <!-- /.col -->
-            </div>
-            <!-- /.col-md-4 col -->
-            <div class="col-md-4 editContent">
-                <div class="col">
-                    <span class="numberstep"><i class="fa fa-download"></i></span>
-                    <h3 class="numbertext">Get Instant Confirmation</h3>
-                    <p>
-                        Bob is a pro, and Bob likes to reassure his clients. Thus, our lovely Bobby provides an instant confirmation and support on your order.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 
 <!-- LATEST ITEMS =============================-->
@@ -101,8 +66,10 @@
                                 <input hidden name="incremental">
                                 <input hidden name="id" value="<%out.print(String.valueOf(a.getId()));%>"/>
                                 <input hidden name="quantity" value="1"/>
-                                <span style="display: flex; justify-content: center">
-                                <input type="submit" class="btn-buynow" value="Add to Cart"/>
+                                <button type="submit" class="btn btn-success" value="Add to Cart">Add to Cart  <span style="text-align:right;" class="glyphicon glyphicon-shopping-cart"></span></button>
+
+                                </span>
+
                             </span>
                             </form>
                             <%} else {%>
@@ -118,19 +85,56 @@
     </div>
     </div>
 </section>
-
-
-<!-- BUTTON =============================-->
-<div class="item content">
-    <div class="container text-center">
-        <a href="shop" class="homebrowseitems">Browse All Products
-            <div class="homebrowseitemsicon">
+<div class="row">
+    <div class="row" style="text-align: center;">
+        <a href="shop" class="btn btn-primary">Browse All Products
+            <div>
                 <i class="fa fa-star fa-spin"></i>
             </div>
         </a>
     </div>
 </div>
-<br/>
+<br><br>
+
+
+<div class="item content">
+    <div class="container toparea">
+        <div class="row text-center">
+            <div class="col-md-4">
+                <div class="col editContent">
+                    <span class="numberstep"><i class="fa fa-shopping-cart"></i></span>
+                    <h3 class="numbertext">Choose our Products</h3>
+                    <p>
+                        Bob is a skillful worker, and Bob likes his clients to have a large choice of products. Our lovely Bobby invites you to browse through our catalog to find what makes you happy.
+                    </p>
+                </div>
+                <!-- /.col-md-4 -->
+            </div>
+            <!-- /.col-md-4 col -->
+            <div class="col-md-4 editContent">
+                <div class="col">
+                    <span class="numberstep"><i class="fa fa-gift"></i></span>
+                    <h3 class="numbertext">Pay with PayPal or Card</h3>
+                    <p>
+                        Bob is a modern Bob, and Bob likes his clients to be able to pay the way they want. Our lovely Bobby allows you to pay however you want (but still money, he does not accept cows as a payment).
+                    </p>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.col-md-4 col -->
+            <div class="col-md-4 editContent">
+                <div class="col">
+                    <span class="numberstep"><i class="fa fa-download"></i></span>
+                    <h3 class="numbertext">Get Instant Confirmation</h3>
+                    <p>
+                        Bob is a pro, and Bob likes to reassure his clients. Thus, our lovely Bobby provides an instant confirmation and support on your order.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- BUTTON =============================-->
 
 <!-- FOOTER =============================-->
 <%@include file="include/footer.html"%>

@@ -4,33 +4,67 @@
 <%@ page import="com.DAO.Access.ArticleOps" %>
 <%@ page import="com.DAO.Objects.Category" %>
 <%@ page import="com.amt.shopManagement.ShopManagementServlet" %>
+<%@ page import="com.DAO.Access.CategoryOps" %>
 
 <%
     List<Article> articles = (List<Article>) request.getAttribute(ShopManagementServlet.ARTICLES);
     List<Category> categories = (List<Category>) request.getAttribute(ShopManagementServlet.CATEGORIES);
-
 %>
 <!DOCTYPE html>
 <html>
 <%@include file="include/head.html"%>
 <style>
     .article_image{
-        width:331px;
-        height:216px;
-        object-fit:contain;
+        width:150px;
+        height:100px;
+        text-align:center;
+        object-fit:cover;
     }
     .categories-display{
-        border: groove;
+        display: block;
         margin: 2px;
     }
-    .btn-admin{
-        width: 450px;
-        position: inherit;
+    /* Dropdown Button */
+    .dropbtn {
+        background-color: #2f343f;
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
     }
-    .container-btn-admin{
-        display: flex;
-        justify-content: center;
+
+    /* The container <div> - needed to position the dropdown content */
+    .dropdown {
+        position: relative;
+        display: inline-block;
     }
+
+    /* Dropdown Content (Hidden by Default) */
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+    /* Links inside the dropdown */
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+
+    /* Change color of dropdown links on hover */
+    .dropdown-content a:hover {background-color: #ddd;}
+
+    /* Show the dropdown menu on hover */
+    .dropdown:hover .dropdown-content {display: block;}
+
+    /* Change the background color of the dropdown button when the dropdown content is shown */
+    .dropdown:hover .dropbtn {background-color: #3A038BFF;}
 </style>
 <body>
 <!-- HEADER =============================-->
@@ -53,19 +87,21 @@
 <section class="item content">
     <div class="container toparea">
         <div class="row" style="margin-bottom: 10px">
-            <!-- Colonnes, à répartir sur 12 pour remplir la page, on peut mettre autant de colonnes qu'on veut tant qu'on
-                 reste sur 12 (6 colonnes de 2 par exemple) -->
-            <!-- TODO travailler le visuel des boutons -->
-            <div class="col-md-6 container-btn-admin">
-                <a href="articleAdd">
-                    <button class="btn-buynow btn-admin">Ajouter un nouvel article</button>
-                </a>
+            <div class="dropdown">
+                    <button class="dropbtn btn-success btn-lg">Ajouter nouveau
+                        <span class="glyphicon glyphicon-plus" style="text-align:right"></span>
+                    </button>
+                    <div class="dropdown-content">
+                    <a href="articleAdd">
+                        <button class="btn btn-light">Ajouter un nouvel article</button>
+                    </a>
+
+                    <a href="categoryAdd">
+                        <button class="btn btn-light" >Gestion des catégories</button>
+                    </a>
+                </div>
             </div>
-            <div class="col-md-6 container-btn-admin">
-                <a href="categoryAdd">
-                    <button class="btn-buynow btn-admin">Gestion des catégories</button>
-                </a>
-            </div>
+
         </div>
         <div class="row">
             <%if (articles.isEmpty()){%>
@@ -74,48 +110,48 @@
             </h1>
             <%}
                 for (Article a: articles) {%>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class=productbox>
                     <div class=fadeshop>
                         <span class="maxproduct article_image"><img src="<% out.print(a.getLink());%>" alt=""></span>
                     </div>
                     <div class="product-details">
+                        <div>
                         <h1><%out.print(a.getName());%></h1>
-                        <span class="price">
-                            <span class="edd_price">Price : <%out.print(a.getPrice());%></span>
-                        </span>
                         <%if (!a.isSellable()) {%>
-                            <h4>Article unavailable</h4>
+                        <p>Unavailable</p>
                         <%} else { %>
-                            <h4>Article available</h4>
+                        <p>Available</p>
                         <%}%>
-                        <p>Quantity : <%out.print(a.getQuantity());%></p>
+                        <h4> Price </h4>
+                        <span class="edd_price"><%out.print(a.getPrice());%></span>
+
+                        <h4>Quantity</h4>
                         <form method="POST" href="editquantity" action="editquantity">
                             <input hidden name="id" value="<%out.print(String.valueOf(a.getId()));%>"/>
-                            <input type="number" name="newQuantity">
-                            <input class="btn-success" type="submit" value="Change quantity">
+                            <input style="width: 60px; text-align: center;" type="number" name="newQuantity" placeholder="<%out.print(a.getQuantity());%>">
+                            <input class="btn btn-success" type="submit" value="Change quantity">
                         </form>
-                        <div class="categories-display" style="height: 75px; overflow: auto;">
-                            <h4>Categories :</h4>
-                            <ul class="list-group">
-                                <%for (Category c : a.getCategories()){ %>
-                                <li class="list-group-item" style="padding: 2px; border: none;">
-                                    <%out.print(c.getName());%>
-                                </li>
-                                <%}%>
-                            </ul>
                         </div>
+
+                        <div class="categories-display" style="height: 75px; overflow: auto;">
+                                <%for (Category c : a.getCategories()){ %>
+                            <button class="btn btn-outline-success btn-sm disabled"><%out.print(c.getName());%></button>
+                                <%}%>
+                        </div>
+                        <h4>Choose a category</h4>
                         <form method="POST">
                             <input hidden name="articleId" value="<%out.print(String.valueOf(a.getId()));%>"/>
-                            <label for="category">Choose a category:</label>
                             <select id="category" name="categoryId">
                                 <%for  (Category c : categories){
                                     if (!a.hasCategory(c)){%>
-                                <option value="<%out.print(String.valueOf(c.getId()));%>"><%out.print(c.getName());%></option>
+                                <option style="text-align: center;" value="<%out.print(String.valueOf(c.getId()));%>"><%out.print(c.getName());%></option>
                                 <%}}%>
                             </select>
-                            <input class="btn-success" type="submit" value="Add Category to Current Article">
+                            <button class="btn btn-success" type="submit" value="">Add Category</button>
                         </form>
+
+
                     </div>
                 </div>
             </div>
