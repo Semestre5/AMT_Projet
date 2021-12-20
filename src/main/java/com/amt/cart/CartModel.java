@@ -14,7 +14,7 @@ public class CartModel {
     @Getter private final List<Cart> cartProductList;
     // the id of the session won't change
     @Getter private Integer idSession = null;
-    CartModel(Integer idSession){
+    public CartModel(Integer idSession){
         this.cartProductList = new ArrayList<>();
 
         // the user is a Member and retrieve his personal Cart
@@ -26,8 +26,8 @@ public class CartModel {
 
     /**
      * Update the current state of cart with an Article. If Article doesn't exist, it do nothing
-     * Note : If the user is connecter, the cart is save, otherwise, it would last the same time as the servlet
-     * @param idArticle id of the element to add, suppres or modify in cart
+     * Note : If the user is connected, the cart is saved, otherwise, it would last the same time as the servlet
+     * @param idArticle id of the element to add, delete or modify in cart
      * @param quantity quantity of associated Article
      */
     public void update(int idArticle, int quantity) throws Exception/* throws Exception*/ {
