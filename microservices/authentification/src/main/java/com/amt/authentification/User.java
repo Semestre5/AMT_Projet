@@ -18,6 +18,15 @@ import java.util.Objects;
 @Getter
 @Setter
 public class User {
+    public User(){
+
+    }
+    public User(String username, String password, String role){
+        this.name = username;
+        this.password = password;
+        this.role = role;
+    }
+
     @Id
     @Column(name = "id", nullable = false)
     private Long id;
@@ -44,12 +53,12 @@ public class User {
         return getClass().hashCode();
     }
 
-    public static User fetchOne(Long id){
+    public static User fetchOneByName(String name){
         // Create the SessionFactory from hibernate.cfg.xml
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         // get current session
         Session ss = sessionFactory.getCurrentSession();
-        User user = (User) ss.load( User.class, id);
+        User user = (User) ss.load( User.class, name);
         ss.close();
         return user;
     }
@@ -60,6 +69,7 @@ public class User {
         // get current session
         Session ss = sessionFactory.getCurrentSession();
         ss.save( user);
+        user = ss.load( User.class, user.getName());
         ss.close();
         return user.getId();
     }

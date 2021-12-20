@@ -3,11 +3,12 @@ package com.amt.authentification;
 
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 import java.util.Date;
 
 public class JWT {
-    public String generateToken(User user){
+    public static String generateToken(User user){
         JwtBuilder token = Jwts.builder();
         token.claim("role", user.getRole());
         token.claim("id", user.getId());
