@@ -36,24 +36,26 @@ public class ShopManagementServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //TODO add input validation here
         if(request.getParameter("articleId")!= null && request.getParameter("categoryId") != null){
-            Integer articleId = Integer.valueOf(request.getParameter("articleId"));
-            Integer categoryId = Integer.valueOf(request.getParameter("categoryId"));
-            Article article = ArticleOps.fetchOne(articleId);
-            Category category = CategoryOps.fetchOne(categoryId);
-            Boolean articleHasCategory = false;
-            for(Category c : article.getCategories()){
-                if (c.getId() == category.getId()){
-                    articleHasCategory = true;
+            try{
+                Integer articleId = Integer.valueOf(request.getParameter("articleId"));
+                Integer categoryId = Integer.valueOf(request.getParameter("categoryId"));
+                Article article = ArticleOps.fetchOne(articleId);
+                Category category = CategoryOps.fetchOne(categoryId);
+                Boolean articleHasCategory = false;
+                for(Category c : article.getCategories()){
+                    if (c.getId() == category.getId()){
+                        articleHasCategory = true;
+                    }
                 }
+                if(!articleHasCategory){
+                    ArticleOps.addCategory(article.getId(), category.getId());
+                }
+                response.sendRedirect(request.getContextPath() + "/shopManagement");
+            } catch (Exception e) {
+                response.sendRedirect(request.getContextPath() + "/shopManagement");
             }
-            if(!articleHasCategory){
-                ArticleOps.addCategory(article.getId(), category.getId());
-            }
-            response.sendRedirect(request.getContextPath() + "/shopManagement");
         } else {
-            request.setAttribute("errorMessage", "Something went wrong, please try again");
-            RequestDispatcher rd = request.getRequestDispatcher("shopManagement.jsp");
-            rd.forward(request, response);
+            response.sendRedirect(request.getContextPath() + "/shopManagement");
         }
     }
 }

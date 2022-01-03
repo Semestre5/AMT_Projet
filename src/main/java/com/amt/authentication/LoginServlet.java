@@ -31,7 +31,7 @@ public class LoginServlet extends HttpServlet {
             String password = request.getParameter("password");
 
             // Check if the username and password has been correctly putted
-            if (username == null || password == null) {
+            if (username == null || password == null || username.equals("") || password.equals("")) {
                 request.setAttribute("errorMessage", "Something went wrong, please try again");
                 RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
                 rd.forward(request, response);

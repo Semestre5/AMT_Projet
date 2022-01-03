@@ -35,30 +35,34 @@ public class CartServlet extends HttpServlet {
             Map<String, String[]> parameterName = request.getParameterMap();
             // we have an update, add or unique suppression of an Article
             if (parameterName.containsKey("id") && parameterName.containsKey("quantity")) {
-                int id = Integer.parseInt(request.getParameter("id"));
-                int quantity = Integer.parseInt(request.getParameter("quantity"));
-                Article article = ArticleOps.fetchOne(id);
+                try {
+                    int id = Integer.parseInt(request.getParameter("id"));
+                    int quantity = Integer.parseInt(request.getParameter("quantity"));
+                    Article article = ArticleOps.fetchOne(id);
 
-                // if the requested modification of cart claimed is invalid, we throw it.
-                if (article == null || !article.isSellable()){
-                    throw new Exception("The article is not available");
-                }
-                // we verify if article is in retrieved Cart
-                Boolean inCart = cart.has(id);
+                    // if the requested modification of cart claimed is invalid, we throw it.
+                    if (article == null || !article.isSellable()){
+                        throw new Exception("The article is not available");
+                    }
+                    // we verify if article is in retrieved Cart
+                    Boolean inCart = cart.has(id);
 
-                if (!inCart && quantity > 0)
-                    cart.add(id,quantity);
-                else if (inCart && quantity <= 0){
-                    cart.delete(id);
-                }
-                else if (inCart && parameterName.containsKey("incremental")){
-                    cart.update_incremental(id, quantity);
-                }
-                else if (inCart){
-                    cart.update(id, quantity);
-                }
-                else{
-                    throw new Exception("Please select a valid quantity");
+                    if (!inCart && quantity > 0)
+                        cart.add(id,quantity);
+                    else if (inCart && quantity <= 0){
+                        cart.delete(id);
+                    }
+                    else if (inCart && parameterName.containsKey("incremental")){
+                        cart.update_incremental(id, quantity);
+                    }
+                    else if (inCart){
+                        cart.update(id, quantity);
+                    }
+                    else{
+                        throw new Exception("Please select a valid quantity");
+                    }
+                } catch (Exception e) {
+                    response.setHeader("Location", "cart");
                 }
             }
             // suppression of all the cart
@@ -72,7 +76,7 @@ public class CartServlet extends HttpServlet {
             response.sendRedirect("cart");
         } else {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.setHeader("Location", "shopManagement");
+            response.setHeader("Location", "cart");
         }
     }
 

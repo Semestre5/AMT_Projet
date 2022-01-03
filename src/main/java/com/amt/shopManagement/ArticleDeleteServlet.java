@@ -29,10 +29,14 @@ public class ArticleDeleteServlet extends HttpServlet  {
                 rd.forward(request, response);
             }
 
-            Integer articleId = Integer.valueOf(request.getParameter("id"));
+            try {
+                Integer articleId = Integer.valueOf(request.getParameter("id"));
 
-            ArticleOps.deleteArticle(articleId);
-            response.sendRedirect(request.getContextPath() + "/shopManagement");
+                ArticleOps.deleteArticle(articleId);
+                response.sendRedirect(request.getContextPath() + "/shopManagement");
+            } catch (Exception e) {
+                response.sendRedirect(request.getContextPath() + "/shopManagement");
+            }
         } else {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.setHeader("Location", "home");

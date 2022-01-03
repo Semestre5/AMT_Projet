@@ -34,34 +34,41 @@ public class ArticleAddServlet extends HttpServlet {
         if (CheckCredentials.isAdmin(request)) {
             // we get the parameters
             String name = request.getParameter("name");
-            Integer quantity = Integer.valueOf(request.getParameter("quantity"));
-            String description = request.getParameter("description");
-            String priceInput = request.getParameter("price");
-            BigDecimal price = BigDecimal.valueOf(0);
 
             // Check if the required parameters are set
-            if (name == null || request.getParameter("quantity") == null) {
+            if (name == null || name.equals("") || request.getParameter("quantity") == null) {
                 request.setAttribute("errorMessage", "Something went wrong, please try again");
                 RequestDispatcher rd = request.getRequestDispatcher("articleAdd.jsp");
                 rd.forward(request, response);
             }
 
-            if(description == null || description.isEmpty()){
-                description = "The seller hasn't implemented a description yet";
-            }
-            if(priceInput != null && !priceInput.isEmpty()){
-                price =  BigDecimal.valueOf(Double.parseDouble(priceInput));
-            }
-            Integer id = ArticleOps.isStored(name);
-            if(id == null){
-                // we try to upload only when we are sure the other parameter are ok
-                String imageLink = uploadImage(request);
-                Article newArticle = new Article(price, description, name, quantity, imageLink);
-                ArticleOps.registerArticle(newArticle);
-                response.sendRedirect(request.getContextPath() + "/shopManagement");
-            }else{
-                request.setAttribute("duplicatedName", name);
-                request.setAttribute("duplicatedID", id);
+            try {
+                Integer quantity = Integer.valueOf(request.getParameter("quantity"));
+                String description = request.getParameter("description");
+                String priceInput = request.getParameter("price");
+                BigDecimal price = BigDecimal.valueOf(0);
+
+                if (description == null || description.isEmpty()) {
+                    description = "The seller hasn't implemented a description yet";
+                }
+                if (priceInput != null && !priceInput.isEmpty()) {
+                    price = BigDecimal.valueOf(Double.parseDouble(priceInput));
+                }
+                Integer id = ArticleOps.isStored(name);
+                if (id == null) {
+                    // we try to upload only when we are sure the other parameter are ok
+                    String imageLink = uploadImage(request);
+                    Article newArticle = new Article(price, description, name, quantity, imageLink);
+                    ArticleOps.registerArticle(newArticle);
+                    response.sendRedirect(request.getContextPath() + "/shopManagement");
+                } else {
+                    request.setAttribute("duplicatedName", name);
+                    request.setAttribute("duplicatedID", id);
+                    RequestDispatcher rd = request.getRequestDispatcher("articleAdd.jsp");
+                    rd.forward(request, response);
+                }
+            } catch (Exception e) {
+                request.setAttribute("errorMessage", "Something went wrong, please try again");
                 RequestDispatcher rd = request.getRequestDispatcher("articleAdd.jsp");
                 rd.forward(request, response);
             }
