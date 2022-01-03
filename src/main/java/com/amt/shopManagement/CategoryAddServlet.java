@@ -64,6 +64,10 @@ public class CategoryAddServlet extends HttpServlet {
             Category category = CategoryOps.fetchOne(categoryId);
             CategoryOps.deleteCategory(categoryId);
             response.sendRedirect(request.getContextPath() + "/categoryAdd");
+        } else {
+            request.setAttribute("errorMessage", "Something went wrong, please try again");
+            RequestDispatcher rd = request.getRequestDispatcher("categoryAdd.jsp");
+            rd.forward(request, response);
         }
     }
 }

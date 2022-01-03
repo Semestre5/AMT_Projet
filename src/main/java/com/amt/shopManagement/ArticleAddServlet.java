@@ -39,6 +39,13 @@ public class ArticleAddServlet extends HttpServlet {
             String priceInput = request.getParameter("price");
             BigDecimal price = BigDecimal.valueOf(0);
 
+            // Check if the required parameters are set
+            if (name == null || request.getParameter("quantity") == null) {
+                request.setAttribute("errorMessage", "Something went wrong, please try again");
+                RequestDispatcher rd = request.getRequestDispatcher("articleAdd.jsp");
+                rd.forward(request, response);
+            }
+
             if(description == null || description.isEmpty()){
                 description = "The seller hasn't implemented a description yet";
             }

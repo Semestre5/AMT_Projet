@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: outca
-  Date: 15/12/2021
-  Time: 15:40
-  To change this template use File | Settings | File Templates.
---%>
 <!DOCTYPE html>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
@@ -127,7 +120,6 @@
         <form method="post" action="register">
             <label for="chk" aria-hidden="true">Register</label>
             <input type="text" name="username" placeholder="Username" required>
-            <input type="email" name="email" placeholder="Email" required>
             <input type="password" name="password" placeholder="Password" required>
             <button type="submit">Sign up</button>
         </form>

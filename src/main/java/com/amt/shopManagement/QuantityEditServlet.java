@@ -14,8 +14,16 @@ public class QuantityEditServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (CheckCredentials.isAdmin(request)) {
+            // Check the entries
+            if (request.getParameter("newQuantity") == null || request.getParameter("id") == null){
+                request.setAttribute("errorMessage", "Something went wrong, please try again");
+                RequestDispatcher rd = request.getRequestDispatcher("shopManagement.jsp");
+                rd.forward(request, response);
+            }
+
             Integer newQuantity = Integer.valueOf(request.getParameter("newQuantity"));
             Integer articleId = Integer.valueOf(request.getParameter("id"));
+
             Article editArticle = ArticleOps.fetchOne(articleId);
             if (newQuantity >= 0){
                 editArticle.setQuantity(newQuantity);

@@ -87,6 +87,15 @@
 <section class="item content">
     <div class="container toparea">
         <div class="row" style="margin-bottom: 10px">
+            <%if (request.getAttribute("errorMessage") != null) {%>
+            <div class="col-lg-8 col-lg-offset-2">
+                <div class="alert alert-danger content">
+                    <p class="text-danger text-center">
+                        <%out.print(request.getAttribute("errorMessage"));%><br>
+                    </p>
+                </div>
+            </div>
+            <%}%>
             <div class="dropdown">
                     <button class="dropbtn btn-success btn-lg">Ajouter nouveau
                         <span class="glyphicon glyphicon-plus" style="text-align:right"></span>

@@ -2,22 +2,6 @@
 <!DOCTYPE html>
 <html>
 <%@include file="include/head.html" %>
-<script>
-    function verifyStatus() {
-        <%
-            Integer statusCode = (Integer) request.getAttribute("statusCode");
-            if(statusCode != null && statusCode == 403){
-        %>
-        document.getElementById("message").innerHTML = "The username and/or password is incorrect";
-        <%
-            }
-        %>
-    }
-
-    window.onload = function() {
-        verifyStatus();
-    }
-</script>
 <body>
 <!-- HEADER =============================-->
 <%@include file="include/nav.jsp" %>
@@ -51,6 +35,24 @@
             </div>
         </div>
         <div class="row">
+            <%if (request.getAttribute("errorMessage") != null) {%>
+            <div class="col-lg-8 col-lg-offset-2">
+                <div class="alert alert-danger content">
+                    <p class="text-danger text-center">
+                        <%out.print(request.getAttribute("errorMessage"));%><br>
+                    </p>
+                </div>
+            </div>
+            <%}
+            if (request.getAttribute("successMessage") != null) {%>
+            <div class="col-lg-8 col-lg-offset-2">
+                <div class="alert alert-danger content">
+                    <p class="text-danger text-center">
+                        <%out.print(request.getAttribute("successMessage"));%><br>
+                    </p>
+                </div>
+            </div>
+            <%}%>
             <div class="col-lg-8 col-lg-offset-2">
                 <form method="post" action="login" id="contactform">
                     <div class="form">
@@ -58,7 +60,6 @@
                         <input type="text" name="username" id="username" placeholder="Username *" required>
                         <label for="password">Password</label>
                         <input type="password" name="password" id="password" placeholder="Password *" required>
-                        <span id = "message" style="color:red"></span>
                         <input type="submit" id="submit" class="clearfix btn" value="Login">
                     </div>
                 </form>

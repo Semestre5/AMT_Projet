@@ -22,8 +22,15 @@ public class ArticleDeleteServlet extends HttpServlet  {
     @Override
     protected void doPost( HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if ( CheckCredentials.isAdmin(request)) {
+            // Check the entry
+            if (request.getParameter("id") == null){
+                request.setAttribute("errorMessage", "Something went wrong, please try again");
+                RequestDispatcher rd = request.getRequestDispatcher("shopManagement.jsp");
+                rd.forward(request, response);
+            }
 
             Integer articleId = Integer.valueOf(request.getParameter("id"));
+
             ArticleOps.deleteArticle(articleId);
             response.sendRedirect(request.getContextPath() + "/shopManagement");
         } else {

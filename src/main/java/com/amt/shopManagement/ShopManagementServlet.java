@@ -50,6 +50,10 @@ public class ShopManagementServlet extends HttpServlet {
                 ArticleOps.addCategory(article.getId(), category.getId());
             }
             response.sendRedirect(request.getContextPath() + "/shopManagement");
+        } else {
+            request.setAttribute("errorMessage", "Something went wrong, please try again");
+            RequestDispatcher rd = request.getRequestDispatcher("shopManagement.jsp");
+            rd.forward(request, response);
         }
     }
 }
