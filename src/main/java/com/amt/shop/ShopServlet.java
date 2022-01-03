@@ -53,6 +53,14 @@ public class ShopServlet extends HttpServlet {
         if (!CheckCredentials.isAdmin(request)) {
             response.setContentType("text/html");
             String[] catIds = request.getParameterValues("category");
+
+            // Check the categories
+            if (catIds == null) {
+                request.setAttribute("errorMessage", "Something went wrong, please try again");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/shop.jsp");
+                dispatcher.forward(request, response);
+            }
+
             List<Category> categoriesToDisplay = new ArrayList<>();
             List<Article> articlesToDisplay = new ArrayList<>();
             if (catIds != null) {

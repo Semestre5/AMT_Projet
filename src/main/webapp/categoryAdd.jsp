@@ -127,6 +127,15 @@
                 </div>
                 <%}%>
             </div>
+            <%if (request.getAttribute("errorMessage") != null) {%>
+            <div class="col-lg-8 col-lg-offset-2">
+                <div class="alert alert-danger content">
+                    <p class="text-danger text-center">
+                        <%out.print(request.getAttribute("errorMessage"));%><br>
+                    </p>
+                </div>
+            </div>
+            <%}%>
             <div class="row">
                 <!-- Colonnes, à répartir sur 12 pour remplir la page, on peut mettre autant de colonnes qu'on veut tant qu'on
                      reste sur 12 (6 colonnes de 2 par exemple) -->
