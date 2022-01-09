@@ -23,8 +23,7 @@ jobs:
         distribution: 'adopt'
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-    - name: build&start containers with docker compose
-      run: docker-compose -f "database/docker-compose.yml" up -d --build
+
     - name: Test with Maven
       run: |
             mvn clean test
