@@ -44,9 +44,6 @@ public class TestCategories {
 
     }
 
-
-    /*
-
     @Test
     public void testFetchAllCat() {
         // List des category
@@ -76,7 +73,5 @@ public class TestCategories {
         List<?> articles = ArticleOps.fetchAllByCategory(cat);
         System.out.println("There is "+articles.size()+" article under this category");
     }
-*/
-
 }
      
