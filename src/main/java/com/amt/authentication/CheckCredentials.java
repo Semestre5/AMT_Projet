@@ -70,8 +70,11 @@ public class CheckCredentials {
     }
 
     public static boolean isAdmin(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        String roleUser = (String) session.getAttribute("roleUser");
+        HttpSession session = request.getSession();
+        String roleUser = null;
+        if (session != null) {
+            roleUser = (String) session.getAttribute("roleUser");
+        }
         return roleUser != null && roleUser.equals("admin");
     }
 }
