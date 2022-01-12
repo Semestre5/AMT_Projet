@@ -17,10 +17,10 @@ USE `user_db` ;
 -- -----------------------------------------------------
 -- Table `mydb`.`article`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `user_db`.`user` (
+CREATE TABLE IF NOT EXISTS `user_db`.`users_wip` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL UNIQUE,
-  `role` VARCHAR(45) NOT NULL UNIQUE,
+  `role` VARCHAR(45) NOT NULL,
   `password` VARCHAR(256) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;

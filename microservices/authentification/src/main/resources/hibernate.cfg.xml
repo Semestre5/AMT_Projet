@@ -19,5 +19,6 @@
     <property name="hibernate.show_sql">false</property>
     <!-- Mapping to hibernate mapping files -->
     <mapping class="com.amt.authentification.User"/>
+
   </session-factory>
 </hibernate-configuration>

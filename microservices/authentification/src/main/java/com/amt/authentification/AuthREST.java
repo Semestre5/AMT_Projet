@@ -33,7 +33,7 @@ public class AuthREST {
     public Response register(@FormParam("username") String username, @FormParam("password") String password){
         try{
             User user = new User(username, password, "user");
-            Long userId = User.register(user);
+            Integer userId = User.register(user);
             // The password must match the regex
             if (!PasswordUtils.isValidPassword(password)){
                 return Response.status(Response.Status.FORBIDDEN).build();

@@ -5,12 +5,15 @@ import lombok.Setter;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import javax.persistence.*;
+import java.sql.ResultSet;
 import java.util.Objects;
 
-@Table(name = "user", uniqueConstraints = {
+
+@Table(name = "users_wip", uniqueConstraints = {
         @UniqueConstraint(name = "uc_user_name", columnNames = {"name"}),
         @UniqueConstraint(name = "uc_user_id", columnNames = {"id"})
 })
@@ -28,8 +31,9 @@ public class User {
     }
 
     @Id
-    @Column(name = "id", nullable = false)
-    private Long id;
+    @Column(name = "id")
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Integer id;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -58,19 +62,37 @@ public class User {
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         // get current session
         Session ss = sessionFactory.getCurrentSession();
-        User user = (User) ss.load( User.class, name);
+        Transaction trans = ss.beginTransaction();
+        // User user = (User) ss.load( User.class, name);
+        Query query = ss.createQuery("FROM User u WHERE u.name=:name");
+        query.setParameter("name", name);
+        User user = (User) query.getResultList().get(0);
+        trans.commit();
         ss.close();
         return user;
     }
 
-    public static Long register(User user){
+    public static Integer register(User user){
         // Create the SessionFactory from hibernate.cfg.xml
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         // get current session
         Session ss = sessionFactory.getCurrentSession();
+        Transaction transaction = ss.beginTransaction();
         ss.save( user);
-        user = ss.load( User.class, user.getName());
+        user = ss.load( User.class, user.getId());
+        transaction.commit();
         ss.close();
         return user.getId();
+    }
+
+    public static void delete(User user){
+        // Create the SessionFactory from hibernate.cfg.xml
+        SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
+        // get current session
+        Session ss = sessionFactory.getCurrentSession();
+        Transaction transaction = ss.beginTransaction();
+        ss.delete( user);
+        transaction.commit();
+        ss.close();
     }
 }
