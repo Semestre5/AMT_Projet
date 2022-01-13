@@ -1,3 +1,4 @@
+/*
 package DbOpsTests;
 
 import com.DAO.Access.ArticleOps;
@@ -80,3 +81,4 @@ public class TestCategories {
 
 }
      
+*/
