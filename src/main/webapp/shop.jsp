@@ -108,7 +108,7 @@
                             <span class="maxproduct article_image"><img src="<% out.print(a.getLink());%>" alt=""></span>
 
                         </div>
-                        <a href="articleDetails.jsp">
+
                         <div class="product-details" onclick="location.href='articleDetails.jsp'">
                             <a href="shop/<%out.print(a.getId());%>">
                                 <h1><%out.print(a.getName());%></h1>
@@ -122,14 +122,14 @@
                                 <input hidden name="incremental"/>
                                 <input hidden name="quantity" value="1"/>
                                 <span style="display: flex; justify-content: center">
-                                    <button type="submit" class="btn btn-success" value="Add to Cart">Add to Cart <span class="glyphicon glyphicon-shopping-cart" style="display: flex"></span></button>
+                                    <button type="submit" class="btn btn-success btn-lg">Add to Cart <span class="glyphicon glyphicon-shopping-cart" style="display: flex"></span></button>
                             </span>
                             </form>
                             <%} else {%>
                             <h4>Article unavailable</h4>
                             <%}%>
                         </div>
-                        </a>
+
                     </div>
                 </div>
                 <%}%>
