@@ -11,10 +11,11 @@
 <%@include file="include/head.html"%>
 <style>
     .article_image{
-        width:150px;
-        height:100px;
-
-        object-fit:fill;
+        display: block;
+        margin-left: 100px;
+        margin-right: auto;
+        width:250px;
+        height:250px;
     }
 </style>
 <body>

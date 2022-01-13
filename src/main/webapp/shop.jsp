@@ -45,10 +45,12 @@
         color: white;
     }
     .article_image{
-        width:100%;
-        height:100%;
-        object-fit:cover;
-        align-content: center;
+        display: block;
+        margin-left: 100px;
+        margin-right: auto;
+        margin-bottom: 100px;
+        width:250px;
+        height:250px;
     }
 </style>
 
@@ -104,8 +106,10 @@
                     <div class=productbox>
                         <div class=fadeshop>
                             <span class="maxproduct article_image"><img src="<% out.print(a.getLink());%>" alt=""></span>
+
                         </div>
-                        <div class="product-details">
+
+                        <div class="product-details" onclick="location.href='articleDetails.jsp'">
                             <a href="shop/<%out.print(a.getId());%>">
                                 <h1><%out.print(a.getName());%></h1>
                             </a>
@@ -118,13 +122,14 @@
                                 <input hidden name="incremental"/>
                                 <input hidden name="quantity" value="1"/>
                                 <span style="display: flex; justify-content: center">
-                                    <button type="submit" class="btn btn-success" value="Add to Cart">Add to Cart <span class="glyphicon glyphicon-shopping-cart" style="display: flex"></span></button>
+                                    <button type="submit" class="btn btn-success btn-lg">Add to Cart <span class="glyphicon glyphicon-shopping-cart" style="display: flex"></span></button>
                             </span>
                             </form>
                             <%} else {%>
                             <h4>Article unavailable</h4>
                             <%}%>
                         </div>
+
                     </div>
                 </div>
                 <%}%>

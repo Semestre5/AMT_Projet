@@ -15,10 +15,12 @@
 <%@include file="include/head.html"%>
 <style>
     .article_image{
-        width:150px;
-        height:100px;
-        text-align:center;
-        object-fit:cover;
+        display: block;
+        margin-left: 50px;
+        margin-right: auto;
+        margin-bottom: 100px;
+        width:250px;
+        height:250px;
     }
     .categories-display{
         display: block;
