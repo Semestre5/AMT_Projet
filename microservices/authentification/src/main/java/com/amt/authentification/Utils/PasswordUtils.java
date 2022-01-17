@@ -8,6 +8,8 @@ import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class PasswordUtils {
 
@@ -34,7 +36,9 @@ public class PasswordUtils {
      * @return bool The password is valid
      */
     public static Boolean isValidPassword(String password){
-        return password.matches("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/");
+        Pattern pattern = Pattern.compile("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%_-]).{8,20}$");
+        Matcher matcher = pattern.matcher(password);
+        return matcher.matches();
     }
 
     /**

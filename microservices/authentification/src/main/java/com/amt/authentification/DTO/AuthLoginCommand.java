@@ -6,6 +6,13 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AuthLoginCommand {
-    String username;
-    String role;
+    public AuthLoginCommand(){
+
+    }
+    public AuthLoginCommand(String username, String role){
+        this.username = username;
+        this.password = role;
+    }
+    private String username;
+    private String password;
 }
