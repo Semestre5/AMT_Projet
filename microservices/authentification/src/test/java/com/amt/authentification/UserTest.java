@@ -12,7 +12,7 @@ class UserTest {
     @BeforeEach
     void setUp(){
         String name = "AxelVallon1";
-        String password = "axel";
+        String password = "axelA84f_31";
         String role = "Admin";
         user = new User(name,password,role);
     }
@@ -25,16 +25,9 @@ class UserTest {
     @Test
     void register() {
         User.register(user);
-        User user2 = User.fetchOneByName("axel");
+        User user2 = User.fetchOneByName("AxelVallon1");
         // we set the same id to compare
         user.setId(user2.getId());
         assertEquals(user, user2);
     }
-
-    @Test
-    void fetchOneByName() {
-        User usr = User.fetchOneByName(user.getName());
-        assertEquals(usr.getName(),user.getName());
-    }
-
 }

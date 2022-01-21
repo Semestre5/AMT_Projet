@@ -24,3 +24,6 @@ CREATE TABLE IF NOT EXISTS `user_db`.`users_wip` (
   `password` VARCHAR(256) NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
+
+INSERT INTO users_wip (id, name, role, password) VALUES
+(1, 'admin', 'user', '1000:e017e58727620cf0ea5bdfaeb04760f8131c885f0c3bb8e0:117fdf12336b21ab12f3a195191a5986b556137c1408adb9');

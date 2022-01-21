@@ -15,6 +15,7 @@ public class JWT {
         token.claim("username", user.getName());
         token.setSubject(user.getName());
         token.setExpiration(new Date(System.currentTimeMillis() + 3600 * 24 * 1000));
+        token.signWith(SignatureAlgorithm.HS256, "czvFbg2kmvqbcu(7Ux+c");
         return token.compact();
     }
 

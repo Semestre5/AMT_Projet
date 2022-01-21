@@ -31,7 +31,7 @@ public class PasswordUtils {
      * Must have at least 1 number
      * Must have at least 1  lowercase
      * Must have at least 1 uppercase
-     * Must have at least 1 special characters (#?!@$%^&*-)
+     * Must have at least 1 special characters (@#$%_-)
      * @param password password to verify
      * @return bool The password is valid
      */

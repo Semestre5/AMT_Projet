@@ -1,6 +1,6 @@
 version: '3'
 services:
-  mysql:
+  mysql_auth:
     build: mysql
     ports:
       - "3307:3306"
@@ -17,6 +17,6 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=root
     links:
-      - mysql:db
+      - mysql_auth:db
     depends_on:
-      - mysql
+      - mysql_auth

@@ -10,6 +10,7 @@ import org.hibernate.cfg.Configuration;
 
 import javax.persistence.*;
 import java.sql.ResultSet;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -66,23 +67,25 @@ public class User {
         // User user = (User) ss.load( User.class, name);
         Query query = ss.createQuery("FROM User u WHERE u.name=:name");
         query.setParameter("name", name);
-        User user = (User) query.getResultList().get(0);
+        List users = query.getResultList();
         trans.commit();
         ss.close();
+        User user = null;
+        if (!users.isEmpty()){
+            user = (User) users.get(0);
+        }
         return user;
     }
 
-    public static Integer register(User user){
+    public static void register(User user){
         // Create the SessionFactory from hibernate.cfg.xml
         SessionFactory sessionFactory = new Configuration().configure().buildSessionFactory();
         // get current session
         Session ss = sessionFactory.getCurrentSession();
         Transaction transaction = ss.beginTransaction();
         ss.save( user);
-        user = ss.load( User.class, user.getId());
         transaction.commit();
         ss.close();
-        return user.getId();
     }
 
     public static void delete(User user){
