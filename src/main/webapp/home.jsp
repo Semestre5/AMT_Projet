@@ -58,6 +58,7 @@
                         <div class="product-details">
                             <a href="shop/<%out.print(a.getId());%>">
                                 <h1><%out.print(a.getName());%></h1>
+                                <a onclick="location.href='articleDetails.jsp'"></a>
                             </a>
                             <span class="price">
                                 <span class="edd_price"><%out.print(a.isSellable() ? "CHF " + a.getPrice() : "");%></span>
