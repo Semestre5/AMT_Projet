@@ -1,3 +1,4 @@
+
 package DbOpsTests;
 
 import com.DAO.Access.ArticleOps;
@@ -13,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class TestCategories {
-/*
+    /*
     @Test
     public void testInsertCat(){
 
@@ -24,9 +25,9 @@ public class TestCategories {
         CategoryOps.addCategory( cat.getName() );
 
     }
-    */
 
-    /*
+
+
     @Test
     public void testFetchOneCat(){
         Category notfound = null;
@@ -42,7 +43,7 @@ public class TestCategories {
 
 
 
-    }*/
+    }
 
 
     /*
@@ -79,4 +80,4 @@ public class TestCategories {
 */
 
 }
-     
+   

@@ -88,14 +88,14 @@
                     <span style="display: flex;justify-content: space-evenly">
                         <input hidden name="id" value="<%out.print(String.valueOf(article.getId()));%>"/>
                         <input hidden name="incremental"/>
-                        <input type="button" onclick="decrementValue()" class="edd_cart_remove_item_btn" value="&nbsp-&nbsp">
+                        <input type="button" onclick="decrementValue()" class="btn btn-info" value="&nbsp-&nbsp">
                         <input type="number" name="quantity" id="number" value="1"/>
-                        <input type="button" onclick="incrementValue()" class="edd_cart_remove_item_btn" value="&nbsp+&nbsp">
+                        <input type="button" onclick="incrementValue()" class="btn btn-info" value="&nbsp+&nbsp">
                     </span>
                     <span id = "message" style="color:red"> </span>
                     <br>
                     <span style="display: flex; justify-content: center">
-                        <input style="width: 100%" type="submit" class="btn-buynow" value="Send to cart"/>
+                        <button type="submit" class="btn btn-success">Add to cart <span class="glyphicon glyphicon-shopping-cart" style="display: flex;content:center;justify-content: space-even"></span></button>
                     </span>
                 </form>
                 <%} else {%>

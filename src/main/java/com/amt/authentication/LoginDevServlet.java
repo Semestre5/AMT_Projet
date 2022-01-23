@@ -8,11 +8,11 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.*;
 
-@WebServlet(name = "LoginDevServlet", value = "/logindev")
+@WebServlet(name = "LoginDevServlet", value = "/loginRegister")
 public class LoginDevServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher rd = request.getRequestDispatcher("logindev.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("loginRegister.jsp");
         rd.forward(request, response);
     }
 
