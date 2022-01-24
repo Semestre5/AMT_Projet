@@ -14,8 +14,6 @@
         display: block;
         margin-left: 100px;
         margin-right: auto;
-        width:250px;
-        height:250px;
     }
 </style>
 <body>
@@ -53,12 +51,15 @@
                 <div class="col-md-4">
                     <div class=productbox>
                         <div class=fadeshop>
-                            <span class="maxproduct article_image"><img src="<% out.print(a.getLink());%>" alt=""></span>
+                                <span class="maxproduct article_image">
+                                    <a href="shop/<%out.print(a.getId());%>">
+                                        <img src="<% out.print(a.getLink());%>" alt="">
+                                    </a>
+                                </span>
                         </div>
                         <div class="product-details">
                             <a href="shop/<%out.print(a.getId());%>">
                                 <h1><%out.print(a.getName());%></h1>
-                                <a onclick="location.href='articleDetails.jsp'"></a>
                             </a>
                             <span class="price">
                                 <span class="edd_price"><%out.print(a.isSellable() ? "CHF " + a.getPrice() : "");%></span>
@@ -68,11 +69,7 @@
                                 <input hidden name="incremental">
                                 <input hidden name="id" value="<%out.print(String.valueOf(a.getId()));%>"/>
                                 <input hidden name="quantity" value="1"/>
-                                <button type="submit" class="btn btn-success" value="Add to Cart">Add to Cart  <span style="text-align:right;" class="glyphicon glyphicon-shopping-cart"></span></button>
-
-                                </span>
-
-                            </span>
+                                <button type="submit" class="btn btn-success" value="Add to Cart"><span>Add to Cart</span><span style="text-align:right;" class="glyphicon glyphicon-shopping-cart"></span></button>
                             </form>
                             <%} else {%>
                             <h4>Article unavailable</h4>
@@ -83,8 +80,6 @@
                 <%}%>
             </div>
         </div>
-    </div>
-    </div>
     </div>
 </section>
 <div class="row">

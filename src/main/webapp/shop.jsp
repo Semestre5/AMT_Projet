@@ -50,7 +50,6 @@
         margin-right: auto;
         margin-bottom: 100px;
         width:250px;
-        height:250px;
     }
 </style>
 
@@ -105,15 +104,15 @@
                 <div class="col-md-4">
                     <div class=productbox>
                         <div class=fadeshop>
+                            <a href="shop/<%out.print(a.getId());%>">
                             <span class="maxproduct article_image"><img src="<% out.print(a.getLink());%>" alt=""></span>
-
+                            </a>
                         </div>
 
-                        <div class="product-details" onclick="location.href='articleDetails.jsp'">
+                        <div class="product-details">
                             <a href="shop/<%out.print(a.getId());%>">
                                 <h1><%out.print(a.getName());%> </h1>
                             </a>
-                            <a onclick="location.href='articleDetails.jsp'"></a>
                             <span class="price">
                                 <span class="edd_price"><%out.print(a.isSellable() ? "CHF " + a.getPrice() : "");%></span>
                             </span>
@@ -123,7 +122,7 @@
                                 <input hidden name="incremental"/>
                                 <input hidden name="quantity" value="1"/>
                                 <span style="display: flex; justify-content: center">
-                                    <button type="submit" class="btn btn-success btn-lg">Add to Cart <span class="glyphicon glyphicon-shopping-cart" style="display: flex"></span></button>
+                                    <button type="submit" class="btn btn-success btn-lg">Add to Cart <span style="align-items: center" class="glyphicon glyphicon-shopping-cart" style="display: flex"></span></button>
                             </span>
                             </form>
                             <%} else {%>
