@@ -28,7 +28,8 @@ public class TestArticle {
         Article article = new Article(price, "testing article class", "test",1, "Link");
         // register it to db
         Integer resp = ArticleOps.registerArticle(article);
-
+        //delete the article so it does not remain in the DB after the tests are done
+        ArticleOps.deleteArticle(article.getId());
     }
     @Test
     public void testFetchOne(){

@@ -42,9 +42,6 @@ public class TestCategories {
         }
         System.out.println(found.getId()+" NAME : "+found.getName());
         assertNotNull(found);
-
-
-
     }
 
     @Test
@@ -58,13 +55,14 @@ public class TestCategories {
     public void testInsertCategoriesToArticle(){
         Article art = ArticleOps.fetchOne(2);
         System.out.println("Article is :"+art.getName());
-        Integer id = 1;
+        Integer id = 7;
         Category cat = CategoryOps.fetchOne(id);
         art.addCategory(cat);
 
         System.out.println("Article"+art.getName()+"is under"+art.getCategories());
         assertNotNull(art);
         assertNotNull(cat);
+        art.removeCategory(cat);
 
     }
 
