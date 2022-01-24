@@ -1,3 +1,4 @@
+
 package DbOpsTests;
 
 import com.DAO.Access.ArticleOps;
@@ -13,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class TestCategories {
-
+    /*
     @Test
     public void testInsertCat(){
 
@@ -73,4 +74,4 @@ public class TestCategories {
         System.out.println("There is "+articles.size()+" article under this category");
     }
 }
-     
+   

@@ -11,10 +11,9 @@
 <%@include file="include/head.html"%>
 <style>
     .article_image{
-        width:150px;
-        height:100px;
-
-        object-fit:fill;
+        display: block;
+        margin-left: 100px;
+        margin-right: auto;
     }
 </style>
 <body>
@@ -52,7 +51,11 @@
                 <div class="col-md-4">
                     <div class=productbox>
                         <div class=fadeshop>
-                            <span class="maxproduct article_image"><img src="<% out.print(a.getLink());%>" alt=""></span>
+                                <span class="maxproduct article_image">
+                                    <a href="shop/<%out.print(a.getId());%>">
+                                        <img src="<% out.print(a.getLink());%>" alt="">
+                                    </a>
+                                </span>
                         </div>
                         <div class="product-details">
                             <a href="shop/<%out.print(a.getId());%>">
@@ -66,11 +69,7 @@
                                 <input hidden name="incremental">
                                 <input hidden name="id" value="<%out.print(String.valueOf(a.getId()));%>"/>
                                 <input hidden name="quantity" value="1"/>
-                                <button type="submit" class="btn btn-success" value="Add to Cart">Add to Cart  <span style="text-align:right;" class="glyphicon glyphicon-shopping-cart"></span></button>
-
-                                </span>
-
-                            </span>
+                                <button type="submit" class="btn btn-success" value="Add to Cart"><span>Add to Cart</span><span style="text-align:right;" class="glyphicon glyphicon-shopping-cart"></span></button>
                             </form>
                             <%} else {%>
                             <h4>Article unavailable</h4>
@@ -81,8 +80,6 @@
                 <%}%>
             </div>
         </div>
-    </div>
-    </div>
     </div>
 </section>
 <div class="row">

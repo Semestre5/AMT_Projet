@@ -1,0 +1,22 @@
+version: '3'
+services:
+  mysql_auth:
+    build: mysql
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    cap_add:
+      - SYS_NICE  # CAP_SYS_NICE
+    volumes:
+      - ./mysql/database:/docker-entrypoint-initdb.d
+  phpmyadmin:
+    build: phpmyadmin
+    ports:
+      - "6061:80"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    links:
+      - mysql_auth:db
+    depends_on:
+      - mysql_auth
