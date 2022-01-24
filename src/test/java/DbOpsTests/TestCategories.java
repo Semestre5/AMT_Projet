@@ -25,6 +25,8 @@ public class TestCategories {
         CategoryOps.addCategory( cat.getName() );
 
     }
+  
+     */
 
 
 
@@ -45,9 +47,6 @@ public class TestCategories {
 
     }
 
-
-    /*
-
     @Test
     public void testFetchAllCat() {
         // List des category
@@ -62,7 +61,6 @@ public class TestCategories {
         Integer id = 1;
         Category cat = CategoryOps.fetchOne(id);
         art.addCategory(cat);
-        cat.addArticleToCategory( art );
 
         System.out.println("Article"+art.getName()+"is under"+art.getCategories());
         assertNotNull(art);
@@ -77,7 +75,5 @@ public class TestCategories {
         List<?> articles = ArticleOps.fetchAllByCategory(cat);
         System.out.println("There is "+articles.size()+" article under this category");
     }
-*/
-
 }
    

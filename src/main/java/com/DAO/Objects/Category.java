@@ -37,26 +37,48 @@ public class Category {
     @Getter
     private Set<Article> articles = new HashSet<Article>();
 
+    /**
+     * helper function to add an article to our category
+     * @param article the article we want to add
+     */
     public void addArticle(Article article) {
         this.articles.add(article);
         article.getCategories().add(this);
     }
 
+    /**
+     * helper function to remove an article from our category
+     * @param article the article we want to remove
+     */
     public void removeArticle(Article article) {
         this.articles.remove(article);
         article.getCategories().remove(this);
     }
 
-    public void addArticleToCategory(Article article){
-        articles.add(article);
-    }
+    /**
+     * adds a list of articles to our category
+     * @param listArticles a list containing all the articles you want to add
+     */
     public void addArticlesListToCategory( List<Article> listArticles){
-        articles.addAll(listArticles);
+        for (Article art : listArticles){
+            this.addArticle(art);
+        }
     }
 
+    /**
+     * removes a list of articles from our category
+     * @param listArticles a list containing all the articles you want to remove
+     */
+    public void removeArticlesListToCategory( List<Article> listArticles){
+        for (Article art : listArticles){
+            this.removeArticle(art);
+        }
+    }
+
+    @Override
     public boolean equals(Object o){
         if (o == this) return true;
-        if (!(o instanceof Article)) return false;
+        if (!(o instanceof Category)) return false;
         Category other = (Category) o;
         return Objects.equals(other.getId(), this.id);
     }

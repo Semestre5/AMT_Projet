@@ -19,7 +19,7 @@ public class TestArticle {
     /*
           Testing register article
 
-
+    */
     @Test
     public void testInsertOneArticle() {
 
@@ -39,7 +39,7 @@ public class TestArticle {
     }
     /*
     * Testing fetchAll method
-
+    */
     @Test
     public void testFetchAllArticle(){
         // Create new article object
@@ -58,6 +58,6 @@ public class TestArticle {
         System.out.println("Articles in this category are :");
     }
 
-    */
+
 
 }
