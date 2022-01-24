@@ -93,9 +93,12 @@ public class ArticleOps {
         Article tmpArticle = null;
         try {
             transObj = ss.beginTransaction();
-            tmpArticle = fetchOne( articleId );
-            ss.delete( tmpArticle );
+            tmpArticle = ss.load(Article.class, articleId );
+            if(tmpArticle!=null){
+                ss.delete(tmpArticle);
+            }
             transObj.commit();
+            logger.info( " Category " + tmpArticle.getId() + " named " + tmpArticle.getName() + " has been deleted" );
         } catch (Exception e) {
             transObj.rollback();
             System.out.println( "Something wrong occured" + e );
