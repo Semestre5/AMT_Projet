@@ -25,6 +25,8 @@ public class TestCategories {
         CategoryOps.addCategory( cat.getName() );
 
     }
+  
+     */
 
 
 
