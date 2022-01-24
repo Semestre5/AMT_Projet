@@ -21,4 +21,5 @@ public class ErrorsDTO {
     public void add(ErrorDTO error){
         errors.add(error);
     }
+
 }

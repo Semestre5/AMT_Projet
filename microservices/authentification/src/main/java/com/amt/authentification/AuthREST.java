@@ -3,7 +3,10 @@ package com.amt.authentification;
 import com.amt.authentification.DTO.*;
 import com.amt.authentification.Utils.PasswordUtils;
 
-import javax.ws.rs.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -44,26 +47,25 @@ public class AuthREST {
         try{
             // The password must match the accountRegisterCommand
             if (!PasswordUtils.isValidPassword(accountRegisterCommand.getPassword())){
-                errors.add(new ErrorDTO(accountRegisterCommand.getPassword(), "Password Constraints:" +
+                errors.add(new ErrorDTO("password", "Password Constraints:" +
                         " must have at least 8 characters," +
                         " must have at least 1 number," +
                         " must have at least 1  lowercase," +
                         " must have at least 1 uppercase" +
                         " must have at least 1 special characters (@#$%_-)"));
+                return Response.status(422).entity(errors).build();
             }
             if (User.fetchOneByName(accountRegisterCommand.getUsername()) != null) {
                 errors.add(new ErrorDTO(accountRegisterCommand.getUsername(), "this user already exit"));
+                return Response.status(Response.Status.CONFLICT).entity(errors).build();
             }
-            // if any error, we return them
-            if (!errors.getErrors().isEmpty()) {
-                return Response.status(Response.Status.FORBIDDEN).entity(errors).build();
-            }
+
             // input are ok there
             User user = new User(accountRegisterCommand.getUsername(),
                     PasswordUtils.createHash(accountRegisterCommand.getPassword()), "user");
             User.register(user);
             // the user already exist
-            return Response.ok().build();
+            return Response.status(Response.Status.CREATED).entity("{ }").build();
         }
         catch (Exception e){
             return Response.status(Response.Status.SERVICE_UNAVAILABLE)

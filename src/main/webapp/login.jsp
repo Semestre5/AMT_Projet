@@ -46,8 +46,8 @@
             <%}
             if (request.getAttribute("successMessage") != null) {%>
             <div class="col-lg-8 col-lg-offset-2">
-                <div class="alert alert-danger content">
-                    <p class="text-danger text-center">
+                <div class="alert alert-success content">
+                    <p class="text-success text-center">
                         <%out.print(request.getAttribute("successMessage"));%><br>
                     </p>
                 </div>

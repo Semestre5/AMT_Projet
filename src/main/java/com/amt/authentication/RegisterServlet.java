@@ -40,7 +40,8 @@ public class RegisterServlet extends HttpServlet {
 
             if(resultRegister.getInt("code") == 201) {
                 request.setAttribute("successMessage", "The user has been created, you can now log in to your account");
-                response.sendRedirect("login");
+                RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+                rd.forward(request, response);
             } else {
                 if (resultRegister.getInt("code") == 409) {
                     request.setAttribute("errorMessage", "The username already exists");
