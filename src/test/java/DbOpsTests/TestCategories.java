@@ -58,7 +58,6 @@ public class TestCategories {
         Integer id = 1;
         Category cat = CategoryOps.fetchOne(id);
         art.addCategory(cat);
-        cat.addArticleToCategory( art );
 
         System.out.println("Article"+art.getName()+"is under"+art.getCategories());
         assertNotNull(art);

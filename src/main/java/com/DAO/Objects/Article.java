@@ -128,8 +128,7 @@ public class Article {
     public boolean hasCategory(Category category){
         Boolean hasCategory = false;
         for(Category c : this.getCategories()){
-            //TODO apparently this isn't good (cf code quality in github, will fix later)
-            if( c.getId() == category.getId()){
+            if( c.equals(category)){
                 hasCategory = true;
             }
         }

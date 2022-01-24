@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-public class ArticleTest {
+public class TestArticle {
     Article article1 = new Article(BigDecimal.valueOf(10.67),"testing","Article1", 5, "placeholder");
     Category category1 = new Category("Category1");
     Category category2 = new Category("Category2");
