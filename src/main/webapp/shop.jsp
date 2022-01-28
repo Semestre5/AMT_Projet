@@ -45,23 +45,14 @@
         color: white;
     }
     .article_image{
-        width:100%;
-        height:100%;
-        object-fit:cover;
-        align-content: center;
+        display: block;
+        margin-left: 100px;
+        margin-right: auto;
+        margin-bottom: 100px;
+        width:250px;
     }
 </style>
-<script>
-    function setClickedColor(checkbox){
-        if(checkbox.classList.contains("checked_category_label")){
-            checkbox.classList.remove("checked_category_label")
-            checkbox.classList.add("unchecked_category_label")
-        } else {
-            checkbox.classList.add("checked_category_label")
-            checkbox.classList.remove("unchecked_category_label")
-        }
-    }
-</script>
+
 <body>
 <!-- HEADER =============================-->
 <%@include file="include/nav.jsp" %>
@@ -82,28 +73,26 @@
 <!-- CONTENT =============================-->
 <section class="item content">
     <div class="container">
-        <div class="underlined-title">
-            <div class="editContent">
-                <h1 class="text-center latestitems">OUR PRODUCTS</h1>
-            </div>
-            <div class="wow-hr type_short">
-                <span class="wow-hr-h">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                </span>
-            </div>
-        </div>
-        <div class="form-check">
-            <form method="post" class="category_fl_box" action="shop" id="categoryForm">
-                <button type="submit" class="button form_button">Sort</button>
-                <%for (Category cat: categories) {%>
-                <span class="category_span">
-                    <input class="form-check-input" type="checkbox" style="display: none;" id="cat<%out.print(cat.getId());%>" value="<%out.print(cat.getId());%>" name="category" >
-                    <label class="category_label_base unchecked_category_label" onclick="setClickedColor(this)" for="cat<%out.print(cat.getId());%>"><%out.print(cat.getName());%></label>
-                </span>
-                <%}%>
+
+        <div class="row">
+            <div class="row" >
+            <form method="post" class="row" action="shop" id="categoryForm">
+
+                <ul class="nav justify-content-center">
+                    <li class="nav-item">
+                        <%for (Category cat: categories) {%>
+                        <button class="btn btn-light btn-sm">
+                            <label><%out.print(cat.getName());%></label>
+                            <input  type="checkbox"  id="cat<%out.print(cat.getId());%>" value="<%out.print(cat.getId());%>" name="category" >
+                        </button>
+                        <%}%>
+
+                    </li>
+                </ul>
+                <button type="submit" class="btn btn-primary btn-lg" style="float: right; margin:30px;">Filter  <span style="text-align:right;" class="glyphicon glyphicon-filter"></span></button>
+
             </form>
+            </div>
         </div>
         <div class="row">
             <%if (articles.isEmpty()){%>
@@ -115,11 +104,14 @@
                 <div class="col-md-4">
                     <div class=productbox>
                         <div class=fadeshop>
+                            <a href="shop/<%out.print(a.getId());%>">
                             <span class="maxproduct article_image"><img src="<% out.print(a.getLink());%>" alt=""></span>
+                            </a>
                         </div>
+
                         <div class="product-details">
                             <a href="shop/<%out.print(a.getId());%>">
-                                <h1><%out.print(a.getName());%></h1>
+                                <h1><%out.print(a.getName());%> </h1>
                             </a>
                             <span class="price">
                                 <span class="edd_price"><%out.print(a.isSellable() ? "CHF " + a.getPrice() : "");%></span>
@@ -130,13 +122,14 @@
                                 <input hidden name="incremental"/>
                                 <input hidden name="quantity" value="1"/>
                                 <span style="display: flex; justify-content: center">
-                                <input type="submit" class="btn-buynow" value="Add to Cart"/>
+                                    <button type="submit" class="btn btn-success btn-lg">Add to Cart <span style="align-items: center" class="glyphicon glyphicon-shopping-cart" style="display: flex"></span></button>
                             </span>
                             </form>
                             <%} else {%>
                             <h4>Article unavailable</h4>
                             <%}%>
                         </div>
+
                     </div>
                 </div>
                 <%}%>

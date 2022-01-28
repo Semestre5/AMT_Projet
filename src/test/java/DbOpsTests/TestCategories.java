@@ -1,3 +1,4 @@
+
 package DbOpsTests;
 
 import com.DAO.Access.ArticleOps;
@@ -13,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class TestCategories {
-/*
+    /*
     @Test
     public void testInsertCat(){
 
@@ -24,28 +25,8 @@ public class TestCategories {
         CategoryOps.addCategory( cat.getName() );
 
     }
-    */
-
-    /*
-    @Test
-    public void testFetchOneCat(){
-        Category notfound = null;
-        Category found = CategoryOps.fetchOne(2);
-        try {
-            notfound = CategoryOps.fetchOne( 10 );
-        } catch ( Exception e ){
-            System.out.println("Row not found");
-            assertNull(notfound);
-        }
-        System.out.println(found.getId()+" NAME : "+found.getName());
-        assertNotNull(found);
-
-
-
-    }*/
-
-
-    /*
+  
+     */
 
     @Test
     public void testFetchAllCat() {
@@ -58,14 +39,14 @@ public class TestCategories {
     public void testInsertCategoriesToArticle(){
         Article art = ArticleOps.fetchOne(2);
         System.out.println("Article is :"+art.getName());
-        Integer id = 1;
+        Integer id = 7;
         Category cat = CategoryOps.fetchOne(id);
         art.addCategory(cat);
-        cat.addArticleToCategory( art );
 
         System.out.println("Article"+art.getName()+"is under"+art.getCategories());
         assertNotNull(art);
         assertNotNull(cat);
+        art.removeCategory(cat);
 
     }
 
@@ -76,7 +57,5 @@ public class TestCategories {
         List<?> articles = ArticleOps.fetchAllByCategory(cat);
         System.out.println("There is "+articles.size()+" article under this category");
     }
-*/
-
 }
-     
+   

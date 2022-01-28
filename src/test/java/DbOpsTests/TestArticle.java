@@ -19,7 +19,7 @@ public class TestArticle {
     /*
           Testing register article
 
-
+    */
     @Test
     public void testInsertOneArticle() {
 
@@ -28,7 +28,8 @@ public class TestArticle {
         Article article = new Article(price, "testing article class", "test",1, "Link");
         // register it to db
         Integer resp = ArticleOps.registerArticle(article);
-
+        //delete the article so it does not remain in the DB after the tests are done
+        ArticleOps.deleteArticle(article.getId());
     }
     @Test
     public void testFetchOne(){
@@ -39,7 +40,7 @@ public class TestArticle {
     }
     /*
     * Testing fetchAll method
-
+    */
     @Test
     public void testFetchAllArticle(){
         // Create new article object
@@ -58,6 +59,6 @@ public class TestArticle {
         System.out.println("Articles in this category are :");
     }
 
-    */
+
 
 }

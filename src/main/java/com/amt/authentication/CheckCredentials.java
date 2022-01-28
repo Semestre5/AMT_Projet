@@ -13,14 +13,19 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 public class CheckCredentials {
-    public static final String loginPath = "auth/login";
-    public static final String registerPath = "accounts/register";
-    public static final String localhost = "http://localhost:8091/";
-    public static final String server = "http://10.0.1.92:8080/";
+
+    // DPE - Vous devriez envisager d'utiliser des variables d'environments pour gérer les URLs
+    public static final String loginPath = "api/auth/login";
+    public static final String registerPath = "api/accounts/register";
+    public static final String auth_microservice_server = "http://localhost:8080/";
+    // public static final String auth_basic_server = "http://10.0.1.92:8080/";
 
     public static JSONObject checkCredentials(String username, String password, String path) throws IOException {
         // Création de la requête HTTP
-        URL url = new URL(localhost + path);
+
+        // DPE - Imaginons que pour un autre objet vous devez créer des requêtes vous aller dupliquer le code ?
+        // Il serait intéressant de refactor pour que vous ailliez une classe pour gérer les appels asynchrones qui peut être utilisée de manière générique sur n'import quel URL
+        URL url = new URL(auth_microservice_server + path);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setDoOutput(true);
         connection.setDoInput(true);
@@ -57,6 +62,7 @@ public class CheckCredentials {
             response = new JSONObject(content.toString());
         }
 
+        // DPE - Au lieu de gérer les erreurs avec les codes http, vous pourriez envisager d'utiliser des exceptions
         // Création d'un JSON pour la réponse
         response.put("code", status);
 
@@ -64,8 +70,11 @@ public class CheckCredentials {
     }
 
     public static boolean isAdmin(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        String roleUser = (String) session.getAttribute("roleUser");
+        HttpSession session = request.getSession();
+        String roleUser = null;
+        if (session != null) {
+            roleUser = (String) session.getAttribute("roleUser");
+        }
         return roleUser != null && roleUser.equals("admin");
     }
 }

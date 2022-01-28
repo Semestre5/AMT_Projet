@@ -8,6 +8,9 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
+// DPE - Maintenant que vous avez une quantité de code acceptable, il serait de temps de commencer à structurer et architecturer votre code, controllers, services, repository, exceptions.
+// Une petite piste de départ : https://herbertograca.com/2017/11/16/explicit-architecture-01-ddd-hexagonal-onion-clean-cqrs-how-i-put-it-all-together/
+
 @WebServlet(name = "ArticleDetailsServlet", urlPatterns = "/shop/*")
 public class ArticleDetailsServlet extends HttpServlet {
     @Override

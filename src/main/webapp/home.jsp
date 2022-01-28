@@ -11,9 +11,9 @@
 <%@include file="include/head.html"%>
 <style>
     .article_image{
-        width:331px;
-        height:216px;
-        object-fit:contain;
+        display: block;
+        margin-left: 100px;
+        margin-right: auto;
     }
 </style>
 <body>
@@ -22,6 +22,78 @@
 
 
 <!-- STEPS =============================-->
+
+
+
+<!-- LATEST ITEMS =============================-->
+<section class="item content">
+    <div class="container">
+        <div class="underlined-title">
+            <div class="editContent">
+                <h1 class="text-center latestitems">LATEST ARTICLES</h1>
+            </div>
+            <div class="wow-hr type_short">
+				<span class="wow-hr-h">
+				<i class="fa fa-star"></i>
+				<i class="fa fa-star"></i>
+				<i class="fa fa-star"></i>
+				</span>
+            </div>
+        </div>
+        <div class="row">
+
+            <%if (articles.isEmpty()){%>
+            <div class="col-md-4">
+                <h1>
+                    No articles to display
+                </h1>
+                <%} else for (Article a: articles) {%>
+                <div class="col-md-4">
+                    <div class=productbox>
+                        <div class=fadeshop>
+                                <span class="maxproduct article_image">
+                                    <a href="shop/<%out.print(a.getId());%>">
+                                        <img src="<% out.print(a.getLink());%>" alt="">
+                                    </a>
+                                </span>
+                        </div>
+                        <div class="product-details">
+                            <a href="shop/<%out.print(a.getId());%>">
+                                <h1><%out.print(a.getName());%></h1>
+                            </a>
+                            <span class="price">
+                                <span class="edd_price"><%out.print(a.isSellable() ? "CHF " + a.getPrice() : "");%></span>
+                            </span>
+                            <%if (a.isSellable()) {%>
+                            <form method="post" action="cart">
+                                <input hidden name="incremental">
+                                <input hidden name="id" value="<%out.print(String.valueOf(a.getId()));%>"/>
+                                <input hidden name="quantity" value="1"/>
+                                <button type="submit" class="btn btn-success" value="Add to Cart"><span>Add to Cart</span><span style="text-align:right;" class="glyphicon glyphicon-shopping-cart"></span></button>
+                            </form>
+                            <%} else {%>
+                            <h4>Article unavailable</h4>
+                            <%}%>
+                        </div>
+                    </div>
+                </div>
+                <%}%>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="row">
+    <div class="row" style="text-align: center;">
+        <a href="shop" class="btn btn-primary">Browse All Products
+            <div>
+                <i class="fa fa-star fa-spin"></i>
+            </div>
+        </a>
+    </div>
+</div>
+<br><br>
+
+
 <div class="item content">
     <div class="container toparea">
         <div class="row text-center">
@@ -59,78 +131,7 @@
         </div>
     </div>
 </div>
-
-
-<!-- LATEST ITEMS =============================-->
-<section class="item content">
-    <div class="container">
-        <div class="underlined-title">
-            <div class="editContent">
-                <h1 class="text-center latestitems">LATEST ARTICLES</h1>
-            </div>
-            <div class="wow-hr type_short">
-				<span class="wow-hr-h">
-				<i class="fa fa-star"></i>
-				<i class="fa fa-star"></i>
-				<i class="fa fa-star"></i>
-				</span>
-            </div>
-        </div>
-        <div class="row">
-
-            <%if (articles.isEmpty()){%>
-            <div class="col-md-4">
-                <h1>
-                    No articles to display
-                </h1>
-                <%} else for (Article a: articles) {%>
-                <div class="col-md-4">
-                    <div class=productbox>
-                        <div class=fadeshop>
-                            <span class="maxproduct article_image"><img src="<% out.print(a.getLink());%>" alt=""></span>
-                        </div>
-                        <div class="product-details">
-                            <a href="shop/<%out.print(a.getId());%>">
-                                <h1><%out.print(a.getName());%></h1>
-                            </a>
-                            <span class="price">
-                                <span class="edd_price"><%out.print(a.isSellable() ? "CHF " + a.getPrice() : "");%></span>
-                            </span>
-                            <%if (a.isSellable()) {%>
-                            <form method="post" action="cart">
-                                <input hidden name="incremental">
-                                <input hidden name="id" value="<%out.print(String.valueOf(a.getId()));%>"/>
-                                <input hidden name="quantity" value="1"/>
-                                <span style="display: flex; justify-content: center">
-                                <input type="submit" class="btn-buynow" value="Add to Cart"/>
-                            </span>
-                            </form>
-                            <%} else {%>
-                            <h4>Article unavailable</h4>
-                            <%}%>
-                        </div>
-                    </div>
-                </div>
-                <%}%>
-            </div>
-        </div>
-    </div>
-    </div>
-    </div>
-</section>
-
-
 <!-- BUTTON =============================-->
-<div class="item content">
-    <div class="container text-center">
-        <a href="shop" class="homebrowseitems">Browse All Products
-            <div class="homebrowseitemsicon">
-                <i class="fa fa-star fa-spin"></i>
-            </div>
-        </a>
-    </div>
-</div>
-<br/>
 
 <!-- FOOTER =============================-->
 <%@include file="include/footer.html"%>

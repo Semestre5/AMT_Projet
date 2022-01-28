@@ -33,37 +33,47 @@ public class CategoryAddServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        Map<String, String[]> parameterName = request.getParameterMap();
-        if(parameterName.containsKey("id")){
-            int idCategory = Integer.parseInt(request.getParameter("id"));
-            Category category = CategoryOps.fetchOne(idCategory);
-            if(category.getArticles().isEmpty()){
-                CategoryOps.deleteCategory(idCategory);
+        try {
+            Map<String, String[]> parameterName = request.getParameterMap();
+            if(parameterName.containsKey("id")){
+                int idCategory = Integer.parseInt(request.getParameter("id"));
+                Category category = CategoryOps.fetchOne(idCategory);
+                if(category.getArticles().isEmpty()){
+                    CategoryOps.deleteCategory(idCategory);
+                    response.sendRedirect(request.getContextPath() + "/categoryAdd");
+                } else {
+                    request.setAttribute(NEED_CONFIRMATION, category.getId());
+                    request.setAttribute(ARTICLES_CONCERNED, category.getArticles());
+                    request.setAttribute(CATEGORIES, CategoryOps.fetchAll());
+                    RequestDispatcher rd = request.getRequestDispatcher("categoryAdd.jsp");
+                    rd.forward(request, response);
+                }
+            }else if (parameterName.containsKey("name")){
+                String name = request.getParameter("name");
+                Integer id = CategoryOps.isStored(name);
+                if(id == null){
+                    CategoryOps.addCategory(name);
+                    response.sendRedirect(request.getContextPath() + "/categoryAdd");
+                }else{
+                    request.setAttribute("duplicatedName", name);
+                    request.setAttribute(CATEGORIES, CategoryOps.fetchAll());
+                    RequestDispatcher rd = request.getRequestDispatcher("categoryAdd.jsp");
+                    rd.forward(request, response);
+                }
+            }else if(parameterName.containsKey("delete_anyways")){
+                Integer categoryId = Integer.valueOf(request.getParameter("idCategorywithArticles"));
+                Category category = CategoryOps.fetchOne(categoryId);
+                CategoryOps.deleteCategory(categoryId);
                 response.sendRedirect(request.getContextPath() + "/categoryAdd");
             } else {
-                request.setAttribute(NEED_CONFIRMATION, category.getId());
-                request.setAttribute(ARTICLES_CONCERNED, category.getArticles());
-                request.setAttribute(CATEGORIES, CategoryOps.fetchAll());
+                request.setAttribute("errorMessage", "Something went wrong, please try again");
                 RequestDispatcher rd = request.getRequestDispatcher("categoryAdd.jsp");
                 rd.forward(request, response);
             }
-        }else if (parameterName.containsKey("name")){
-            String name = request.getParameter("name");
-            Integer id = CategoryOps.isStored(name);
-            if(id == null){
-                CategoryOps.addCategory(name);
-                response.sendRedirect(request.getContextPath() + "/categoryAdd");
-            }else{
-                request.setAttribute("duplicatedName", name);
-                request.setAttribute(CATEGORIES, CategoryOps.fetchAll());
-                RequestDispatcher rd = request.getRequestDispatcher("categoryAdd.jsp");
-                rd.forward(request, response);
-            }
-        }else if(parameterName.containsKey("delete_anyways")){
-            Integer categoryId = Integer.valueOf(request.getParameter("idCategorywithArticles"));
-            Category category = CategoryOps.fetchOne(categoryId);
-            CategoryOps.deleteCategory(categoryId);
-            response.sendRedirect(request.getContextPath() + "/categoryAdd");
+        } catch (Exception e) {
+            request.setAttribute("errorMessage", "Something went wrong, please try again");
+            RequestDispatcher rd = request.getRequestDispatcher("categoryAdd.jsp");
+            rd.forward(request, response);
         }
     }
 }

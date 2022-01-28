@@ -2,32 +2,6 @@
 <!DOCTYPE html>
 <html>
 <%@include file="include/head.html"%>
-<script>
-  function verifyPassword() {
-    var pwd = document.getElementById("password").value;
-    if(!pwd.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&.])[A-Za-z\d#$^+=!*()@%&.]{8,}$/)){
-      document.getElementById("message").innerHTML = "Password must be at least 8 char long, should contain at " +
-              "least one uppercase char, one lowercase char, one digit and one special character";
-      return false;
-    }
-    return true;
-  }
-
-  function verifyStatus() {
-    <%
-        Integer statusCode = (Integer) request.getAttribute("statusCode");
-        if(statusCode != null && statusCode == 409){
-    %>
-      document.getElementById("message").innerHTML = "This username is already used, please choose another one";
-    <%
-        }
-    %>
-  }
-
-  window.onload = function() {
-      verifyStatus();
-  }
-</script>
 <body>
 <!-- HEADER =============================-->
 <%@include file="include/nav.jsp"%>
@@ -61,14 +35,22 @@
       </div>
     </div>
     <div class="row">
+      <%if (request.getAttribute("errorMessage") != null) {%>
       <div class="col-lg-8 col-lg-offset-2">
-        <form method="post" action="register" id="contactform" onsubmit="return verifyPassword()">
+        <div class="alert alert-danger content">
+          <p class="text-danger text-center">
+            <%out.print(request.getAttribute("errorMessage"));%><br>
+          </p>
+        </div>
+      </div>
+      <%}%>
+      <div class="col-lg-8 col-lg-offset-2">
+        <form method="post" action="register" id="contactform">
           <div class="form">
             <label for="username">Username</label>
             <input type="text" name="username" id="username" placeholder="Username *" required>
             <label for="password">Password</label>
             <input type="password" name="password" id="password" placeholder="Password *" required>
-            <span id = "message" style="color:red"></span>
             <input type="submit" id="submit" class="clearfix btn" value="Register">
           </div>
         </form>
