@@ -11,13 +11,19 @@
 - [Contributing](#contributing)
 - [License](#license)
 
+
+
+## Infrastructure
+
+How an outside client can communicate with our Web Application
+
+![graph_infrastructure](C:\Users\macsi\Desktop\HES\S5\AMT\AMT_Projet\README.assets\graph_infrastructure.jpg)
+
 ## UML
 
 As the project is based on JEE, we didn't show our different servlet, because it is mainly used for showing the different models datas. 
 
-> DPE - Mettre un diagramme, c'est bien, mais mettre une capture de la DB me sert pas à grand-chose. Un diagramme de domaine serait beaucoup plus utile à ce moment-là. (Ce qui m'embête, c'est l'absence de cardinalités)
-> 
-![UML](README.assets/UML.PNG)
+> ![UML](README.assets/UML.PNG)
 
 ## Diagramme de séquence
 
@@ -70,7 +76,7 @@ We are using a MySQL Database in a docker container.
 
 - First install [Docker desktop](https://www.docker.com/products/docker-desktop)
 - Then go in the project directory then to database folder
-- Run ``script.sh`` , this will run build the docker image and run the container
+- Run ``script_linux.sh`` , this will run build the docker image and run the container
 
 You can now start coding, gl hf ! 
 
