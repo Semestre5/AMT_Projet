@@ -17,15 +17,15 @@ public class CheckCredentials {
     // DPE - Vous devriez envisager d'utiliser des variables d'environments pour gérer les URLs
     public static final String loginPath = "api/auth/login";
     public static final String registerPath = "api/accounts/register";
-    public static final String localhost = "http://localhost:8091/";
-    public static final String server = "http://localhost:8080/";
+    public static final String auth_microservice_server = "http://localhost:8080/";
+    // public static final String auth_basic_server = "http://10.0.1.92:8080/";
 
     public static JSONObject checkCredentials(String username, String password, String path) throws IOException {
         // Création de la requête HTTP
 
         // DPE - Imaginons que pour un autre objet vous devez créer des requêtes vous aller dupliquer le code ?
         // Il serait intéressant de refactor pour que vous ailliez une classe pour gérer les appels asynchrones qui peut être utilisée de manière générique sur n'import quel URL
-        URL url = new URL(server + path);
+        URL url = new URL(auth_microservice_server + path);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setDoOutput(true);
         connection.setDoInput(true);
