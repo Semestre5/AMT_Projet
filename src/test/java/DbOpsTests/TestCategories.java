@@ -28,22 +28,6 @@ public class TestCategories {
   
      */
 
-
-
-    @Test
-    public void testFetchOneCat(){
-        Category notfound = null;
-        Category found = CategoryOps.fetchOne(2);
-        try {
-            notfound = CategoryOps.fetchOne( 10 );
-        } catch ( Exception e ){
-            System.out.println("Row not found");
-            assertNull(notfound);
-        }
-        System.out.println(found.getId()+" NAME : "+found.getName());
-        assertNotNull(found);
-    }
-
     @Test
     public void testFetchAllCat() {
         // List des category
