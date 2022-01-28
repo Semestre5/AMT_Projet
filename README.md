@@ -76,7 +76,9 @@ public static final String auth_microservice_server = "http://localhost:8080/";
 
 ![image-20211119155607471](README.assets/image-20211119155607471.png)
 
-And execute ``mvn clean install``
+And execute ``mvn clean install -DskipTests``, you need to skip the tests for now as they require the DB to be up and running so they will fail,
+
+this is what the ``-DskipTests`` is here for.
 
 - Create a new configuration
 

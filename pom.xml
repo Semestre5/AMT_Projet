@@ -112,9 +112,6 @@
                         <scope>compile</scope>
                     </dependency>
                 </dependencies>
-                <configuration>
-                    <skipTests>true</skipTests>
-                </configuration>
             </plugin>
         </plugins>
     </build>
